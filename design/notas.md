@@ -1,0 +1,3 @@
+ - user stories: bom trabalho, bem padrão. todas stories corretas e bem explicadas. embora a quantidade de critérios de aceitação tenham sido suficientes, mais critérios ajudariam na entrega 7.
+ - crc: não tem produto...
+ - notas gerais: ótimo trabalho. a próxima entrega deve fica mais fácil dada a modelagem que foi feita por vocês
