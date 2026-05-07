@@ -1,0 +1,20 @@
+CRC — Produto
+
+Classe: Produto
+
+Responsabilidades:
+
+Armazenar nome, descrição, preço e categoria do produto
+Informar disponibilidade em estoque
+Atualizar informações do produto
+Exibir detalhes do produto no catálogo
+Validar quantidade disponível para compra
+Informar status do produto (disponível/indisponível)
+
+Colaboradores:
+
+Catálogo
+Estoque
+Carrinho
+Cliente
+Administrador
