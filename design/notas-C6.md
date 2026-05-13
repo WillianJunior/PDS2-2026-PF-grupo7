@@ -1,0 +1,3 @@
+ - Doxygen basicamente inexistente.
+ - Embora os diagramas de classe sejam legais, não foi feita nenhuma descrição da estrutura proposta ou de funcionalidades.
+ - README em branco.
