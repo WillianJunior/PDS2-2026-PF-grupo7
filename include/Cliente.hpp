@@ -5,8 +5,9 @@
 #include "Catalogo.hpp"
 #include "Carrinho.hpp"
 #include "Compra.hpp"
+#include "Usuario.hpp"
 
-class Cliente {
+class Cliente : public Usuario {
     private:
     Carrinho carrinho; //Composição -> Cada cliente possui um carrinho.
     void _alterarNome();

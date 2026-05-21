@@ -12,8 +12,8 @@ private:
     std::vector<Produto> produtos; // O carrinho é um vetor de produtos
 
 protected:
-    float calculaValorTotal(const std::vector<std::string> &produtos); // pega os produtos do carrinho e soma o preço de todos
-    float calculaTotalDeItens(const std::vector<std::string> &produtos); // pega os produtos do carrinho e soma a quantidade
+    float calculaValorTotal(const std::vector<std::string> &produtos); // pega os produtos do carrinho e soma o preço de todos. Const porque só queremos ler os produtos
+    float calculaTotalDeItens(const std::vector<std::string> &produtos); // pega os produtos do carrinho e soma a quantidade. Const porque só queremos ler os produtos
     void _checkout(); //Finaliza a compra com os itens do carrinho retornando preço total e a quantidade de itens. Forma de pagamento???
 };
 
