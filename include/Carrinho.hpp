@@ -1,22 +1,20 @@
-#pragma once
-#include <vector>
-#include <utility>
-#include "Produto.hpp"
+#ifndef CARRINHO_HPP
+#define CARRINHO_HPP
 
-/**
- * @file Carrinho.hpp
- * @brief Representa o carrinho de compras de um cliente.
- *
- * Mantém os produtos selecionados pelo cliente antes da efetivação
- * da compra, controlando quantidades e calculando o valor total acumulado.
- *
- * @see Produto
- * @see Cliente
- * @see Compra
- */
-class Carrinho {
+#include <vector>
+#include <Produto.hpp>
+
+class Carrinho
+{
 private:
-    std::vector<std::pair<Produto, int>> itens;               ///< Pares (produto, quantidade) adicionados ao carrinho.
-    float                                valorTotal;           ///< Soma dos preços de todos os itens no carrinho.
-    int                                  quantidadeTotalItens; ///< Número total de unidades no carrinho.
+    float valorTotal;              // Soma dos preços de todos os itens no carrinho.
+    int quantidadeTotalItens;      // Número total de unidades de produto no carrinho.
+    std::vector<Produto> produtos; // O carrinho é um vetor de produtos
+
+protected:
+    float calculaValorTotal(const std::vector<std::string> &produtos); // pega os produtos do carrinho e soma o preço de todos
+    float calculaTotalDeItens(const std::vector<std::string> &produtos); // pega os produtos do carrinho e soma a quantidade
+    void _checkout(); //Finaliza a compra com os itens do carrinho retornando preço total e a quantidade de itens. Forma de pagamento???
 };
+
+#endif
