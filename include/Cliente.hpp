@@ -1,33 +1,30 @@
-#pragma once
-#include <string>
-#include "Usuario.hpp"
-#include "CarrinhoDeCompras.hpp"
-#include "HistoricoDeCompras.hpp"
+#ifndef CLIENTE_HPP
+#define CLIENTE_HPP
 
-/**
- * @file Cliente.hpp
- * @brief Representa um cliente cadastrado na plataforma.
- *
- * Especializa Usuario com dados de contato e preferências, além de
- * agregar o Carrinho de compras ativo e o HistoricoDeCompras do cliente.
- * O cliente pode navegar no catálogo, avaliar produtos e efetuar compras.
- *
- * @see Usuario
- * @see Carrinho
- * @see HistoricoDeCompras
- * @see Catalogo
- */
-class Cliente : public Usuario {
-private:
-    std::string        endereco;           ///< Endereço de entrega do cliente.
-    std::string        telefone;           ///< Telefone de contato do cliente.
-    std::string        perfil;             ///< Perfil ou preferências de compra do cliente.
-    Carrinho           carrinho;           ///< Carrinho de compras ativo do cliente.
-    HistoricoDeCompras historicoDeCompras; ///< Histórico de todas as compras realizadas pelo cliente.
+#include "Produto.hpp"
+#include "Catalogo.hpp"
+#include "Carrinho.hpp"
+#include "Compra.hpp"
+
+class Cliente {
+    private:
+    Carrinho carrinho; //Composição -> Cada cliente possui um carrinho.
+    void _alterarNome();
+    void _alterarEndereco();
+    void _getHistoricoCompras(); //Retorna uma lista de itens comprados pelo cliente. Precisará de getCompra(cliente)
+
+    protected:
+    std::string endereco;
+    std::string nome;
+    void _classificarProduto(int id, int nota); //adiciona uma nota a um vetor de notas dentro de um produto que faz a média e muda a nota do produto
+    
+    
+
+    public:
+    void _getCatalogo(); /**@brief Printa o catálogo atual para o cliente na tela.  */
+    void _addProdutoCarrinho(int id, Carrinho carrinho); // O Produto com o ID informado será adicionado ao carrinho do cliente. 
+
+
 };
-
-
-
-
 
 #endif
