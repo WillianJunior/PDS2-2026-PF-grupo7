@@ -22,6 +22,7 @@ class Cliente : public Usuario {
     
 
     public:
+    Cliente();
     void _getCatalogo(); /**@brief Printa o catálogo atual para o cliente na tela.  */
     void _addProdutoCarrinho(int idProduto, Carrinho carrinho); // O Produto com o ID informado será adicionado ao carrinho do cliente. 
     void _delProdutoCarrinho(int idProduto, Carrinho carrinho); // O Produto com o ID informado será removido do carrinho do cliente. 
