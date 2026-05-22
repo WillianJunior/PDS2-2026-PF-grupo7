@@ -67,5 +67,5 @@ public:
 	/**
  	* @brief Implementa autenticação do usuário
  	*/
-	bool autenticar(const std::string& senha) const override;
+	//bool autenticar(const std::string& senha) const override;
 };

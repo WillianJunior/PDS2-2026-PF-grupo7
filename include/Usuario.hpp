@@ -30,7 +30,7 @@ public:
  	* @param senha Senha do usuário
  	*/
 	Usuario(int id, const std::string& nome, const std::string& email, const std::string& senha);
-
+    Usuario(); // Construtor padrão para facilitar testes e herança
 	/**
  	* @brief Destrutor virtual da classe Usuario
  	*/
@@ -80,7 +80,7 @@ public:
  	* @param senha Senha informada
  	* @return true se autenticação for válida
  	*/
-	virtual bool autenticar(const std::string& senha) const = 0;
+	//virtual bool autenticar(const std::string& senha) const = 0;
 };
 
 #endif

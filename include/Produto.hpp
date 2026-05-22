@@ -11,22 +11,27 @@
 
 #include <string>
  
-class Produto {
+class Produto { //jogos de videogame
 private:
     int         id;
     std::string nome;
-    std::string descricao;
-    float       preco;
     std::string categoria;
-    bool        disponivel;
+    float       preco;
     int         quantidadeEstoque;
-};
- 
-
-
-
-
-
-
+    protected:
+    public:
+    Produto();
+    Produto(int id, const std::string& nome, const std::string& categoria, float preco, int quantidadeEstoque);
+    int getId() const;
+    std::string getNome() const;
+    std::string getCategoria() const;
+    float getPreco() const;
+    int getQuantidadeEstoque() const;
+    void setId(int id);
+    void setNome(const std::string& nome);
+    void setCategoria(const std::string& categoria);
+    void setPreco(float preco);
+    void setQuantidadeEstoque(int quantidadeEstoque);
+};  
 
 #endif
