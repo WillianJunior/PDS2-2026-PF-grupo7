@@ -1,0 +1,4 @@
+ - o makefile está com problemas: rodar um "make" ou "make app" não compila por dependências do gcov. apenas usar o gcov no target coverage.
+ - os arquivos de coverage (.html) não deveriam ser gerados na raiz do projeto. isso deixa o seu projeto bagunçado. é análogo aos arquivos .o em build.
+ - por algum motivo o "make coverage" apaga e recompila tudo do zero. isso está incorreto. somente os arquivos .gcda podem ser apagados.
+ - a cobertura final (máxima) foi de 53.9%. entrega não está de acordo com o mínimo de cobertura exigida (60%).
