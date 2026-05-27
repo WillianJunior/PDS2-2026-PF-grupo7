@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PDS2 — Checklist do Projeto Final</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0f1117;
+    --bg2: #181b24;
+    --bg3: #1f2333;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.13);
+    --text: #e8eaf0;
+    --muted: #7a7f96;
+    --accent: #5ee7a0;
+    --accent-dim: rgba(94,231,160,0.12);
+    --danger: #ff6b6b;
+    --warn: #ffc36b;
+    --radius: 12px;
+    --mono: 'DM Mono', monospace;
+    --sans: 'DM Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* HEADER */
+  header {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: rgba(15,17,23,0.92);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+  .logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+  .logo span { color: var(--muted); }
+  .online-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .online-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 6px var(--accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+  .online-names { color: var(--text); font-size: 12px; }
+
+  /* JOIN MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 999;
+    backdrop-filter: blur(4px);
+  }
+  .modal {
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    width: 340px;
+    text-align: center;
+  }
+  .modal h2 {
+    font-size: 18px; font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .modal p {
+    font-size: 13px; color: var(--muted);
+    margin-bottom: 24px; line-height: 1.6;
+  }
+  .modal input {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: var(--text);
+    font-family: var(--sans);
+    margin-bottom: 12px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .modal input:focus { border-color: var(--accent); }
+  .modal button {
+    width: 100%;
+    background: var(--accent);
+    color: #0f1117;
+    border: none;
+    border-radius: 8px;
+    padding: 11px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: var(--sans);
+    transition: opacity 0.15s, transform 0.1s;
+  }
+  .modal button:hover { opacity: 0.9; }
+  .modal button:active { transform: scale(0.98); }
+
+  /* MAIN LAYOUT */
+  main { max-width: 760px; margin: 0 auto; padding: 32px 20px 80px; }
+
+  /* SUMMARY CARDS */
+  .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 32px; }
+  .stat-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+  }
+  .stat-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  .stat-val { font-family: var(--mono); font-size: 28px; font-weight: 500; }
+  .stat-val.green { color: var(--accent); }
+  .stat-val.red { color: var(--danger); }
+  .stat-val.warn { color: var(--warn); }
+
+  /* PROGRESS BAR */
+  .total-progress { margin-bottom: 32px; }
+  .progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .progress-track {
+    height: 4px; background: var(--bg3);
+    border-radius: 99px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; background: var(--accent);
+    border-radius: 99px;
+    transition: width 0.4s cubic-bezier(.4,0,.2,1);
+    box-shadow: 0 0 8px rgba(94,231,160,0.5);
+  }
+
+  /* SECTIONS */
+  .section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .section:has(.items-body.open) { border-color: var(--border2); }
+
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 16px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+  .section-header:hover { background: var(--bg3); }
+
+  .sec-ring { position: relative; width: 38px; height: 38px; flex-shrink: 0; }
+  .sec-ring svg { transform: rotate(-90deg); }
+  .sec-ring .rl { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 9px; color: var(--muted); }
+
+  .sec-info { flex: 1; min-width: 0; }
+  .sec-name { font-size: 14px; font-weight: 500; }
+  .sec-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+
+  .pts-chip {
+    font-family: var(--mono); font-size: 11px; font-weight: 500;
+    padding: 3px 10px; border-radius: 99px;
+    flex-shrink: 0;
+  }
+  .chevron { font-size: 18px; color: var(--muted); transition: transform 0.25s; flex-shrink: 0; }
+  .chevron.open { transform: rotate(180deg); }
+
+  /* ITEMS */
+  .items-body { display: none; border-top: 1px solid var(--border); }
+  .items-body.open { display: block; }
+
+  .item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--border));
+    transition: background 0.1s;
+  }
+  .item:last-child { border-bottom: none; }
+  .item:hover { background: rgba(255,255,255,0.02); }
+
+  .item input[type=checkbox] {
+    width: 16px; height: 16px;
+    margin-top: 2px; flex-shrink: 0;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+
+  .item-text { flex: 1; font-size: 13px; line-height: 1.55; }
+  .item-text.done { color: var(--muted); text-decoration: line-through; }
+  .penalty {
+    display: inline-block;
+    font-family: var(--mono); font-size: 10px;
+    color: var(--danger); margin-left: 6px;
+    background: rgba(255,107,107,0.1);
+    padding: 1px 6px; border-radius: 4px;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  .penalty.fatal { color: var(--warn); background: rgba(255,195,107,0.1); }
+
+  .who-checked {
+    font-size: 10px; color: var(--muted);
+    margin-top: 3px;
+    font-style: italic;
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: var(--bg3); border: 1px solid var(--border2);
+    color: var(--text); font-size: 13px; padding: 10px 20px;
+    border-radius: 99px; z-index: 500;
+    transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  @media (max-width: 480px) {
+    .summary { grid-template-columns: repeat(3,1fr); gap: 8px; }
+    .stat-val { font-size: 22px; }
+    main { padding: 20px 12px 60px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <h2>👋 Qual é o seu nome?</h2>
+    <p>Assim o grupo sabe quem marcou cada item no checklist.</p>
+    <input type="text" id="name-input" placeholder="Ex: João, Maria..." maxlength="20" autocomplete="off">
+    <button onclick="joinSession()">Entrar no checklist</button>
+  </div>
+</div>
+
+<header>
+  <div class="logo">PDS2 <span>/</span> projeto final</div>
+  <div class="online-bar">
+    <div class="online-dot"></div>
+    <div class="online-names" id="online-names">conectando...</div>
+  </div>
+</header>
+
+<main>
+  <div class="summary">
+    <div class="stat-card">
+      <div class="stat-label">Concluídos</div>
+      <div class="stat-val green" id="s-done">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Restantes</div>
+      <div class="stat-val warn" id="s-left">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Pts em risco</div>
+      <div class="stat-val red" id="s-risk">0</div>
+    </div>
+  </div>
+
+  <div class="total-progress">
+    <div class="progress-label">
+      <span>Progresso geral</span>
+      <span id="pct-label">0%</span>
+    </div>
+    <div class="progress-track">
+      <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <div id="sections-container"></div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, set, onValue, onDisconnect, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC8RGQu3oft9eJFtGs0AsOByoEc_QDLhOA",
+  authDomain: "pds2---check-list-do-projeto.firebaseapp.com",
+  databaseURL: "https://pds2---check-list-do-projeto-default-rtdb.firebaseio.com",
+  projectId: "pds2---check-list-do-projeto",
+  storageBucket: "pds2---check-list-do-projeto.firebasestorage.app",
+  messagingSenderId: "338861229097",
+  appId: "1:338861229097:web:fe524af9e6162456928838"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+const SECTIONS = [
+  {
+    id: "us", label: "User Stories", pts: 3,
+    color: "#8b7cf8", track: "#2d2850",
+    items: [
+      { text: "Criou pelo menos 6 User Stories", penalty: "-2 pts / -3 pts se nenhuma" },
+      { text: "As User Stories têm critérios de validação", penalty: "-2 pts se não tiver" },
+      { text: "As User Stories são expressivas e suficientemente complexas", penalty: "-1 pt se muito simples" },
+    ]
+  },
+  {
+    id: "crc", label: "Cartões CRC", pts: 3,
+    color: "#5ee7a0", track: "#1a3028",
+    items: [
+      { text: "Criou pelo menos 6 cartões CRC", penalty: "-2 pts / -3 pts se nenhum" },
+      { text: "Responsabilidades bem distribuídas (sem um cartão sobrecarregado)", penalty: "-1 pt" },
+      { text: "Cada cartão tem responsabilidades de conhecimento (atributos) e realização (métodos)", penalty: "-1 pt se faltar" },
+    ]
+  },
+  {
+    id: "doc", label: "Documentação e Estilo", pts: 4,
+    color: "#60b8ff", track: "#1a2a3a",
+    items: [
+      { text: "README atualizado", penalty: "-2 pts se não" },
+      { text: "README completo e detalhado", penalty: "-1 pt se incompleto" },
+      { text: "Doxygen utilizado corretamente", penalty: "-2 pts se não usou/usou incorretamente" },
+      { text: "Descrições dos métodos no Doxygen são completas", penalty: "-1 pt se incompleto" },
+      { text: "Nomes de métodos seguem padrão (lowerCamelCase ou underline)", penalty: "-1 pt se inconsistente" },
+      { text: "Nomes de atributos seguem padrão (private, constantes)", penalty: "-1 pt se inconsistente" },
+      { text: "Indentação correta e padronizada", penalty: "-0.5 pt se incorreta" },
+    ]
+  },
+  {
+    id: "run", label: "Funcionamento", pts: 4,
+    color: "#a3e635", track: "#1e2d10",
+    items: [
+      { text: "Programa compila sem erros", penalty: "-3 pts problema, -4 pts não compila" },
+      { text: "Programa executa completamente sem erros", penalty: "-2 pts se roda parcialmente" },
+      { text: "Makefile criado", penalty: "-2 pts se não criou" },
+    ]
+  },
+  {
+    id: "oo", label: "Boas Práticas e Conceitos de OO", pts: 6,
+    color: "#ffc36b", track: "#2e2010",
+    items: [
+      { text: "Abstração bem aplicada (sem erros graves)", penalty: "-2 pts se erros graves" },
+      { text: "Modificadores de acesso utilizados corretamente", penalty: "-1 pt se não" },
+      { text: "Herança utilizada corretamente", penalty: "-1 pt se não" },
+      { text: "Polimorfismo utilizado corretamente", penalty: "-1 pt se não" },
+      { text: "Cada arquivo contém somente uma classe", penalty: "-2 pts se mais de uma" },
+      { text: "Código modularizado em arquivos .hpp e .cpp", penalty: "-1 pt se não" },
+      { text: "Projeto organizado em diferentes diretórios", penalty: "-1 pt se não" },
+    ]
+  },
+  {
+    id: "exc", label: "Programação Defensiva / Exceções", pts: 3,
+    color: "#f472b6", track: "#2d1220",
+    items: [
+      { text: "Tratamento de exceções implementado", penalty: "-3 pts se não fez" },
+      { text: "Sanitização/validação dos parâmetros de entrada feita", penalty: "-1 pt se não" },
+    ]
+  },
+  {
+    id: "tests", label: "Testes de Unidade", pts: 3,
+    color: "#ff6b6b", track: "#2d1010",
+    items: [
+      { text: "Testes de unidade implementados", penalty: "-3 pts se não fez" },
+      { text: "Cobertura de código ≥ 60%", penalty: "-1 pt se <60%, -2 pts se <30%" },
+    ]
+  },
+  {
+    id: "pres", label: "Apresentação / Entrevista", pts: 4,
+    color: "#94a3b8", track: "#1e222a",
+    items: [
+      { text: "Grupo apresentou o trabalho (OBRIGATÓRIO)", penalty: "ZERA TUDO se não apresentar", fatal: true },
+      { text: "Apresentação dentro do tempo estipulado", penalty: "-2 pts se não" },
+      { text: "Demonstrou as funcionalidades do sistema em execução", penalty: "-1 pt se não" },
+      { text: "Apresentou de forma clara e objetiva a solução proposta", penalty: "-1 pt se não" },
+      { text: "Falou sobre principais decisões de implementação", penalty: "-1 pt se não" },
+    ]
+  },
+];
+
+let myName = '';
+let myId = 'u_' + Math.random().toString(36).slice(2, 9);
+let checksData = {};
+let onlineData = {};
+
+// Build UI
+const container = document.getElementById('sections-container');
+SECTIONS.forEach(sec => {
+  const div = document.createElement('div');
+  div.className = 'section';
+  div.id = 'sec_' + sec.id;
+
+  div.innerHTML = `
+    <div class="section-header" onclick="toggleSection('${sec.id}')">
+      <div class="sec-ring" id="ring_${sec.id}">
+        <svg width="38" height="38" viewBox="0 0 38 38">
+          <circle cx="19" cy="19" r="15" fill="none" stroke="${sec.track}" stroke-width="3"/>
+          <circle cx="19" cy="19" r="15" fill="none" stroke="${sec.color}" stroke-width="3"
+            stroke-dasharray="0 94.25" stroke-linecap="round" id="arc_${sec.id}"
+            style="transition: stroke-dasharray 0.4s cubic-bezier(.4,0,.2,1)"/>
+        </svg>
+        <div class="rl" id="rl_${sec.id}">0/${sec.items.length}</div>
+      </div>
+      <div class="sec-info">
+        <div class="sec-name">${sec.label}</div>
+        <div class="sec-sub" id="sub_${sec.id}">0 de ${sec.items.length} concluídos</div>
+      </div>
+      <div class="pts-chip" style="background:${sec.track};color:${sec.color}">${sec.pts} pts</div>
+      <div class="chevron" id="chev_${sec.id}">›</div>
+    </div>
+    <div class="items-body" id="body_${sec.id}">
+      ${sec.items.map((item, i) => `
+        <div class="item" id="item_${sec.id}_${i}">
+          <input type="checkbox" id="chk_${sec.id}_${i}"
+            onchange="toggleCheck('${sec.id}', ${i}, this.checked)">
+          <div style="flex:1">
+            <div class="item-text" id="txt_${sec.id}_${i}">
+              ${item.text}
+              <span class="penalty${item.fatal ? ' fatal' : ''}">${item.penalty}</span>
+            </div>
+            <div class="who-checked" id="who_${sec.id}_${i}"></div>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+  container.appendChild(div);
+});
+
+// Toggle section
+window.toggleSection = function(id) {
+  const body = document.getElementById('body_' + id);
+  const chev = document.getElementById('chev_' + id);
+  const open = body.classList.toggle('open');
+  chev.classList.toggle('open', open);
+  chev.textContent = open ? '›' : '›';
+  chev.style.transform = open ? 'rotate(90deg)' : '';
+};
+
+// Toggle check
+window.toggleCheck = async function(secId, idx, val) {
+  if (!myName) return;
+  const key = secId + '_' + idx;
+  const r = ref(db, 'checks/' + key);
+  if (val) {
+    await set(r, { checked: true, by: myName, at: serverTimestamp() });
+  } else {
+    await set(r, null);
+  }
+};
+
+// Listen to checks
+onValue(ref(db, 'checks'), snap => {
+  checksData = snap.val() || {};
+  renderChecks();
+});
+
+// Listen to online users
+onValue(ref(db, 'online'), snap => {
+  onlineData = snap.val() || {};
+  const names = Object.values(onlineData).map(u => u.name).filter(Boolean);
+  const el = document.getElementById('online-names');
+  if (names.length === 0) { el.textContent = 'só você'; return; }
+  el.textContent = names.slice(0, 4).join(', ') + (names.length > 4 ? ` +${names.length-4}` : '');
+});
+
+function renderChecks() {
+  let totalItems = 0, totalDone = 0, totalRisk = 0;
+
+  SECTIONS.forEach(sec => {
+    let secDone = 0;
+    const circ = 2 * Math.PI * 15;
+
+    sec.items.forEach((item, i) => {
+      totalItems++;
+      const key = sec.id + '_' + i;
+      const data = checksData[key];
+      const isDone = !!(data && data.checked);
+      if (isDone) { secDone++; totalDone++; }
+      else {
+        const m = item.penalty.match(/[-−](\d+(?:\.\d+)?)/);
+        if (m) totalRisk += parseFloat(m[1]);
+      }
+
+      const chk = document.getElementById('chk_' + key);
+      const txt = document.getElementById('txt_' + key);
+      const who = document.getElementById('who_' + key);
+      if (chk) chk.checked = isDone;
+      if (txt) txt.className = 'item-text' + (isDone ? ' done' : '');
+      if (who) who.textContent = isDone && data.by ? `✓ marcado por ${data.by}` : '';
+    });
+
+    const pct = sec.items.length ? secDone / sec.items.length : 0;
+    const arc = document.getElementById('arc_' + sec.id);
+    if (arc) arc.setAttribute('stroke-dasharray', `${pct * circ} ${circ}`);
+    const rl = document.getElementById('rl_' + sec.id);
+    if (rl) rl.textContent = `${secDone}/${sec.items.length}`;
+    const sub = document.getElementById('sub_' + sec.id);
+    if (sub) sub.textContent = `${secDone} de ${sec.items.length} concluídos`;
+  });
+
+  document.getElementById('s-done').textContent = totalDone;
+  document.getElementById('s-left').textContent = totalItems - totalDone;
+  document.getElementById('s-risk').textContent = totalRisk.toFixed(1).replace('.0', '');
+  const pct = totalItems ? Math.round(totalDone / totalItems * 100) : 0;
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('pct-label').textContent = pct + '%';
+}
+
+// Join session
+window.joinSession = async function() {
+  const input = document.getElementById('name-input');
+  const name = input.value.trim();
+  if (!name) { input.focus(); return; }
+  myName = name;
+  document.getElementById('modal').style.display = 'none';
+
+  const presenceRef = ref(db, 'online/' + myId);
+  await set(presenceRef, { name, joinedAt: serverTimestamp() });
+  onDisconnect(presenceRef).remove();
+
+  showToast('👋 Bem-vindo, ' + name + '!');
+};
+
+// Toast
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+// allow enter key on name input
+document.getElementById('name-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') window.joinSession();
+});
+</script>
+</body>
+</html>
