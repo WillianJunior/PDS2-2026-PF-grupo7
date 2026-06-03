@@ -1,4 +1,5 @@
-#include <chrono>   // Necessário para o tempo (std::chrono)
+#include <chrono>
+#include <iostream>   // Necessário para o tempo (std::chrono)
 #include <thread>   // Necessário para fazer o programa esperar (std::this_thread)
 #include "animacao.hpp"
 #include "desenhos.hpp"
