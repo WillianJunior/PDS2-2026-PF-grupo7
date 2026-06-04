@@ -1,183 +1,96 @@
-# Define qual compilador será usado.
-# "g++" é o compilador padrão para programas em C++.
-CC = g++
+CC=g++
+CFLAGS=-std=c++11 -Wall --coverage
+TARGET=program
+TARGET_TESTS=program_tests
 
-# Flags (opções) passadas para o compilador.
-# -Wall -> mostra avisos importantes durante a compilação.
-# -Iinclude -> diz ao compilador que os arquivos .h estão na pasta "include".
-CFLAGS = -Wall -Iinclude
+BUILD_DIR = ./build
+SRC_DIR = ./src
+INCLUDE_DIR =  ./include
+TEST_DIR = ./tests
+COVERAGE_DIR = ./coverage
+THIRD_DIR = ./third_party
 
-# Flags usadas para gerar relatório de cobertura de testes.
-# Isso permite medir quais partes do código foram executadas nos testes.
-COVFLAGS = --coverage -fprofile-arcs -ftest-coverage
+all: ${BUILD_DIR}/${TARGET}
 
-# Pasta onde ficam os arquivos fonte (.cpp) do programa principal.
-SRC_DIR = src
+${BUILD_DIR}/${TARGET}: ${BUILD_DIR}/Administrador.o ${BUILD_DIR}/Carrinho.o ${BUILD_DIR}/Catalogo.o ${BUILD_DIR}/Cliente.o ${BUILD_DIR}/Compra.o ${BUILD_DIR}/Estoque.o ${BUILD_DIR}/Produto.o ${BUILD_DIR}/Usuario.o ${BUILD_DIR}/main.o
+	${CC} ${CFLAGS} -o ${BUILD_DIR}/${TARGET} ${BUILD_DIR}/*.o
 
-# Pasta onde os arquivos compilados (.o) serão armazenados.
-BUILD_DIR = build
+${BUILD_DIR}/Usuario.o: ${INCLUDE_DIR}/Usuario.hpp ${SRC_DIR}/Usuario.cpp
+	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Usuario.cpp -o ${BUILD_DIR}/Usuario.o
 
-# Procura automaticamente todos os arquivos .cpp dentro da pasta src.
-# Exemplo:
-# src/main.cpp
-# src/utils/math.cpp
-SOURCES = $(shell find $(SRC_DIR) -name "*.cpp")
+${BUILD_DIR}/Administrador.o: ${INCLUDE_DIR}/Usuario.hpp ${INCLUDE_DIR}/Administrador.hpp ${SRC_DIR}/Administrador.cpp
+	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Administrador.cpp -o ${BUILD_DIR}/Administrador.o
 
-# Converte os arquivos .cpp em arquivos .o dentro da pasta build.
-# Exemplo:
-# src/main.cpp -> build/main.o
-OBJECTS = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SOURCES))
+${BUILD_DIR}/Produto.o: ${INCLUDE_DIR}/Produto.hpp ${SRC_DIR}/Produto.cpp
+	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Produto.cpp -o ${BUILD_DIR}/Produto.o
 
-# Pasta onde ficam os testes.
-TEST_DIR = tests
+${BUILD_DIR}/Carrinho.o: ${INCLUDE_DIR}/Produto.hpp ${INCLUDE_DIR}/Carrinho.hpp ${SRC_DIR}/Carrinho.cpp
+	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Carrinho.cpp -o ${BUILD_DIR}/Carrinho.o
 
-# Pasta onde os arquivos compilados dos testes serão salvos.
-TEST_BUILD_DIR = $(BUILD_DIR)/tests
+${BUILD_DIR}/Catalogo.o: ${INCLUDE_DIR}/Produto.hpp ${INCLUDE_DIR}/Catalogo.hpp ${SRC_DIR}/Catalogo.cpp
+	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Catalogo.cpp -o ${BUILD_DIR}/Catalogo.o
 
-# Procura automaticamente todos os arquivos .cpp da pasta tests.
-TEST_SOURCES = $(shell find $(TEST_DIR) -name "*.cpp")
+${BUILD_DIR}/Cliente.o: ${INCLUDE_DIR}/Carrinho.hpp ${INCLUDE_DIR}/Compra.hpp ${INCLUDE_DIR}/Usuario.hpp ${SRC_DIR}/Cliente.cpp
+	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Cliente.cpp -o ${BUILD_DIR}/Cliente.o
 
-# Converte os arquivos de teste .cpp em arquivos .o.
-# Exemplo:
-# tests/test_math.cpp -> build/tests/test_math.o
-TEST_OBJECTS = $(patsubst $(TEST_DIR)/%.cpp,$(TEST_BUILD_DIR)/%.o,$(TEST_SOURCES))
+${BUILD_DIR}/Compra.o: ${INCLUDE_DIR}/Produto.hpp ${INCLUDE_DIR}/Compra.hpp ${SRC_DIR}/Compra.cpp
+	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Compra.cpp -o ${BUILD_DIR}/Compra.o
 
-# Remove a extensão .o dos testes para criar os executáveis.
-# Exemplo:
-# build/tests/test_math.o -> build/tests/test_math
-TEST_BINS = $(TEST_OBJECTS:.o=)
+${BUILD_DIR}/Estoque.o: ${INCLUDE_DIR}/Estoque.hpp ${SRC_DIR}/Estoque.cpp
+	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Estoque.cpp -o ${BUILD_DIR}/Estoque.o
 
-# Nome do executável final do programa principal.
-TARGET = app
+${BUILD_DIR}/main.o: ${INCLUDE_DIR}/*.hpp ${SRC_DIR}/main.cpp
+	${CC} ${CFLAGS} -I ${INCLUDE_DIR} -I ${INCLUDE_DIR} -c ${SRC_DIR}/main.cpp -o ${BUILD_DIR}/main.o
 
+${TEST_DIR}/test_Administrador.o: ${TEST_DIR}/test_Administrador.cpp
+	${CC} ${CFLAGS} -I ${THIRD_DIR} -I ${INCLUDE_DIR} -c ${TEST_DIR}/test_Administrador.cpp -o ${TEST_DIR}/test_Administrador.o
 
-# =========================================================
-# REGRA PRINCIPAL
-# =========================================================
+${TEST_DIR}/test_Carrinho.o: ${TEST_DIR}/test_Carrinho.cpp
+	${CC} ${CFLAGS} -I ${THIRD_DIR} -I ${INCLUDE_DIR} -c ${TEST_DIR}/test_Carrinho.cpp -o ${TEST_DIR}/test_Carrinho.o
 
-# Diz que o executável "app" depende dos arquivos objeto (.o).
-# Ou seja: antes de criar "app", o Makefile precisa compilar os .o.
-$(TARGET): $(OBJECTS)
+${TEST_DIR}/test_Catalogo.o: ${TEST_DIR}/test_Catalogo.cpp
+	${CC} ${CFLAGS} -I ${THIRD_DIR} -I ${INCLUDE_DIR} -c ${TEST_DIR}/test_Catalogo.cpp -o ${TEST_DIR}/test_Catalogo.o
 
-	# Compila e junta todos os arquivos .o em um executável chamado "app".
-	$(CC) $(CFLAGS) -o $(TARGET) $(OBJECTS)
+${TEST_DIR}/test_Cliente.o: ${TEST_DIR}/test_Cliente.cpp
+	${CC} ${CFLAGS} -I ${THIRD_DIR} -I ${INCLUDE_DIR} -c ${TEST_DIR}/test_Cliente.cpp -o ${TEST_DIR}/test_Cliente.o
 
+${TEST_DIR}/test_Compra.o: ${TEST_DIR}/test_Compra.cpp
+	${CC} ${CFLAGS} -I ${THIRD_DIR} -I ${INCLUDE_DIR} -c ${TEST_DIR}/test_Compra.cpp -o ${TEST_DIR}/test_Compra.o
 
-# =========================================================
-# COMPILAÇÃO DOS ARQUIVOS DO PROGRAMA PRINCIPAL
-# =========================================================
+${TEST_DIR}/test_Estoque.o: ${TEST_DIR}/test_Estoque.cpp
+	${CC} ${CFLAGS} -I ${THIRD_DIR} -I ${INCLUDE_DIR} -c ${TEST_DIR}/test_Estoque.cpp -o ${TEST_DIR}/test_Estoque.o
 
-# Regra genérica para transformar arquivos .cpp em .o.
-# Exemplo:
-# src/main.cpp -> build/main.o
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+${TEST_DIR}/test_Produto.o: ${TEST_DIR}/test_Produto.cpp
+	${CC} ${CFLAGS} -I ${THIRD_DIR} -I ${INCLUDE_DIR} -c ${TEST_DIR}/test_Produto.cpp -o ${TEST_DIR}/test_Produto.o
 
-	# Cria automaticamente a pasta necessária.
-	# mkdir -p evita erro caso a pasta já exista.
-	mkdir -p $(dir $@)
+${TEST_DIR}/test_Usuario.o: ${TEST_DIR}/test_Usuario.cpp
+	${CC} ${CFLAGS} -I ${THIRD_DIR} -I ${INCLUDE_DIR} -c ${TEST_DIR}/test_Usuario.cpp -o ${TEST_DIR}/test_Usuario.o
 
-	# Compila o arquivo .cpp para gerar um arquivo .o.
-	#
-	# $< = arquivo fonte atual
-	# $@ = arquivo de saída
-	$(CC) $(CFLAGS) $(COVFLAGS) -c $< -o $@
+${TEST_DIR}/main_tests.o: ${TEST_DIR}/main_tests.cpp
+	${CC} ${CFLAGS} -I ${THIRD_DIR} -I ${INCLUDE_DIR} -I ${INCLUDE_DIR} -c ${TEST_DIR}/main_tests.cpp -o ${TEST_DIR}/main_tests.o
 
 
-# =========================================================
-# COMPILAÇÃO DOS TESTES
-# =========================================================
+tests: all ${TEST_DIR}/test_Administrador.o ${TEST_DIR}/test_Carrinho.o ${TEST_DIR}/test_Catalogo.o ${TEST_DIR}/test_Cliente.o ${TEST_DIR}/test_Compra.o ${TEST_DIR}/test_Estoque.o ${TEST_DIR}/test_Produto.o ${TEST_DIR}/test_Usuario.o ${TEST_DIR}/main_tests.o
+	${CC} ${CFLAGS} -o ${TEST_DIR}/${TARGET_TESTS} ${BUILD_DIR}/Administrador.o ${BUILD_DIR}/Carrinho.o ${BUILD_DIR}/Catalogo.o ${BUILD_DIR}/Cliente.o ${BUILD_DIR}/Compra.o  ${BUILD_DIR}/Estoque.o ${BUILD_DIR}/Produto.o ${BUILD_DIR}/Usuario.o  ${TEST_DIR}/*.o
 
-# Regra para compilar arquivos de teste.
-# Exemplo:
-# tests/test_math.cpp -> build/tests/test_math.o
-$(TEST_BUILD_DIR)/%.o: $(TEST_DIR)/%.cpp
+run_tests: tests
+	-./${TEST_DIR}/${TARGET_TESTS}
 
-	# Cria a pasta necessária para os objetos dos testes.
-	mkdir -p $(dir $@)
+run: all
+	./${BUILD_DIR}/${TARGET}
 
-	# Compila o arquivo de teste.
-	$(CC) $(CFLAGS) $(COVFLAGS) -c $< -o $@
+coverage: run_tests
+	gcovr -r . --exclude="third_party/doctest.h"
+	gcovr -r . --exclude="third_party/doctest.h" -b
 
+html-coverage: run_tests
+	gcovr -r . --exclude="third_party/doctest.h" --html --html-details -o ${COVERAGE_DIR}/relatorio.html
 
-# =========================================================
-# CRIAÇÃO DOS EXECUTÁVEIS DE TESTE
-# =========================================================
+documentation:
+	doxygen Doxyfile
 
-# Cria o executável de cada teste.
-#
-# $(filter-out $(BUILD_DIR)/main.o, $(OBJECTS))
-# remove o main.o do programa principal,
-# porque os testes normalmente possuem seu próprio main().
-$(TEST_BUILD_DIR)/%: $(TEST_BUILD_DIR)/%.o $(filter-out $(BUILD_DIR)/main.o, $(OBJECTS))
-
-	# Gera o executável do teste.
-	#
-	# $@ = nome do executável final
-	# $^ = lista de dependências
-	$(CC) $(CFLAGS) $(COVFLAGS) -o $@ $^
-
-
-# =========================================================
-# EXECUTAR TESTES
-# =========================================================
-
-# Comando:
-# make test
-#
-# Primeiro garante que todos os testes foram compilados.
-test: $(TEST_BINS)
-
-	# Executa cada teste automaticamente.
-	#
-	# $$t = variável do shell
-	# true no final evita que o make pare no primeiro erro.
-	@for t in $(TEST_BINS); do $$t; done; true
-
-
-# =========================================================
-# GERAR RELATÓRIO DE COBERTURA
-# =========================================================
-
-# Comando:
-# make coverage
-coverage: clean $(TEST_BINS)
-
-	# Executa todos os testes.
-	@for t in $(TEST_BINS); do $$t; done; true
-
-	# Gera um relatório HTML de cobertura usando gcovr.
-	#
-	# --root .          -> define a raiz do projeto
-	# --filter src/     -> analisa apenas arquivos da pasta src
-	# --html            -> gera saída HTML
-	# --html-details    -> cria relatório detalhado
-	# -o coverage.html  -> nome do arquivo de saída
-	gcovr --root . --filter src/ --html --html-details -o coverage.html
-
-	# Mostra mensagem no terminal.
-	@echo "Coverage report saved to coverage.html"
-
-
-# =========================================================
-# TARGETS ESPECIAIS
-# =========================================================
-
-# .PHONY diz ao make que esses nomes NÃO são arquivos reais.
-# Eles são comandos.
-.PHONY: clean test coverage
-
-
-# =========================================================
-# LIMPEZA DOS ARQUIVOS GERADOS
-# =========================================================
-
-# Comando:
-# make clean
 clean:
-
-	# Remove:
-	# - pasta build
-	# - executável app
-	# - arquivos de cobertura
-	# - arquivos temporários do gcov
-	rm -rf $(BUILD_DIR) $(TARGET) coverage.html coverage*.html coverage.css *.gcov *.gcno *.gcda
+	rm -f ${BUILD_DIR}/*
+	rm -f ${TEST_DIR}/*.o ${TEST_DIR}/*.gcda ${TEST_DIR}/*.gcno ${TEST_DIR}/${TARGET_TESTS}
+	rm -f ${COVERAGE_DIR}/*
+	rm -rf ./do

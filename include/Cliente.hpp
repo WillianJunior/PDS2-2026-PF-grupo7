@@ -1,8 +1,6 @@
 #ifndef CLIENTE_HPP
 #define CLIENTE_HPP
 
-#include "Produto.hpp"
-#include "Catalogo.hpp"
 #include "Carrinho.hpp"
 #include "Compra.hpp"
 #include "Usuario.hpp"
