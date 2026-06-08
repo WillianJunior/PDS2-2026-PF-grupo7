@@ -2,7 +2,8 @@
 
 int main() {
 
-    load_ps();
+    animacao::load_ps();
+    animacao::abertura();
 
     return 0;
 

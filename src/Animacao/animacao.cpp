@@ -32,7 +32,7 @@ void animacao::load_ps() {
 void animacao::abertura() {
     std::system("clear");
 
-    desenhos::controles();                                 // DESENHO 1
+/** desenhos::controles();                                 // DESENHO 1
     std::this_thread::sleep_for(std::chrono::seconds(1));  
     std::system("clear");
     
@@ -42,8 +42,9 @@ void animacao::abertura() {
     
     desenhos::controle_arcade();                         // DESENHO 3
     std::this_thread::sleep_for(std::chrono::seconds(1));  
-    std::system("clear");
-
+    std::system("clear"); 
+    
+*/ 
     desenhos::nome_loja();                               // DESENHO 4
     std::this_thread::sleep_for(std::chrono::seconds(1));  
     std::system("clear");
