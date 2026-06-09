@@ -3,8 +3,10 @@
 Administrador::Administrador(int id,
     const std::string& nome,
     const std::string& email,
-    const std::string& senha,
-    const std::string& nivelAcesso) {}
+    const std::string& senha, 
+    const std::string& nivelAcesso)
+    :Usuario(id,nome,email,senha),
+    nivelAcesso(nivelAcesso) {}
 
 std::string Administrador::getNivelAcesso() const {return {}; }
 
