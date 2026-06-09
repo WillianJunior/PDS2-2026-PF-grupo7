@@ -2,7 +2,7 @@
 #define CARRINHO_HPP
 
 #include <vector>
-#include <Produto.hpp>
+#include "Produto.hpp"
 
 class Carrinho
 {
@@ -11,7 +11,7 @@ private:
     int quantidadeTotalItens;      // Número total de unidades de produto no carrinho.
     
 public:
-    
+    Carrinho();
 std::vector<Produto> produtos; // O carrinho é um vetor de produtos
 
     float calculaValorTotal(const std::vector<std::string> &produtos); // pega os produtos do carrinho e soma o preço de todos. Const porque só queremos ler os produtos

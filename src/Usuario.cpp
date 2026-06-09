@@ -5,7 +5,10 @@ Usuario::Usuario(int id, const std::string& nome, const std::string& email, cons
  {
 }
 
-Usuario::Usuario() {}
+Usuario::Usuario(): id(0)
+{
+    
+}
 
 int Usuario::getId() const {
     return this->id;

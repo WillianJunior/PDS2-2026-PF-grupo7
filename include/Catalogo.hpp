@@ -60,7 +60,6 @@ public:
  	* @param crescente true = crescente, false = decrescente
  	*/
 	void ordenarPorPreco(bool crescente);
-
 	/**
  	* @brief Busca produto pelo nome
  	*/
@@ -75,4 +74,8 @@ public:
  	* @brief Exibe preços dos produtos
  	*/
 	std::string listarPrecos() const;
+	/** 
+	 * @brief verifica se o produto existe
+	*/
+	bool produtoExiste(const std::string& nome);
 };

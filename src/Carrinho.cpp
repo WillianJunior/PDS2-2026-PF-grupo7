@@ -1,17 +1,18 @@
 #include "Carrinho.hpp"
+#include "Catalogo.hpp"
 #include <iostream>
+Carrinho :: Carrinho(): valorTotal(0.0f), quantidadeTotalItens(0){}
 
 float Carrinho::calculaValorTotal(const std::vector<std::string>& produtos) {
     float valorTotal = 0.0f;
-    for (const auto &produto : produtos)
-    {
-        (void)produto;
-    }
-    return valorTotal;
+  for (const std::string& nome : produtos)
+  {
+  }
+  
 }
 
-float Carrinho::calculaTotalDeItens(const std::vector<std::string>& produtos) {
-        return static_cast<float>(produtos.size());
+float Carrinho::calculaTotalDeItens(const std::vector<std::string>& produtos) {  
+    return static_cast<float>(produtos.size());
 }
 
 void Carrinho::_checkout() {
