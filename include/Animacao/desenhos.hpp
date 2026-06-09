@@ -16,6 +16,7 @@ public:
     static void controle_super_nintendo();
     static void controle_arcade();
     static void nome_loja();
+    static void volte_sempre();
     //----------------------------------------------------------------------------------------------
 
     static void tela_1();
