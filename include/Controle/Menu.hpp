@@ -1,6 +1,8 @@
 #ifndef CARRINHO_HPP
 #define CARRINHO_HPP
 
+#include <string>
+
 /**
  * @brief Menu para controle dos Menus da aplicação
  * 

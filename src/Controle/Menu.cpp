@@ -10,6 +10,14 @@ void Menu::Menu_01(){
 
 }
 
+void Menu::Login_Action(std::string usuario, std::string senha){
+    
+    //Deverá utilizar os parametros para buscar em um txt o usuario e senha correspondente. 
+
+}
+
+
+
 void Menu::Login(){
 
     std::string usuario;
@@ -21,13 +29,7 @@ void Menu::Login(){
     std::cout << "Senha: " << std::endl;
     std::cin >> senha;
 
-    Login_Action(usuario, senha);
+    Menu::Login_Action(usuario, senha);
 
-};
-
-void Menu::Login_Action(std::string usuario, std::string senha){
-    
-    //Deverá utilizar os parametros para buscar em um txt o usuario e senha correspondente. 
-    
-};
+}
 
