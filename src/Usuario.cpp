@@ -11,11 +11,11 @@ int Usuario::getId() const {
     return this->id;
 }
 std::string Usuario::getNome() const {
-    this->nome;
+    return this->nome;
 }
 
 std::string Usuario::getEmail() const {
-   this->email;
+   return this->email;
 }
 
 std::string Usuario::getSenha() const {
