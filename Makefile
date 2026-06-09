@@ -12,7 +12,7 @@ THIRD_DIR = ./third_party
 
 all: ${BUILD_DIR}/${TARGET}
 
-${BUILD_DIR}/${TARGET}: ${BUILD_DIR}/Administrador.o ${BUILD_DIR}/Carrinho.o ${BUILD_DIR}/Catalogo.o ${BUILD_DIR}/Cliente.o ${BUILD_DIR}/Compra.o ${BUILD_DIR}/Estoque.o ${BUILD_DIR}/Produto.o ${BUILD_DIR}/Usuario.o ${BUILD_DIR}/main.o
+${BUILD_DIR}/${TARGET}: ${BUILD_DIR}/Administrador.o ${BUILD_DIR}/Carrinho.o ${BUILD_DIR}/Catalogo.o ${BUILD_DIR}/Cliente.o ${BUILD_DIR}/Compra.o ${BUILD_DIR}/Estoque.o ${BUILD_DIR}/Produto.o ${BUILD_DIR}/Usuario.o ${BUILD_DIR}/animacao.o ${BUILD_DIR}/desenhos.o ${BUILD_DIR}/main.o
 	${CC} ${CFLAGS} -o ${BUILD_DIR}/${TARGET} ${BUILD_DIR}/*.o
 
 ${BUILD_DIR}/Usuario.o: ${INCLUDE_DIR}/Usuario.hpp ${SRC_DIR}/Usuario.cpp
@@ -39,8 +39,8 @@ ${BUILD_DIR}/Compra.o: ${INCLUDE_DIR}/Produto.hpp ${INCLUDE_DIR}/Compra.hpp ${SR
 ${BUILD_DIR}/Estoque.o: ${INCLUDE_DIR}/Estoque.hpp ${SRC_DIR}/Estoque.cpp
 	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Estoque.cpp -o ${BUILD_DIR}/Estoque.o
 
-${BUILD_DIR}/main.o: ${INCLUDE_DIR}/*.hpp ${SRC_DIR}/main.cpp
-	${CC} ${CFLAGS} -I ${INCLUDE_DIR} -I ${INCLUDE_DIR} -c ${SRC_DIR}/main.cpp -o ${BUILD_DIR}/main.o
+${BUILD_DIR}/main.o: ${INCLUDE_DIR}/Animacao/animacao.hpp ${INCLUDE_DIR}/*.hpp ${SRC_DIR}/main.cpp
+	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/Animacao/ -I ${INCLUDE_DIR} -c ${SRC_DIR}/main.cpp -o ${BUILD_DIR}/main.o
 
 ################################# TESTES ######################################################
 
