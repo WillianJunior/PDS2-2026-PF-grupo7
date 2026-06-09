@@ -2,18 +2,17 @@
 #include <iostream>
 
 float Carrinho::calculaValorTotal(const std::vector<std::string>& produtos) {
-    float valorTotal = 0.0;
-    float valorAdicionado = 0.0;
-    for (const auto &Produto : produtos)
+    float valorTotal = 0.0f;
+    for (const auto &produto : produtos)
     {
-        valorTotal +=valorAdicionado;
+        (void)produto;
     }
     return valorTotal;
 }
 
 float Carrinho::calculaTotalDeItens(const std::vector<std::string>& produtos) {
         return static_cast<float>(produtos.size());
-    return 0;}
+}
 
 void Carrinho::_checkout() {
     std:: cout << "Inicio do checkout! " << std::endl;
