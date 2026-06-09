@@ -1,0 +1,127 @@
+.TH "Cliente" 3 "Loja de Jogos" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Cliente
+.SH SYNOPSIS
+.br
+.PP
+.PP
+Inherits \fBUsuario\fP\&.
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "void \fB_getCatalogo\fP ()"
+.br
+.ti -1c
+.RI "void \fB_addProdutoCarrinho\fP (int idProduto, \fBCarrinho\fP carrinho)"
+.br
+.RI "Printa o catálogo atual para o cliente na tela\&. "
+.ti -1c
+.RI "void \fB_delProdutoCarrinho\fP (int idProduto, \fBCarrinho\fP carrinho)"
+.br
+.ti -1c
+.RI "void \fB_limparCarrinho\fP (\fBCarrinho\fP carrinho)"
+.br
+.ti -1c
+.RI "void \fB_alterarNome\fP (std::string nome)"
+.br
+.ti -1c
+.RI "void \fB_alterarEndereco\fP (std::string endereco)"
+.br
+.ti -1c
+.RI "std::vector< \fBCompra\fP > \fB_getHistoricoCompras\fP ()"
+.br
+.ti -1c
+.RI "void \fB_classificarProduto\fP (int \fBid\fP, int nota)"
+.br
+.ti -1c
+.RI "std::string \fBgetEndereco\fP ()"
+.br
+.ti -1c
+.RI "std::string \fBgetNome\fP ()"
+.br
+.in -1c
+
+Public Member Functions inherited from \fBUsuario\fP
+.in +1c
+.ti -1c
+.RI "\fBUsuario\fP (int \fBid\fP, const std::string &\fBnome\fP, const std::string &\fBemail\fP, const std::string &\fBsenha\fP)"
+.br
+.RI "Construtor da classe \fBUsuario\fP\&. "
+.ti -1c
+.RI "virtual \fB~Usuario\fP ()=default"
+.br
+.RI "Destrutor virtual da classe \fBUsuario\fP\&. "
+.ti -1c
+.RI "int \fBgetId\fP () const"
+.br
+.RI "Retorna o ID do usuário\&. "
+.ti -1c
+.RI "std::string \fBgetNome\fP () const"
+.br
+.RI "Retorna o nome do usuário\&. "
+.ti -1c
+.RI "std::string \fBgetEmail\fP () const"
+.br
+.RI "Retorna o email do usuário\&. "
+.ti -1c
+.RI "std::string \fBgetSenha\fP () const"
+.br
+.RI "Retorna a senha do usuário\&. "
+.ti -1c
+.RI "void \fBsetNome\fP (const std::string &\fBnome\fP)"
+.br
+.RI "Define o nome do usuário\&. "
+.ti -1c
+.RI "void \fBsetEmail\fP (const std::string &\fBemail\fP)"
+.br
+.RI "Define o email do usuário\&. "
+.ti -1c
+.RI "void \fBsetSenha\fP (const std::string &\fBsenha\fP)"
+.br
+.RI "Define a senha do usuário\&. "
+.in -1c
+.SS "Protected Attributes"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBendereco\fP"
+.br
+.ti -1c
+.RI "std::string \fBnome\fP"
+.br
+.in -1c
+
+Protected Attributes inherited from \fBUsuario\fP
+.in +1c
+.ti -1c
+.RI "int \fBid\fP"
+.br
+.RI "Identificador único do usuário\&. "
+.ti -1c
+.RI "std::string \fBnome\fP"
+.br
+.RI "Nome completo\&. "
+.ti -1c
+.RI "std::string \fBemail\fP"
+.br
+.RI "Email de login\&. "
+.ti -1c
+.RI "std::string \fBsenha\fP"
+.br
+.RI "Senha (hash) "
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void Cliente::_addProdutoCarrinho (int idProduto, \fBCarrinho\fP carrinho)"
+
+.PP
+Printa o catálogo atual para o cliente na tela\&. 
+.br
+ 
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Loja de Jogos from the source code\&.

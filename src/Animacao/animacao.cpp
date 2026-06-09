@@ -47,5 +47,13 @@ void animacao::abertura() {
 */ 
     desenhos::nome_loja();                               // DESENHO 4
     std::this_thread::sleep_for(std::chrono::seconds(1));  
-    std::system("clear");
+    //std::system("clear");
 }     //fim da função abertura()
+
+void animacao::encerramento(){
+
+    std::system("clear");
+    desenhos::volte_sempre();
+    std::this_thread::sleep_for(std::chrono::seconds(2));
+}
+

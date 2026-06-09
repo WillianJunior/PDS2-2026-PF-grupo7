@@ -1,0 +1,110 @@
+.TH "Estoque" 3 "Loja de Jogos" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Estoque
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBEstoque\fP (int limiteAlerta)"
+.br
+.RI "Construtor do estoque\&. "
+.ti -1c
+.RI "void \fBsetQuantidade\fP (int produtoId, int quantidade)"
+.br
+.RI "Define a quantidade de um produto\&. "
+.ti -1c
+.RI "int \fBgetQuantidade\fP (int produtoId) const"
+.br
+.RI "Retorna a quantidade disponível\&. "
+.ti -1c
+.RI "void \fBadicionarProduto\fP (int produtoId, int quantidade)"
+.br
+.RI "Adiciona unidades ao estoque\&. "
+.ti -1c
+.RI "void \fBremoverProduto\fP (int produtoId, int quantidade)"
+.br
+.RI "Remove unidades do estoque\&. "
+.ti -1c
+.RI "bool \fBtemEstoque\fP (int produtoId, int quantidade) const"
+.br
+.RI "Verifica se há estoque suficiente\&. "
+.ti -1c
+.RI "bool \fBestoqueBaixo\fP (int produtoId) const"
+.br
+.RI "Verifica se o estoque está baixo\&. "
+.ti -1c
+.RI "bool \fBsemEstoque\fP (int produtoId) const"
+.br
+.RI "Verifica se o produto está em falta\&. "
+.ti -1c
+.RI "bool \fBreservarProduto\fP (int produtoId, int quantidade)"
+.br
+.RI "Reserva itens para compra\&. "
+.ti -1c
+.RI "void \fBcancelarReserva\fP (int produtoId, int quantidade)"
+.br
+.RI "Cancela reserva (devolve ao estoque) "
+.ti -1c
+.RI "std::string \fBgerarRelatorio\fP () const"
+.br
+.RI "Gera relatório textual do estoque\&. "
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Estoque::Estoque (int limiteAlerta)"
+
+.PP
+Construtor do estoque\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIlimiteAlerta\fP Quantidade mínima para alerta 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "int Estoque::getQuantidade (int produtoId) const"
+
+.PP
+Retorna a quantidade disponível\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIprodutoId\fP ID do produto 
+.RE
+.PP
+
+.SS "bool Estoque::reservarProduto (int produtoId, int quantidade)"
+
+.PP
+Reserva itens para compra\&. 
+.PP
+\fBReturns\fP
+.RS 4
+true se a reserva foi bem-sucedida 
+.RE
+.PP
+
+.SS "void Estoque::setQuantidade (int produtoId, int quantidade)"
+
+.PP
+Define a quantidade de um produto\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIprodutoId\fP ID do produto 
+.br
+\fIquantidade\fP Nova quantidade 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Loja de Jogos from the source code\&.
