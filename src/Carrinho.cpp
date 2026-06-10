@@ -8,6 +8,8 @@ float Carrinho::calculaValorTotal(const std::vector<std::string>& produtos) {
   for (const std::string& nome : produtos)
   {
   }
+
+  return valorTotal;
   
 }
 

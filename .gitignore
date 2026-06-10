@@ -6,3 +6,6 @@
 *.sty
 *.tex
 ./latex
+*.exe
+*.gcno
+./docs
