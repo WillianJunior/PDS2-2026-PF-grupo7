@@ -1,25 +1,40 @@
 #include "Carrinho.hpp"
 #include "Catalogo.hpp"
 #include <iostream>
-Carrinho :: Carrinho(): valorTotal(0.0f), quantidadeTotalItens(0){}
+Carrinho :: Carrinho(): valorTotal(0.0f), quantidadeTotalItens(0){} //construtor
 
-float Carrinho::calculaValorTotal(const std::vector<std::string>& produtos) {
+float Carrinho::calculaValorTotal(const std::vector<std::string>& nomesprodutos) {
     float valorTotal = 0.0f;
-  for (const std::string& nome : produtos)
-  {
+    for (const std::string& nome : nomesprodutos){
+        for (const Produto& produto: produtos)
+        {
+            if (produto.getNome()==nome)
+            {
+                valorTotal += produto.getPreco();
+                break;
+            }   
+        }    
   }
 
   return valorTotal;
-  
 }
 
-float Carrinho::calculaTotalDeItens(const std::vector<std::string>& produtos) {  
-    return static_cast<float>(produtos.size());
+int Carrinho::calculaTotalDeItens(const std::vector<std::string>& produtos) {  
+    return produtos.size();
 }
 
 void Carrinho::_checkout() {
-    std:: cout << "Inicio do checkout! " << std::endl;
-    std:: cout <<"Fim do checkout! " << std::endl;
+    valorTotal = 0.0f;
+    quantidadeTotalItens = produtos.size();
+    
+    for (const Produto&p : produtos){
+        valorTotal += p.getPreco();
+    }
+    
+    std:: cout << "Valor total da compra: " << valorTotal << std::endl;
+    std:: cout <<"Quantidade de itens: " << quantidadeTotalItens << std::endl;
 }
 
-std::vector<Produto> Carrinho::_getProdutos(){return {}; }
+std::vector<Produto> Carrinho::_getProdutos(){
+    return produtos; 
+}
