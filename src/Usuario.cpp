@@ -1,28 +1,28 @@
 #include "Usuario.hpp"
 
 Usuario::Usuario(int id, const std::string& nome, const std::string& email, const std::string& senha)
- :id(id),nome(nome),email(email), senha(senha) //lista de inicialização 
+ 
+:id(id),nome(nome),email(email), senha(senha) //lista de inicialização 
  {
 }
 
-Usuario::Usuario(): id(0)
-{
-    
+Usuario::Usuario(): id(0), nome(""),email(""), senha("")
+{   
 }
 
 int Usuario::getId() const {
-    return this->id;
+    return id;
 }
 std::string Usuario::getNome() const {
-    return this->nome;
+    return nome;
 }
 
 std::string Usuario::getEmail() const {
-   return this->email;
+   return email;
 }
 
 std::string Usuario::getSenha() const {
-    return this-> senha; 
+    return senha; 
 }
 
 void Usuario::setNome(const std::string& nome) {
