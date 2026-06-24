@@ -52,6 +52,7 @@ private:
 
     // Retorna os Sub-Menus
     static EstadosDeMenu verCatalogo(const Usuario &usuario);
+    static EstadosDeMenu verCatalogo();
     static EstadosDeMenu verCarrinho(const Usuario &usuario);
     static EstadosDeMenu verMinhasCompras(const Usuario &usuario);
     static EstadosDeMenu verEditarMeusDados(const Usuario &usuario);

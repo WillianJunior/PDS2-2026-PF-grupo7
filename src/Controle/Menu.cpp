@@ -45,7 +45,7 @@ void Menu::iniciar()
             break;
 
         case EstadosDeMenu::VerCatalogo:
-            estado = verCatalogo(*usuario); // chamar método que mostra o catálogo
+            estado = usuario ? verCatalogo(*usuario) : verCatalogo(); // chamar método que mostra o catálogo
             break;
 
         case EstadosDeMenu::Sair:
@@ -290,4 +290,48 @@ EstadosDeMenu Menu::verCatalogo(const Usuario &usuario)
     } while (opcao != 0);
 
     return EstadosDeMenu::MenuPrincipal;
+}
+
+
+EstadosDeMenu Menu::verCatalogo()
+{
+    Catalogo catalogo = Catalogo::carregarCatalogo("jogos.txt");
+
+    int opcao;
+
+    do{
+
+    std::cout << "=== Catalogo ===" << std::endl;
+    std::cout << "1. Ver todos os jogos" << std::endl;
+    std::cout << "2. Filtrar por genero" << std::endl;
+    std::cout << "3. Filtrar por plataforma" << std::endl;
+    std::cout << "4. Ordenar por preco" << std::endl;
+    std::cout << "0. Voltar" << std::endl;
+
+    opcao = lerComando();
+
+        if (opcao == 1) {
+            catalogo.exibirCatalogo();
+        } else if (opcao == 2) {
+            std::string genero;
+            std::cout << "Genero: ";
+            std::cin >> genero;
+            catalogo.filtrarGenero(genero);
+        } else if (opcao == 3) {
+            std::string plataforma;
+            std::cout << "Plataforma: ";
+            std::cin >> plataforma;
+            catalogo.filtrarPlataforma(plataforma);
+        } else if (opcao == 4) {
+            catalogo.ordenarPreco();
+        }
+
+        if (opcao != 0) {
+            std::cout << "\nPressione Enter para continuar...";
+            std::cin.get();
+        }
+
+    } while (opcao != 0);
+
+    return EstadosDeMenu::MenuInicial;
 }
