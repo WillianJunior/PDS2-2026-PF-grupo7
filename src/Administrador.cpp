@@ -1,14 +1,14 @@
 #include "Administrador.hpp"
+#include "NivelDeAcesso.hpp"
+#include <iostream>
 
-Administrador::Administrador(int id,
-    const std::string& nome,
-    const std::string& email,
-    const std::string& senha, 
-    const std::string& nivelAcesso)
-    :Usuario(id,nome,email,senha),
-    nivelAcesso(nivelAcesso) {}
+Administrador::Administrador(
+    const std::string &nome,
+    const std::string &email,
+    const std::string &senha)
+    : usuario(nome, email, senha, static_cast<int>(NivelDeAcesso::Admin)) {}
 
-std::string Administrador::getNivelAcesso() const {return {}; }
+std::string Administrador::getNivelAcesso() const { return {}; }
 
 void Administrador::gerenciarCatalogo() {}
 
@@ -20,4 +20,4 @@ void Administrador::gerenciarEstoque() {}
 
 void Administrador::gerenciarPerfisClientes() {}
 
-//bool Administrador::autenticar(const std::string& senha) const {}
+// bool Administrador::autenticar(const std::string& senha) const {}

@@ -5,27 +5,25 @@
 #include "Compra.hpp"
 #include "Usuario.hpp"
 
-class Cliente : public Usuario {
-    private:
-    Carrinho carrinho; //Composição -> Cada cliente possui um carrinho.
-    
-    protected:
-    std::string endereco;
-    std::string nome;
+class Cliente
+{
+private:
+    Carrinho carrinho; // Composição -> Cada cliente possui um carrinho.
 
-    public:
-    Cliente();
-    void _getCatalogo(); /**@brief Printa o catálogo atual para o cliente na tela.  */
-    void _addProdutoCarrinho(int idProduto, Carrinho carrinho); // O Produto com o ID informado será adicionado ao carrinho do cliente. 
-    void _delProdutoCarrinho(int idProduto, Carrinho carrinho); // O Produto com o ID informado será removido do carrinho do cliente. 
-    void _limparCarrinho(Carrinho carrinho); // TODOS os itens do carrinho são apagagos 
+public:
+    Usuario usuario; // Composição
+    Cliente(const std::string &nome, const std::string &email, const std::string &senha);
+
+    void _getCatalogo();                                        /**@brief Printa o catálogo atual para o cliente na tela.  */
+    void _addProdutoCarrinho(int idProduto, Carrinho carrinho); // O Produto com o ID informado será adicionado ao carrinho do cliente.
+    void _delProdutoCarrinho(int idProduto, Carrinho carrinho); // O Produto com o ID informado será removido do carrinho do cliente.
+    void _limparCarrinho(Carrinho carrinho);                    // TODOS os itens do carrinho são apagagos
     void _alterarNome(std::string nome);
     void _alterarEndereco(std::string endereco);
-    std::vector<Compra>_getHistoricoCompras(); //Retorna uma lista de itens comprados pelo cliente. Precisará de getCompra(cliente)
-    void _classificarProduto(int id, int nota); //adiciona uma nota a um vetor de notas dentro de um produto que faz a média e muda a nota do produto
-    std::string getEndereco(); // Getter para o endereço, necessário para os testes
-    std::string getNome(); // Getter para o nome, necessário para os testes
-
+    std::vector<Compra> _getHistoricoCompras(); // Retorna uma lista de itens comprados pelo cliente. Precisará de getCompra(cliente)
+    void _classificarProduto(int id, int nota); // adiciona uma nota a um vetor de notas dentro de um produto que faz a média e muda a nota do produto
+    std::string getEndereco();                  // Getter para o endereço, necessário para os testes
+    std::string getNome();                      // Getter para o nome, necessário para os testes
 };
 
 #endif

@@ -1,37 +1,72 @@
 #include "Usuario.hpp"
+#include <iostream>
+#include <fstream>
+#include <sstream>
 
-Usuario::Usuario(int id, const std::string& nome, const std::string& email, const std::string& senha)
- 
-:id(id),nome(nome),email(email), senha(senha) //lista de inicialização 
- {
+Usuario::Usuario(const std::string &nome, const std::string &email, const std::string &senha, int nivelDeAcesso)
+    : nome(nome), email(email), senha(senha), nivelDeAcesso(nivelDeAcesso) {}
+
+bool Usuario::possuiAcesso(int acesso) const{
+    return nivelDeAcesso >= acesso;
 }
 
-Usuario::Usuario(): id(0), nome(""),email(""), senha("")
-{   
+std::unique_ptr<Usuario> Usuario::login(const std::string &email,
+                                        const std::string &senha,
+                                        const std::string &txtpath)
+{
+    std::ifstream file(txtpath);
+    if(!file.is_open()){
+        std::cerr << "Erro: nao foi possivel abrir " << txtpath << std::endl;
+        return nullptr;
+    }
+
+    std::string line;
+    std::getline(file, line); //para pular a primeira linha
+
+    while(std::getline(file, line)){
+        std::istringstream ss(line);
+        std::string readEmail, readSenha, readNome, readNivel;
+
+        std::getline(ss, readEmail, ';');
+        std::getline(ss, readSenha, ';');
+        std::getline(ss, readNome, ';');
+        std::getline(ss, readNivel, ';');
+
+        if(readEmail == email && readSenha == senha){
+            int nivel = std::stoi(readNivel); //converte string para int
+            return std::unique_ptr<Usuario>(new Usuario(readNome, readEmail, readSenha, nivel));
+        }
+
+    }
+
+    return nullptr; 
 }
 
-int Usuario::getId() const {
-    return id;
-}
-std::string Usuario::getNome() const {
+std::string Usuario::getNome() const
+{
     return nome;
 }
 
-std::string Usuario::getEmail() const {
-   return email;
+std::string Usuario::getEmail() const
+{
+    return email;
 }
 
-std::string Usuario::getSenha() const {
-    return senha; 
+std::string Usuario::getSenha() const
+{
+    return senha;
 }
 
-void Usuario::setNome(const std::string& nome) {
-    this-> nome = nome;
+void Usuario::setNome(const std::string &nome)
+{
+    this->nome = nome;
 }
-void Usuario::setEmail(const std::string& email) {
-    this -> email = email;
+void Usuario::setEmail(const std::string &email)
+{
+    this->email = email;
 }
 
-void Usuario::setSenha(const std::string& senha) {
+void Usuario::setSenha(const std::string &senha)
+{
     this->senha = senha;
 }

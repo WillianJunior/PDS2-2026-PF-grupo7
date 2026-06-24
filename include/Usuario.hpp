@@ -2,6 +2,8 @@
 #define USUARIO_HPP
 
 #include <string>
+#include <memory>
+#include "NivelDeAcesso.hpp"
 
 /**
 * @file Usuario.hpp
@@ -15,33 +17,49 @@
 * @see Administrador
 */
 class Usuario {
-protected:
-	int id;             	///< Identificador único do usuário
-	std::string nome;   	///< Nome completo
-	std::string email;  	///< Email de login
-	std::string senha;  	///< Senha (hash)
 
 public:
+	int nivelDeAcesso;      ///< Nível de acesso ao sistema
+	std::string nome;   	///< Nome completo
+	std::string email;  	///< Email de login
+	std::string senha;  	///< Senha 
+
 	/**
  	* @brief Construtor da classe Usuario
- 	* @param id Identificador do usuário
+ 	* @param nivelDeAcesso Nível de acesso ao sistema cliente = 1, admin = 3
  	* @param nome Nome completo
  	* @param email Email de acesso
  	* @param senha Senha do usuário
  	*/
-	Usuario(int id, const std::string& nome, const std::string& email, const std::string& senha);
-    Usuario(); // Construtor padrão para facilitar testes e herança
-	/**
- 	* @brief Destrutor virtual da classe Usuario
- 	*/
-	virtual ~Usuario() = default;
+	Usuario(const std::string& nome, const std::string& email, const std::string& senha, int nivelDeAcesso);
 
+	/**
+	 * @brief Verifica se o usuario possui o acesso requerido
+	 * 
+	 * @param acesso 
+	 * @return true 
+	 * @return false 
+	 */
+	bool possuiAcesso(int acesso) const;
+
+
+	/**
+	 * @brief Método para realizar o login do usuário buscando os dados em um arquivo txt
+	 * 
+	 * @param email 
+	 * @param senha 
+	 * @param txtpath 
+	 * @return std::unique_ptr<Usuario> 
+	 */
+	static std::unique_ptr<Usuario> login(const std::string &email,
+									const std::string &senha,
+									const std::string &txtpath = "usuarios.txt");
+	
 	// Getters
 
 	/**
- 	* @brief Retorna o ID do usuário
- 	*/
-	int getId() const;
+ 	* @brief Retorna o Nível de acesso
+	int getNivelDeAcesso() const;
 
 	/**
  	* @brief Retorna o nome do usuário
