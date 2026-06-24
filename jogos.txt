@@ -1,0 +1,6 @@
+nome;plataforma;genero;preco
+The Witcher 3;PC;RPG;49.90
+God of War;PS5;Acao;199.90
+Halo Infinite;Xbox;FPS;149.90
+Stardew Valley;PC;Simulacao;37.90
+Elden Ring;PS5;RPG;249.90

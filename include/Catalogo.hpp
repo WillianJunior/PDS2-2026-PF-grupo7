@@ -5,45 +5,62 @@
 #include "Produto.hpp"
 
 /**
-* @file Catalogo.hpp
-* @brief Gerencia a coleção de produtos exibida aos clientes.
-*
-* Responsável por armazenar e disponibilizar os produtos,
-* permitindo filtragem, busca e ordenação.
-*
-* @see Produto
-* @see Administrador
-*/
-class Catalogo {
-private:
-	std::vector<Produto> produtos;   ///< Lista de produtos
-	std::string filtroAtivo;     	///< Filtro atual (categoria, etc.)
-	std::string ordenacaoAtiva;  	///< Tipo de ordenação
-	std::string termoBusca;      	///< Termo de busca
-
+ * @file Catalogo.hpp
+ * @brief Gerencia a coleção de produtos exibida aos clientes.
+ *
+ * Responsável por armazenar e disponibilizar os produtos,
+ * permitindo filtragem, busca e ordenação.
+ *
+ * @see Produto
+ * @see Administrador
+ */
+class Catalogo
+{
 public:
 	/**
- 	* @brief Construtor padrão
- 	*/
-	Catalogo();
+	 * @brief Carrega o catálogo de jogos de jogos.txt
+	 *
+	 * @param txtpath
+	 * @return Catalogo
+	 */
+	static Catalogo carregarCatalogo(const std::string &txtpath = "jogos.txt");
+
+	void exibirCatalogo() const;
+	void filtrarGenero(const std::string &genero) const;
+	void filtrarPlataforma(const std::string &plataforma) const;
+	void ordenarPreco() const;
+
+private:
+	std::vector<Produto> jogos; ///< Lista de produtos
+	std::string filtroAtivo;	///< Filtro atual (categoria, etc.)
+	std::string ordenacaoAtiva; ///< Tipo de ordenação
+	std::string termoBusca;		///< Termo de busca
+
+	/**
+	 * @brief Construtor padrão
+	 */
+	Catalogo() {}
+	
+	void exibirCabecalho() const;
+	void listarJogos(const std::vector<Produto> &listaDeJogos) const;
 
 	// ===============================
 	// Gerenciamento de produtos
 	// ===============================
 
 	/**
- 	* @brief Adiciona um produto ao catálogo
- 	*/
-	void adicionarProduto(const Produto& produto);
+	 * @brief Adiciona um produto ao catálogo
+	 */
+	void adicionarProduto(const Produto &produto);
 
 	/**
- 	* @brief Remove um produto pelo ID
- 	*/
+	 * @brief Remove um produto pelo ID
+	 */
 	void removerProduto(int id);
 
 	/**
- 	* @brief Retorna todos os produtos
- 	*/
+	 * @brief Retorna todos os produtos
+	 */
 	std::vector<Produto> getProdutos() const;
 
 	// ===============================
@@ -51,31 +68,31 @@ public:
 	// ===============================
 
 	/**
- 	* @brief Filtra produtos por categoria
- 	*/
-	std::vector<Produto> filtrarPorCategoria(const std::string& categoria);
+	 * @brief Filtra produtos por categoria
+	 */
+	std::vector<Produto> filtrarPorCategoria(const std::string &categoria);
 
 	/**
- 	* @brief Ordena produtos por preço
- 	* @param crescente true = crescente, false = decrescente
- 	*/
+	 * @brief Ordena produtos por preço
+	 * @param crescente true = crescente, false = decrescente
+	 */
 	void ordenarPorPreco(bool crescente);
 	/**
- 	* @brief Busca produto pelo nome
- 	*/
-	std::vector<Produto> buscarProduto(const std::string& termo);
+	 * @brief Busca produto pelo nome
+	 */
+	std::vector<Produto> buscarProduto(const std::string &termo);
 
 	/**
- 	* @brief Exibe nomes dos produtos
- 	*/
+	 * @brief Exibe nomes dos produtos
+	 */
 	std::string listarNomes() const;
 
 	/**
- 	* @brief Exibe preços dos produtos
- 	*/
+	 * @brief Exibe preços dos produtos
+	 */
 	std::string listarPrecos() const;
-	/** 
+	/**
 	 * @brief verifica se o produto existe
-	*/
-	bool produtoExiste(const std::string& nome);
+	 */
+	bool produtoExiste(const std::string &nome);
 };

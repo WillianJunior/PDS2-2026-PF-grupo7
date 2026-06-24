@@ -10,7 +10,7 @@
 class animacao{
 public:
     static void load_ps();
-    static void abertura();
+    static void abertura(); //banner
     static void encerramento();
 };
 

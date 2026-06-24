@@ -1,4 +1,5 @@
 #include "Menu.hpp"
+#include "Catalogo.hpp"
 #include "NivelDeAcesso.hpp"
 #include "animacao.hpp"
 #include <iostream>
@@ -8,16 +9,11 @@ int Menu::lerComando()
 {
     int opt;
     std::cout << "\n>> ";
-    while (true)
+    while (!(std::cin >> opt))
     {
-        if(std::cin >> opt){
-            return opt;
-        }
-
         std::cin.clear();
         std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         std::cout << "Entrada invalida.\n>>";
-        
     }
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     return opt;
@@ -49,7 +45,7 @@ void Menu::iniciar()
             break;
 
         case EstadosDeMenu::VerCatalogo:
-            // chamar método que mostra o catálogo
+            estado = verCatalogo(*usuario); // chamar método que mostra o catálogo
             break;
 
         case EstadosDeMenu::Sair:
@@ -251,4 +247,47 @@ void Menu::menuAdmin()
     std::cout << "6. Gerenciar Estoque" << std::endl;  // adiona, remove, altera qtd de produtos do estoque
     std::cout << "7. Ver Estoque" << std::endl;
     std::cout << "8. Sair" << std::endl;
+}
+
+EstadosDeMenu Menu::verCatalogo(const Usuario &usuario)
+{
+    Catalogo catalogo = Catalogo::carregarCatalogo("jogos.txt");
+
+    int opcao;
+
+    do{
+
+    std::cout << "=== Catalogo ===" << std::endl;
+    std::cout << "1. Ver todos os jogos" << std::endl;
+    std::cout << "2. Filtrar por genero" << std::endl;
+    std::cout << "3. Filtrar por plataforma" << std::endl;
+    std::cout << "4. Ordenar por preco" << std::endl;
+    std::cout << "0. Voltar" << std::endl;
+
+    opcao = lerComando();
+
+        if (opcao == 1) {
+            catalogo.exibirCatalogo();
+        } else if (opcao == 2) {
+            std::string genero;
+            std::cout << "Genero: ";
+            std::cin >> genero;
+            catalogo.filtrarGenero(genero);
+        } else if (opcao == 3) {
+            std::string plataforma;
+            std::cout << "Plataforma: ";
+            std::cin >> plataforma;
+            catalogo.filtrarPlataforma(plataforma);
+        } else if (opcao == 4) {
+            catalogo.ordenarPreco();
+        }
+
+        if (opcao != 0) {
+            std::cout << "\nPressione Enter para continuar...";
+            std::cin.get();
+        }
+
+    } while (opcao != 0);
+
+    return EstadosDeMenu::MenuPrincipal;
 }
