@@ -6,7 +6,9 @@
 
 int main()
 {
-
+    Menu::iniciar();
+    return 0;
+/*
     animacao::load_ps();
     animacao::abertura();
 
@@ -23,7 +25,7 @@ int main()
     {
     case 1:
         animacao::abertura(); // Precisa sempre dessa função pra manter o banner???
-        
+
         std::cout << "=== Login ===" << std::endl;
         std::cout << "Email: ";
         std::cin >> email;
@@ -53,4 +55,6 @@ int main()
     }
 
     return 0;
+
+    */
 }
