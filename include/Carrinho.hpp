@@ -4,6 +4,7 @@
 #include <vector>
 #include "Produto.hpp"
 #include "Usuario.hpp"
+#include "Compra.hpp"
 
 /**
  * @file Carrinho.hpp
@@ -57,6 +58,14 @@ public:
      * @return false Se houver pelo menos um item no carrinho.
      */
     bool estaVazio() const;
+
+    /**
+     * @brief Finaliza a compra: registra os itens no histórico do cliente
+     * (persistido em arquivo) e esvazia o carrinho.
+     * @pre O carrinho não deve estar vazio (verificar com estaVazio() antes de chamar).
+     * @return Compra O registro da compra finalizada.
+     */
+    Compra finalizarCompra();
 };
 
 #endif

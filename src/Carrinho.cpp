@@ -37,6 +37,14 @@ bool Carrinho::estaVazio() const
     return itens.empty();
 }
 
+Compra Carrinho::finalizarCompra()
+{
+    Compra compra(usuario.email, itens);
+    Compra::salvarHistorico(compra);
+    itens.clear();
+    return compra;
+}
+
 void Carrinho::exibirCarrinho() const
 {
     std::cout << "\n=== Carrinho de " << usuario.nome << " ===" << std::endl;

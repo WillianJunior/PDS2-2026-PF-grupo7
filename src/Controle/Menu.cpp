@@ -1,5 +1,6 @@
 #include "Menu.hpp"
 #include "Catalogo.hpp"
+#include "Compra.hpp"
 #include "NivelDeAcesso.hpp"
 #include "animacao.hpp"
 #include <iostream>
@@ -63,11 +64,16 @@ void Menu::iniciar()
             estado = menuPrincipal(*usuario);
             break;
 
-        case EstadosDeMenu::VerCatalogo:
+       case EstadosDeMenu::VerCatalogo:
             estado = usuario ? verCatalogo(*usuario, *carrinho) : verCatalogo(); // chamar método que mostra o catálogo
             break;
         case EstadosDeMenu::Carrinho:
             estado = verCarrinho(*carrinho);
+            break;
+
+        case EstadosDeMenu::MinhasCompras:
+            estado = verMinhasCompras(*usuario);
+            break;
 
         case EstadosDeMenu::Sair:
             break;
@@ -332,6 +338,7 @@ EstadosDeMenu Menu::verCarrinho(Carrinho& carrinho){
         carrinho.exibirCarrinho();
 
         std::cout <<"\n1. Remover item" <<std::endl;
+        std::cout <<"2. Finalizar Compra" <<std::endl;
         std::cout <<"0. Voltar" <<std::endl;
 
         opcao = lerComando();
@@ -343,6 +350,15 @@ EstadosDeMenu Menu::verCarrinho(Carrinho& carrinho){
             std::cin.ignore();
             carrinho.remover(indice - 1);
         }
+        else if (opcao == 2) {
+            if (carrinho.estaVazio()) {
+                std::cout << "Carrinho vazio. Adicione itens antes de finalizar a compra." << std::endl;
+            } else {
+                Compra compra = carrinho.finalizarCompra();
+                std::cout << "\nCompra finalizada com sucesso!" << std::endl;
+                compra.exibirCompra();
+            }
+        }
 
         if (opcao != 0) {
             std::cout << "\nPressione Enter para continuar...";
@@ -350,6 +366,26 @@ EstadosDeMenu Menu::verCarrinho(Carrinho& carrinho){
         }
 
     } while (opcao != 0);
+
+    return EstadosDeMenu::MenuPrincipal;
+}
+
+EstadosDeMenu Menu::verMinhasCompras(const Usuario &usuario)
+{
+    std::vector<Compra> historico = Compra::carregarHistorico(usuario.email);
+
+    std::cout << "\n=== Minhas Compras ===" << std::endl;
+
+    if (historico.empty()) {
+        std::cout << "Você ainda não realizou nenhuma compra." << std::endl;
+    } else {
+        for (const Compra &compra : historico) {
+            compra.exibirCompra();
+        }
+    }
+
+    std::cout << "\nPressione Enter para continuar...";
+    std::cin.get();
 
     return EstadosDeMenu::MenuPrincipal;
 }
