@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <vector>
 
 Usuario::Usuario(const std::string &nome, const std::string &email, const std::string &senha, int nivelDeAcesso)
     : nome(nome), email(email), senha(senha), nivelDeAcesso(nivelDeAcesso) {}
@@ -107,4 +108,51 @@ std::unique_ptr<Usuario> Usuario::cadastrar(const std::string &nome,
     file << email << ";" << senha << ";" << nome << ";" << nivel << "\n";
 
     return std::unique_ptr<Usuario>(new Usuario(nome, email, senha, nivel));
+}
+
+bool Usuario::atualizarUsuarioNoArquivo(const std::string& emailAntigo, const Usuario& usuarioAtualizado, const std::string& txtpath) {
+    std::ifstream fileIn(txtpath);
+    if (!fileIn.is_open()) return false;
+
+    std::vector<std::string> linhas;
+    std::string line;
+    
+    // Lê o cabeçalho e guarda
+    if (std::getline(fileIn, line)) {
+        linhas.push_back(line);
+    }
+
+    // Lê o restante dos usuários
+    while (std::getline(fileIn, line)) {
+        std::istringstream ss(line);
+        std::string readEmail, readSenha, readNome, readNivel;
+
+        std::getline(ss, readEmail, ';');
+        std::getline(ss, readSenha, ';');
+        std::getline(ss, readNome, ';');
+        std::getline(ss, readNivel, ';');
+
+        // Se encontrou o usuário antigo, substitui pela nova versão
+        if (readEmail == emailAntigo) {
+            linhas.push_back(usuarioAtualizado.email + ";" + 
+                             usuarioAtualizado.senha + ";" + 
+                             usuarioAtualizado.nome + ";" + 
+                             std::to_string(usuarioAtualizado.nivelDeAcesso));
+        } else {
+            // Se for outro usuário, apenas copia a linha original
+            linhas.push_back(line);
+        }
+    }
+    fileIn.close();
+
+    // Sobrescreve o arquivo com os dados atualizados
+    std::ofstream fileOut(txtpath);
+    if (!fileOut.is_open()) return false;
+    
+    for (const auto& l : linhas) {
+        fileOut << l << "\n";
+    }
+    
+    fileOut.close();
+    return true;
 }

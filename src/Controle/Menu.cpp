@@ -83,6 +83,9 @@ void Menu::iniciar()
 
         case EstadosDeMenu::GerenciarProduto:
             estado = gerenciarProduto();
+        case EstadosDeMenu::EditarMeusDados:
+
+            estado = editarMeusDados(*usuario);
 
 
         case EstadosDeMenu::Sair:
@@ -621,4 +624,41 @@ EstadosDeMenu Menu::verMinhasCompras(const Usuario &usuario)
     std::cin.get();
 
     return EstadosDeMenu::MenuPrincipal;
+}
+
+EstadosDeMenu Menu::editarMeusDados(const Usuario &usuario) {
+    std::cout << "\n================ EDITAR MEUS DADOS ================\n";
+    std::cout << "Pressione Enter sem digitar nada para manter o dado atual.\n\n";
+
+    std::string novoNome, novoEmail, novaSenha;
+    
+    // Guardamos o email original antes da edição para poder buscar no .txt depois
+    std::string emailAntigo = usuario.email; 
+
+    std::cout << "Nome atual (" << usuario.nome << "): ";
+    std::getline(std::cin, novoNome);
+    if (!novoNome.empty()) usuario.nome == novoNome;
+
+    std::cout << "Email atual (" << usuario.email << "): ";
+    std::getline(std::cin, novoEmail);
+    if (!novoEmail.empty()) usuario.email == novoEmail;
+
+    std::cout << "Senha atual (" << usuario.senha << "): ";
+    std::getline(std::cin, novaSenha);
+    if (!novaSenha.empty()) usuario.senha == novaSenha;
+
+    // Tenta salvar as alterações no arquivo
+    if (Usuario::atualizarUsuarioNoArquivo(emailAntigo, usuario, "usuarios.txt")) {
+        std::cout << "\n[Sucesso] Dados atualizados com sucesso!\n";
+    } else {
+        std::cout << "\n[Erro] Nao foi possivel salvar as alteracoes no arquivo.\n";
+    }
+
+    std::cout << "Pressione Enter para voltar...";
+    std::cin.get();
+
+    
+    return EstadosDeMenu::MenuPrincipal;
+    
+    
 }

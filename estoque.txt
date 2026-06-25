@@ -1,5 +1,5 @@
 nome;plataforma;genero;preco;quantidade
-Elden Ring;PC;Fantasia;150;15
+Elden Ring;PC;Fantasia;150;17
 God of War;Xbox;Acao;33.33;8
 Halo Infinite;Xbox;FPS;149.9;20
 Hollow Knight;PC;Acao;20;2

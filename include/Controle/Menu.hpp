@@ -95,7 +95,7 @@ private:
      * @param usuario O usuário que deseja alterar os dados.
      * @return EstadosDeMenu O próximo estado do menu.
      */
-    static EstadosDeMenu verEditarMeusDados(const Usuario &usuario);
+    static EstadosDeMenu editarMeusDados(const Usuario &usuario);
 
     /**
      * @brief Permite visualizar a quantidade de itens no estoque (visão do admin).
