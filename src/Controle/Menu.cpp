@@ -519,18 +519,35 @@ EstadosDeMenu Menu::verCarrinho(Carrinho &carrinho)
             carrinho.remover(indice - 1);
         }
         else if (opcao == 2)
-        {
-            if (carrinho.estaVazio())
-            {
-                std::cout << "Carrinho vazio. Adicione itens antes de finalizar a compra." << std::endl;
-            }
-            else
-            {
-                Compra compra = carrinho.finalizarCompra();
-                std::cout << "\nCompra finalizada com sucesso!" << std::endl;
-                compra.exibirCompra();
-            }
-        }
+                {
+                    if (carrinho.estaVazio())
+                    {
+                        std::cout << "Carrinho vazio. Adicione itens antes de finalizar a compra." << std::endl;
+                    }
+                    else
+                    {
+                        Estoque estoque("estoque.txt");
+                        
+                        if (!estoque.carregarEstoque())
+                        {
+                            std::cout << "\n[Erro] Nao foi possivel acessar o estoque para processar a compra.\n";
+                        }
+                        else
+                        {
+                            Compra compra = carrinho.finalizarCompra();
+
+                            for (const Produto &item : compra.getItens())
+                            {
+                                estoque.darBaixa(item.nome);
+                            }
+                            
+                            estoque.salvarEstoque();
+
+                            std::cout << "\nCompra finalizada com sucesso!" << std::endl;
+                            compra.exibirCompra();
+                        }
+                    }
+                }
 
         if (opcao != 0)
         {
