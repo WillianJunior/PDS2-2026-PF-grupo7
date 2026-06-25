@@ -13,9 +13,6 @@
 
 class Produto
 { // jogos de videogame
-private:
-    int id;
-    int quantidadeEstoque;
 
 public:
     std::string nome;
@@ -31,16 +28,6 @@ public:
      */
     void exibirProduto() const;
 
-    int getId() const;
-    std::string getNome() const;
-    std::string getCategoria() const;
-    float getPreco() const;
-    int getQuantidadeEstoque() const;
-    void setId(int id);
-    void setNome(const std::string &nome);
-    void setCategoria(const std::string &categoria);
-    void setPreco(float preco);
-    void setQuantidadeEstoque(int quantidadeEstoque);
 };
 
 #endif

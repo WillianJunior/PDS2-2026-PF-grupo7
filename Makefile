@@ -12,7 +12,7 @@ THIRD_DIR = ./third_party
 
 all: ${BUILD_DIR}/${TARGET}
 
-${BUILD_DIR}/${TARGET}: ${BUILD_DIR}/Menu.o ${BUILD_DIR}/Administrador.o ${BUILD_DIR}/Carrinho.o ${BUILD_DIR}/Catalogo.o ${BUILD_DIR}/Cliente.o ${BUILD_DIR}/Compra.o ${BUILD_DIR}/Estoque.o ${BUILD_DIR}/Produto.o ${BUILD_DIR}/Usuario.o ${BUILD_DIR}/animacao.o ${BUILD_DIR}/desenhos.o ${BUILD_DIR}/main.o
+${BUILD_DIR}/${TARGET}: ${BUILD_DIR}/Menu.o ${BUILD_DIR}/Administrador.o ${BUILD_DIR}/Carrinho.o ${BUILD_DIR}/Catalogo.o ${BUILD_DIR}/Cliente.o ${BUILD_DIR}/Estoque.o ${BUILD_DIR}/Produto.o ${BUILD_DIR}/Usuario.o ${BUILD_DIR}/animacao.o ${BUILD_DIR}/desenhos.o ${BUILD_DIR}/main.o
 	${CC} ${CFLAGS} -o ${BUILD_DIR}/${TARGET} ${BUILD_DIR}/*.o
 
 ${BUILD_DIR}/Menu.o: ${INCLUDE_DIR}/Animacao/animacao.hpp ${INCLUDE_DIR}/*.hpp ${INCLUDE_DIR}/Usuario.hpp ${INCLUDE_DIR}/Controle/Menu.hpp ${SRC_DIR}/Controle/Menu.cpp
@@ -33,11 +33,8 @@ ${BUILD_DIR}/Carrinho.o: ${INCLUDE_DIR}/Produto.hpp ${INCLUDE_DIR}/Carrinho.hpp 
 ${BUILD_DIR}/Catalogo.o: ${INCLUDE_DIR}/Produto.hpp ${INCLUDE_DIR}/Catalogo.hpp ${SRC_DIR}/Catalogo.cpp
 	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Catalogo.cpp -o ${BUILD_DIR}/Catalogo.o
 
-${BUILD_DIR}/Cliente.o: ${INCLUDE_DIR}/Carrinho.hpp ${INCLUDE_DIR}/Compra.hpp ${INCLUDE_DIR}/Usuario.hpp ${INCLUDE_DIR}/NivelDeAcesso.hpp ${SRC_DIR}/Cliente.cpp
+${BUILD_DIR}/Cliente.o: ${INCLUDE_DIR}/Carrinho.hpp ${INCLUDE_DIR}/Usuario.hpp ${INCLUDE_DIR}/NivelDeAcesso.hpp ${SRC_DIR}/Cliente.cpp
 	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Cliente.cpp -o ${BUILD_DIR}/Cliente.o
-
-${BUILD_DIR}/Compra.o: ${INCLUDE_DIR}/Produto.hpp ${INCLUDE_DIR}/Compra.hpp ${SRC_DIR}/Compra.cpp
-	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Compra.cpp -o ${BUILD_DIR}/Compra.o
 
 ${BUILD_DIR}/Estoque.o: ${INCLUDE_DIR}/Estoque.hpp ${SRC_DIR}/Estoque.cpp
 	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Estoque.cpp -o ${BUILD_DIR}/Estoque.o
@@ -58,9 +55,6 @@ ${TEST_DIR}/test_Catalogo.o: ${TEST_DIR}/test_Catalogo.cpp
 
 ${TEST_DIR}/test_Cliente.o: ${TEST_DIR}/test_Cliente.cpp
 	${CC} ${CFLAGS} -I ${THIRD_DIR} -I ${INCLUDE_DIR} -c ${TEST_DIR}/test_Cliente.cpp -o ${TEST_DIR}/test_Cliente.o
-
-${TEST_DIR}/test_Compra.o: ${TEST_DIR}/test_Compra.cpp
-	${CC} ${CFLAGS} -I ${THIRD_DIR} -I ${INCLUDE_DIR} -c ${TEST_DIR}/test_Compra.cpp -o ${TEST_DIR}/test_Compra.o
 
 ${TEST_DIR}/test_Estoque.o: ${TEST_DIR}/test_Estoque.cpp
 	${CC} ${CFLAGS} -I ${THIRD_DIR} -I ${INCLUDE_DIR} -c ${TEST_DIR}/test_Estoque.cpp -o ${TEST_DIR}/test_Estoque.o

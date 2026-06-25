@@ -3,21 +3,22 @@
 
 #include <vector>
 #include "Produto.hpp"
+#include "Usuario.hpp"
 
 class Carrinho
 {
 private:
-    float valorTotal;              // Soma dos preços de todos os itens no carrinho.
-    int quantidadeTotalItens;      // Número total de unidades de produto no carrinho.
-    
-public:
-    Carrinho();
-std::vector<Produto> produtos; // O carrinho é um vetor de produtos
+    Usuario &usuario;
+    std::vector<Produto> itens;
 
-    float calculaValorTotal(const std::vector<std::string> &produtos); // pega os produtos do carrinho e soma o preço de todos. Const porque só queremos ler os produtos
-    int calculaTotalDeItens(const std::vector<std::string> &produtos); // pega os produtos do carrinho e soma a quantidade. Const porque só queremos ler os produtos
-    void _checkout(); //Finaliza a compra com os itens do carrinho retornando preço total e a quantidade de itens. Forma de pagamento???
-    std::vector<Produto> _getProdutos(); // Getter para acessar os produtos do carrinho, necessário para os testes
+public:
+    explicit Carrinho(Usuario &usuario);
+
+    void adicionar(const Produto &jogo);
+    void remover(int indice);
+    void exibirCarrinho() const;
+    double total() const;
+    bool estaVazio() const;
 };
 
 #endif

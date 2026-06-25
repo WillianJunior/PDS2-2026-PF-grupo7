@@ -1,40 +1,73 @@
 #include "Carrinho.hpp"
-#include "Catalogo.hpp"
 #include <iostream>
-Carrinho :: Carrinho(): valorTotal(0.0f), quantidadeTotalItens(0){} //construtor
+#include <iomanip>
 
-float Carrinho::calculaValorTotal(const std::vector<std::string>& nomesprodutos) {
-    float valorTotal = 0.0f;
-    for (const std::string& nome : nomesprodutos){
-        for (const Produto& produto: produtos)
-        {
-            if (produto.getNome()==nome)
-            {
-                valorTotal += produto.getPreco();
-                break;
-            }   
-        }    
-  }
+Carrinho::Carrinho(Usuario &usuario) : usuario(usuario) {}
 
-  return valorTotal;
+void Carrinho::adicionar(const Produto &jogo)
+{
+    itens.push_back(jogo);
+    std::cout << "\"" << jogo.nome << "\" adicionado ao carrinho!" << std::endl;
 }
 
-int Carrinho::calculaTotalDeItens(const std::vector<std::string>& produtos) {  
-    return produtos.size();
-}
-
-void Carrinho::_checkout() {
-    valorTotal = 0.0f;
-    quantidadeTotalItens = produtos.size();
-    
-    for (const Produto&p : produtos){
-        valorTotal += p.getPreco();
+void Carrinho::remover(int indice)
+{
+    if (indice < 0 || indice >= static_cast<int>(itens.size()))
+    {
+        std::cout << "ID Inválido." << std::endl;
+        return;
     }
-    
-    std:: cout << "Valor total da compra: " << valorTotal << std::endl;
-    std:: cout <<"Quantidade de itens: " << quantidadeTotalItens << std::endl;
+
+    itens.erase(itens.begin() + indice);
+    std::cout << "\"" << itens[indice].nome << "\" removido do carrinho." << std::endl;
 }
 
-std::vector<Produto> Carrinho::_getProdutos(){
-    return produtos; 
+double Carrinho::total() const
+{
+    double soma = 0.0f;
+    for (const Produto &jogo : itens)
+    {
+        soma += jogo.preco;
+    }
+    return soma;
+}
+
+bool Carrinho::estaVazio() const
+{
+    return itens.empty();
+}
+
+void Carrinho::exibirCarrinho() const
+{
+    std::cout << "\n=== Carrinho de " << usuario.nome << " ===" << std::endl;
+
+    if (estaVazio())
+    {
+        std::cout << "Seu carrinho está vazio." << std::endl;
+        return;
+    }
+
+    std::cout << std::left
+              << std::setw(5) << "ID."
+              << std::setw(35) << "Nome"
+              << std::setw(10) << "Plataforma"
+              << std::setw(15) << "Genero"
+              << "Preco"
+              << std::endl;
+    std::cout << std::string(75, '-') << std::endl;
+
+      for (int i = 0; i < static_cast<int>(itens.size()); i++) {
+        std::cout << std::left
+                  << std::setw(5)  << (i + 1)
+                  << std::setw(35) << itens[i].nome
+                  << std::setw(10) << itens[i].plataforma
+                  << std::setw(15) << itens[i].genero
+                  << "R$ " << std::fixed << std::setprecision(2) << itens[i].preco
+                  << std::endl;
+    }
+
+    std::cout << std::string(75, '-') << std::endl;
+    std::cout << std::right << std::setw(70)
+              << "Total: R$ " + std::to_string(total()) << std::endl;
+
 }

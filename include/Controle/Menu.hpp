@@ -3,6 +3,7 @@
 
 #include "Usuario.hpp"
 #include "EstadosDeMenu.hpp"
+#include "Carrinho.hpp"
 
 /**
  * @brief Controla os Menus do sistema
@@ -11,32 +12,18 @@
 class Menu
 {
 public:
+    /**
+     * @brief Menu para usuários não autenticados
+     * 
+     * @return EstadosDeMenu 
+     */
     static EstadosDeMenu menuInicial();
-
     /**
      * @brief Inicia o sistema
      *
      */
     static void iniciar();
-    /**
-     * @brief Apresenta menu de entrada
-     *
-     */
-    static void showMenu(const Usuario &usuario);
-    /**
-     * @brief Primeiro Menu de entrada para usuários sem autenticação
-     *
-     */
-    static void Menu_01();
-
-    /**
-     * @brief Apreseta o menu de login e recebe dados do usuário. Chama login_action
-     *
-     */
-    static void Login();
-
-    static void Login_Action(std::string usuario, std::string senha); // Só leitura?? usar &??
-
+    
 private:
     /**
      * @brief Busca o usuário e realiza o login se existir
@@ -51,9 +38,9 @@ private:
     static EstadosDeMenu menuPrincipalAdmin(const Usuario &Usuario);
 
     // Retorna os Sub-Menus
-    static EstadosDeMenu verCatalogo(const Usuario &usuario);
+    static EstadosDeMenu verCatalogo(const Usuario &usuario, Carrinho& carrinho);
     static EstadosDeMenu verCatalogo();
-    static EstadosDeMenu verCarrinho(const Usuario &usuario);
+    static EstadosDeMenu verCarrinho(Carrinho &carrinho);
     static EstadosDeMenu verMinhasCompras(const Usuario &usuario);
     static EstadosDeMenu verEditarMeusDados(const Usuario &usuario);
     static EstadosDeMenu verEstoque(const Usuario &usuario);

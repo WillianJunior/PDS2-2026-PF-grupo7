@@ -55,50 +55,7 @@ public:
 									const std::string &senha,
 									const std::string &txtpath = "usuarios.txt");
 	
-	// Getters
-
-	/**
- 	* @brief Retorna o Nível de acesso
-	int getNivelDeAcesso() const;
-
-	/**
- 	* @brief Retorna o nome do usuário
- 	*/
-	std::string getNome() const;
-
-	/**
- 	* @brief Retorna o email do usuário
- 	*/
-	std::string getEmail() const;
-
-	/**
- 	* @brief Retorna a senha do usuário
- 	*/
-	std::string getSenha() const;
-
-	// Setters
-
-	/**
- 	* @brief Define o nome do usuário
- 	*/
-	void setNome(const std::string& nome);
-
-	/**
- 	* @brief Define o email do usuário
- 	*/
-	void setEmail(const std::string& email);
-
-	/**
- 	* @brief Define a senha do usuário
- 	*/
-	void setSenha(const std::string& senha);
-
-	/**
- 	* @brief Método abstrato para autenticação
- 	* @param senha Senha informada
- 	* @return true se autenticação for válida
- 	*/
-	//virtual bool autenticar(const std::string& senha) const = 0;
+	
 };
 
 #endif

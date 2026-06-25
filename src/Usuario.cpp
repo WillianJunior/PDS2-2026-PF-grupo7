@@ -41,32 +41,3 @@ std::unique_ptr<Usuario> Usuario::login(const std::string &email,
 
     return nullptr; 
 }
-
-std::string Usuario::getNome() const
-{
-    return nome;
-}
-
-std::string Usuario::getEmail() const
-{
-    return email;
-}
-
-std::string Usuario::getSenha() const
-{
-    return senha;
-}
-
-void Usuario::setNome(const std::string &nome)
-{
-    this->nome = nome;
-}
-void Usuario::setEmail(const std::string &email)
-{
-    this->email = email;
-}
-
-void Usuario::setSenha(const std::string &senha)
-{
-    this->senha = senha;
-}

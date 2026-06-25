@@ -26,6 +26,7 @@ void Menu::iniciar()
 
     EstadosDeMenu estado = EstadosDeMenu::MenuInicial;
     std::unique_ptr<Usuario> usuario;
+    std::unique_ptr<Carrinho> carrinho;
 
     while (estado != EstadosDeMenu::Sair)
     {
@@ -37,16 +38,26 @@ void Menu::iniciar()
 
         case EstadosDeMenu::Login:
             usuario = fazerLogin();
-            // Se o usuario está logado, vai para o menu do tipo de usuario, caso contrário retorna para o menu inicial
-            estado = usuario ? EstadosDeMenu::MenuPrincipal : EstadosDeMenu::MenuInicial;
+
+            if (usuario)
+            {
+                carrinho = std::unique_ptr<Carrinho>(new Carrinho(*usuario));
+                estado = EstadosDeMenu::MenuPrincipal;
+            }
+            else
+            {
+                estado = EstadosDeMenu::MenuInicial;
+            }
             break;
         case EstadosDeMenu::MenuPrincipal:
             estado = menuPrincipal(*usuario);
             break;
 
         case EstadosDeMenu::VerCatalogo:
-            estado = usuario ? verCatalogo(*usuario) : verCatalogo(); // chamar método que mostra o catálogo
+            estado = usuario ? verCatalogo(*usuario, *carrinho) : verCatalogo(); // chamar método que mostra o catálogo
             break;
+        case EstadosDeMenu::Carrinho:
+            estado = verCarrinho(*carrinho);
 
         case EstadosDeMenu::Sair:
             break;
@@ -94,35 +105,6 @@ EstadosDeMenu Menu::menuInicial()
     }
 }
 
-void Menu::Menu_01()
-{
-
-    std::cout << "1. Login" << std::endl;
-    std::cout << "2. Ver Catálogo" << std::endl;
-    std::cout << "3. Sair" << std::endl;
-}
-
-void Menu::Login_Action(std::string usuario, std::string senha)
-{
-
-    // Deverá utilizar os parametros para buscar em um txt o usuario e senha correspondente.
-}
-
-void Menu::Login()
-{
-
-    std::string usuario;
-    std::string senha;
-
-    std::cout << "Usuário: " << std::endl;
-    std::cin >> usuario;
-
-    std::cout << "Senha: " << std::endl;
-    std::cin >> senha;
-
-    Menu::Login_Action(usuario, senha);
-}
-
 EstadosDeMenu Menu::menuPrincipal(const Usuario &usuario)
 {
 
@@ -132,33 +114,6 @@ EstadosDeMenu Menu::menuPrincipal(const Usuario &usuario)
     }
 
     return menuPrincipalCliente(usuario);
-}
-
-void Menu::showMenu(const Usuario &usuario)
-{
-    std::cout << "\nBem vindo, " << usuario.nome << "!\n"
-              << std::endl;
-
-    if (usuario.possuiAcesso(static_cast<int>(NivelDeAcesso::Admin)))
-    {
-        menuAdmin();
-    }
-    else if (usuario.possuiAcesso(static_cast<int>(NivelDeAcesso::Cliente)))
-    {
-        menuCliente();
-    }
-    else
-    {
-        menuVisitante();
-    }
-}
-
-void Menu::menuVisitante()
-{
-
-    std::cout << "1. Login" << std::endl;
-    std::cout << "2. Ver Catálogo" << std::endl;
-    std::cout << "3. Sair" << std::endl;
 }
 
 EstadosDeMenu Menu::menuPrincipalCliente(const Usuario &usuario)
@@ -188,15 +143,6 @@ EstadosDeMenu Menu::menuPrincipalCliente(const Usuario &usuario)
     default:
         return EstadosDeMenu::MenuPrincipal; // fica no mesmo menu se input inválido.
     }
-}
-
-void Menu::menuCliente()
-{
-    std::cout << "1. Ver Catálogo" << std::endl;
-    std::cout << "2. Carrinho" << std::endl;
-    std::cout << "3. Minhas Compras" << std::endl;
-    std::cout << "4. Editar Meus Dados" << std::endl;
-    std::cout << "5. Sair" << std::endl;
 }
 
 EstadosDeMenu Menu::menuPrincipalAdmin(const Usuario &usuario)
@@ -237,49 +183,139 @@ EstadosDeMenu Menu::menuPrincipalAdmin(const Usuario &usuario)
     }
 }
 
-void Menu::menuAdmin()
-{
-    std::cout << "1. Ver Catálogo" << std::endl;
-    std::cout << "2. Carrinho" << std::endl;
-    std::cout << "3. Minhas Compras" << std::endl;
-    std::cout << "4. Gerenciar Produto" << std::endl;  // cria, exclui, altera produtos.
-    std::cout << "5. Gerenciar Catálogo" << std::endl; // adiciona, remove produtos do catálogo.
-    std::cout << "6. Gerenciar Estoque" << std::endl;  // adiona, remove, altera qtd de produtos do estoque
-    std::cout << "7. Ver Estoque" << std::endl;
-    std::cout << "8. Sair" << std::endl;
-}
 
-EstadosDeMenu Menu::verCatalogo(const Usuario &usuario)
+EstadosDeMenu Menu::verCatalogo(const Usuario &usuario, Carrinho &carrinho)
 {
     Catalogo catalogo = Catalogo::carregarCatalogo("jogos.txt");
+    catalogo.exibirCatalogo();
 
     int opcao;
 
-    do{
+    do
+    {
 
-    std::cout << "=== Catalogo ===" << std::endl;
-    std::cout << "1. Ver todos os jogos" << std::endl;
-    std::cout << "2. Filtrar por genero" << std::endl;
-    std::cout << "3. Filtrar por plataforma" << std::endl;
-    std::cout << "4. Ordenar por preco" << std::endl;
-    std::cout << "0. Voltar" << std::endl;
+        std::cout << "=== Catalogo ===" << std::endl;
+        std::cout << "1. Ver todos os jogos" << std::endl;
+        std::cout << "2. Filtrar por genero" << std::endl;
+        std::cout << "3. Filtrar por plataforma" << std::endl;
+        std::cout << "4. Ordenar por preco" << std::endl;
+        std::cout << "5. Comprar um Jogo" << std::endl;
+        std::cout << "6. Ver carrinho" << std::endl;
+        std::cout << "0. Voltar" << std::endl;
 
-    opcao = lerComando();
+        opcao = lerComando();
 
-        if (opcao == 1) {
+        if (opcao == 1)
+        {
             catalogo.exibirCatalogo();
-        } else if (opcao == 2) {
+        }
+        else if (opcao == 2)
+        {
             std::string genero;
             std::cout << "Genero: ";
             std::cin >> genero;
             catalogo.filtrarGenero(genero);
-        } else if (opcao == 3) {
+        }
+        else if (opcao == 3)
+        {
             std::string plataforma;
             std::cout << "Plataforma: ";
             std::cin >> plataforma;
             catalogo.filtrarPlataforma(plataforma);
-        } else if (opcao == 4) {
+        }
+        else if (opcao == 4)
+        {
             catalogo.ordenarPreco();
+        }
+        else if (opcao == 5)
+        {
+            catalogo.comprar(carrinho); //Adiciona jogo ao carrinho
+        }else if(opcao == 6){
+            carrinho.exibirCarrinho();
+        }
+
+        if (opcao != 0)
+        {
+            std::cout << "\nPressione Enter para continuar...";
+            std::cin.get();
+        }
+
+    } while (opcao != 0);
+
+    return EstadosDeMenu::MenuPrincipal;
+}
+
+EstadosDeMenu Menu::verCatalogo()
+{
+    Catalogo catalogo = Catalogo::carregarCatalogo("jogos.txt");
+    catalogo.exibirCatalogo();
+
+    int opcao;
+
+    do
+    {
+
+        std::cout << "=== Catalogo ===" << std::endl;
+        std::cout << "1. Ver todos os jogos" << std::endl;
+        std::cout << "2. Filtrar por genero" << std::endl;
+        std::cout << "3. Filtrar por plataforma" << std::endl;
+        std::cout << "4. Ordenar por preco" << std::endl;
+        std::cout << "0. Voltar" << std::endl;
+
+        opcao = lerComando();
+
+        if (opcao == 1)
+        {
+            catalogo.exibirCatalogo();
+        }
+        else if (opcao == 2)
+        {
+            std::string genero;
+            std::cout << "Genero: ";
+            std::cin >> genero;
+            catalogo.filtrarGenero(genero);
+        }
+        else if (opcao == 3)
+        {
+            std::string plataforma;
+            std::cout << "Plataforma: ";
+            std::cin >> plataforma;
+            catalogo.filtrarPlataforma(plataforma);
+        }
+        else if (opcao == 4)
+        {
+            catalogo.ordenarPreco();
+        }
+
+        if (opcao != 0)
+        {
+            std::cout << "\nPressione Enter para continuar...";
+            std::cin.get();
+        }
+
+    } while (opcao != 0);
+
+    return EstadosDeMenu::MenuInicial;
+}
+
+
+EstadosDeMenu Menu::verCarrinho(Carrinho& carrinho){
+    int opcao;
+
+    do{
+        carrinho.exibirCarrinho();
+
+        std::cout <<"\n1. Remover item" <<std::endl;
+        std::cout <<"0. Voltar" <<std::endl;
+
+        opcao = lerComando();
+
+        if (opcao == 1) {
+            std::cout << "Numero do item a remover: ";
+            int indice;
+            std::cin >> indice;
+            std::cin.ignore();
+            carrinho.remover(indice - 1);
         }
 
         if (opcao != 0) {
@@ -290,48 +326,4 @@ EstadosDeMenu Menu::verCatalogo(const Usuario &usuario)
     } while (opcao != 0);
 
     return EstadosDeMenu::MenuPrincipal;
-}
-
-
-EstadosDeMenu Menu::verCatalogo()
-{
-    Catalogo catalogo = Catalogo::carregarCatalogo("jogos.txt");
-
-    int opcao;
-
-    do{
-
-    std::cout << "=== Catalogo ===" << std::endl;
-    std::cout << "1. Ver todos os jogos" << std::endl;
-    std::cout << "2. Filtrar por genero" << std::endl;
-    std::cout << "3. Filtrar por plataforma" << std::endl;
-    std::cout << "4. Ordenar por preco" << std::endl;
-    std::cout << "0. Voltar" << std::endl;
-
-    opcao = lerComando();
-
-        if (opcao == 1) {
-            catalogo.exibirCatalogo();
-        } else if (opcao == 2) {
-            std::string genero;
-            std::cout << "Genero: ";
-            std::cin >> genero;
-            catalogo.filtrarGenero(genero);
-        } else if (opcao == 3) {
-            std::string plataforma;
-            std::cout << "Plataforma: ";
-            std::cin >> plataforma;
-            catalogo.filtrarPlataforma(plataforma);
-        } else if (opcao == 4) {
-            catalogo.ordenarPreco();
-        }
-
-        if (opcao != 0) {
-            std::cout << "\nPressione Enter para continuar...";
-            std::cin.get();
-        }
-
-    } while (opcao != 0);
-
-    return EstadosDeMenu::MenuInicial;
 }

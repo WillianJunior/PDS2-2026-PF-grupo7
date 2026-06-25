@@ -68,6 +68,50 @@ void Catalogo::exibirCatalogo()const{
     listarJogos(jogos);
 }
 
+void Catalogo::listarJogosNumerados(const std::vector<Produto> &listaDeJogos) const {
+    if (listaDeJogos.empty()) {
+        std::cout << "Nenhum jogo encontrado." << std::endl;
+        return;
+    }
+
+    std::cout << std::left
+              << std::setw(5)  << "No."
+              << std::setw(35) << "Nome"
+              << std::setw(10) << "Plataforma"
+              << std::setw(15) << "Genero"
+              << "Preco"
+              << std::endl;
+    std::cout << std::string(75, '-') << std::endl;
+
+    for (int i = 0; i < static_cast<int>(listaDeJogos.size()); i++) {
+        std::cout << std::left
+                  << std::setw(5) << (i + 1);
+        listaDeJogos[i].exibirProduto();
+    }
+    std::cout << std::string(75, '-') << std::endl;
+}
+
+void Catalogo::comprar(Carrinho &carrinho) const {
+    listarJogosNumerados(jogos);
+
+    std::cout << "\nDigite o numero do jogo para adicionar ao carrinho" << std::endl;
+    std::cout << "(0 para cancelar): ";
+
+    int opcao;
+    std::cin >> opcao;
+    std::cin.ignore(); //limpa entrada
+
+      if (opcao == 0) return;
+
+    int indice = opcao - 1;
+    if (indice < 0 || indice >= static_cast<int>(jogos.size())) {
+        std::cout << "Opcao invalida." << std::endl;
+        return;
+    }
+
+    carrinho.adicionar(jogos[indice]);
+}
+
 //FILTRO GENERO
 void Catalogo::filtrarGenero(const std::string &genero) const{
     std::vector<Produto> jogosFiltrados;
@@ -112,20 +156,3 @@ void Catalogo::ordenarPreco() const{
     exibirCabecalho();
     listarJogos(ordenado);
 }
-
-
-void Catalogo::adicionarProduto(const Produto &produto) {}
-
-void Catalogo::removerProduto(int id) {}
-
-std::vector<Produto> Catalogo::getProdutos() const { return {}; }
-
-std::vector<Produto> Catalogo::filtrarPorCategoria(const std::string &categoria) { return {}; }
-
-void Catalogo::ordenarPorPreco(bool crescente) {}
-
-std::vector<Produto> Catalogo::buscarProduto(const std::string &termo) { return {}; }
-
-std::string Catalogo::listarNomes() const { return {}; }
-
-std::string Catalogo::listarPrecos() const { return {}; }

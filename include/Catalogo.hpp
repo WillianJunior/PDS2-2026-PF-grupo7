@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "Produto.hpp"
+#include "Carrinho.hpp"
 
 /**
  * @file Catalogo.hpp
@@ -30,69 +31,18 @@ public:
 	void filtrarPlataforma(const std::string &plataforma) const;
 	void ordenarPreco() const;
 
+	void comprar(Carrinho &carrinho) const;
+
 private:
 	std::vector<Produto> jogos; ///< Lista de produtos
-	std::string filtroAtivo;	///< Filtro atual (categoria, etc.)
-	std::string ordenacaoAtiva; ///< Tipo de ordenação
-	std::string termoBusca;		///< Termo de busca
-
 	/**
 	 * @brief Construtor padrão
 	 */
 	Catalogo() {}
-	
+
 	void exibirCabecalho() const;
 	void listarJogos(const std::vector<Produto> &listaDeJogos) const;
+	void listarJogosNumerados(const std::vector<Produto> &listaDeJogos) const;
 
-	// ===============================
-	// Gerenciamento de produtos
-	// ===============================
-
-	/**
-	 * @brief Adiciona um produto ao catálogo
-	 */
-	void adicionarProduto(const Produto &produto);
-
-	/**
-	 * @brief Remove um produto pelo ID
-	 */
-	void removerProduto(int id);
-
-	/**
-	 * @brief Retorna todos os produtos
-	 */
-	std::vector<Produto> getProdutos() const;
-
-	// ===============================
-	// Funcionalidades (CRC)
-	// ===============================
-
-	/**
-	 * @brief Filtra produtos por categoria
-	 */
-	std::vector<Produto> filtrarPorCategoria(const std::string &categoria);
-
-	/**
-	 * @brief Ordena produtos por preço
-	 * @param crescente true = crescente, false = decrescente
-	 */
-	void ordenarPorPreco(bool crescente);
-	/**
-	 * @brief Busca produto pelo nome
-	 */
-	std::vector<Produto> buscarProduto(const std::string &termo);
-
-	/**
-	 * @brief Exibe nomes dos produtos
-	 */
-	std::string listarNomes() const;
-
-	/**
-	 * @brief Exibe preços dos produtos
-	 */
-	std::string listarPrecos() const;
-	/**
-	 * @brief verifica se o produto existe
-	 */
-	bool produtoExiste(const std::string &nome);
+	
 };
