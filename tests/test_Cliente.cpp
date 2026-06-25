@@ -1,40 +1,26 @@
 #include "doctest.h"
 #include "Cliente.hpp"
 
-TEST_CASE("Teste de criação de Cliente") {
-    Cliente cliente;
-    CHECK(cliente.getNome() == "");
-    CHECK(cliente.getEmail() == "");
-    CHECK(cliente.getSenha() == "");
-}
-
-TEST_CASE("Teste de histórico de compras") {
-    Cliente cliente;
-    CHECK(cliente._getHistoricoCompras().empty() == true);
-}
-
-TEST_CASE("Teste de classificação de produto") {
-    Cliente cliente;
-    cliente._classificarProduto(1, 5); // Classifica o produto com ID 1 com nota 5
-    //implementar teste para ver se a nota foi dada ao produto
-};
-
-TEST_CASE("Teste de alteração de nome e endereço") {
-    Cliente cliente;
-    cliente._alterarNome("Novo Nome");
-    cliente._alterarEndereco("Novo Endereço");
-    CHECK(cliente.getNome() == "Novo Nome");
-    CHECK(cliente.getEndereco() == "Novo Endereço");
-}
-
-TEST_CASE("Teste de gerenciamento do carrinho") {
-    Cliente cliente;
-    Carrinho carrinho;
-    cliente._addProdutoCarrinho(1, carrinho); // Adiciona o produto com ID 1 ao carrinho
-    CHECK(carrinho._getProdutos().size() >= 1);
-
-    cliente._delProdutoCarrinho(1, carrinho); // Remove o produto com ID 1 do carrinho
-    CHECK(carrinho._getProdutos().size() == 0); //implementar teste para ver se o produto foi removido do carrinho
-    cliente._limparCarrinho(carrinho); // Limpa o carrinho
-    CHECK(carrinho._getProdutos().size() == 0); //implementar teste para ver se o carrinho foi limpo
+TEST_SUITE("Cliente") {
+ 
+    TEST_CASE("Construtor inicializa usuário com nível de acesso Cliente") {
+        Cliente cl("Pedro", "pedro@email.com", "senha456");
+        CHECK(cl.usuario.nome  == "Pedro");
+        CHECK(cl.usuario.email == "pedro@email.com");
+        CHECK(cl.usuario.nivelDeAcesso ==
+              static_cast<int>(NivelDeAcesso::Cliente));
+    }
+ 
+    TEST_CASE("Cliente possui carrinho vazio ao ser criado") {
+        Cliente cl("Pedro", "pedro@email.com", "senha456");
+        CHECK(cl.carrinho.estaVazio() == true);
+        CHECK(cl.carrinho.total()     == doctest::Approx(0.0));
+    }
+ 
+    TEST_CASE("Carrinho do cliente aceita produtos") {
+        Cliente cl("Pedro", "pedro@email.com", "senha456");
+        cl.carrinho.adicionar(Produto("God of War", "PS5", "Ação", 199.90));
+        CHECK(cl.carrinho.estaVazio() == false);
+        CHECK(cl.carrinho.total()     == doctest::Approx(199.90));
+    }
 }

@@ -1,0 +1,61 @@
+.TH "Catalogo" 3 "Loja de Jogos" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Catalogo
+.SH SYNOPSIS
+.br
+.PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCatalogo\fP ()"
+.br
+.RI "Construtor padrão\&. "
+.ti -1c
+.RI "void \fBexibirCatalogo\fP () const"
+.br
+.ti -1c
+.RI "void \fBfiltrarGenero\fP (const std::string &genero) const"
+.br
+.ti -1c
+.RI "void \fBfiltrarPlataforma\fP (const std::string &plataforma) const"
+.br
+.ti -1c
+.RI "void \fBordenarPreco\fP () const"
+.br
+.ti -1c
+.RI "void \fBcomprar\fP (\fBCarrinho\fP &carrinho) const"
+.br
+.in -1c
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static \fBCatalogo\fP \fBcarregarCatalogo\fP (const std::string &txtpath='jogos\&.txt')"
+.br
+.RI "Carrega o catálogo de jogos de jogos\&.txt\&. "
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "\fBCatalogo\fP Catalogo::carregarCatalogo (const std::string & txtpath = \fC'jogos\&.txt'\fP)\fC [static]\fP"
+
+.PP
+Carrega o catálogo de jogos de jogos\&.txt\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fItxtpath\fP 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+\fBCatalogo\fP 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Loja de Jogos from the source code\&.

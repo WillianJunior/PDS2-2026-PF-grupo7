@@ -30,11 +30,6 @@ public:
 		const std::string &email,
 		const std::string &senha);
 
-	// ===============================
-	// Getter
-	// ===============================
-
-	std::string getNivelAcesso() const;
 
 	// ===============================
 	// Comportamentos (CRC)

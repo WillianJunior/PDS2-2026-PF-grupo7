@@ -1,0 +1,76 @@
+.TH "include/EstadosDeMenu.hpp" 3 "Loja de Jogos" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+include/EstadosDeMenu.hpp \- Define a máquina de estados para a navegação dos menus do sistema\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.SS "Enumerations"
+
+.in +1c
+.ti -1c
+.RI "enum class \fBEstadosDeMenu\fP { \fBMenuInicial\fP, \fBLogin\fP, \fBMenuPrincipal\fP, \fBMenuPrincipalCliente\fP, \fBVerCatalogo\fP, \fBCarrinho\fP, \fBMinhasCompras\fP, \fBEditarMeusDados\fP, \fBMenuPrincipalAdmin\fP, \fBGerenciarProduto\fP, \fBGerenciarCatalogo\fP, \fBGerenciarEstoque\fP, \fBVerEstoque\fP, \fBSair\fP }"
+.br
+.RI "Enumeração que representa cada tela ou estado possível do sistema\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Define a máquina de estados para a navegação dos menus do sistema\&. 
+
+
+.SH "Enumeration Type Documentation"
+.PP 
+.SS "enum class \fBEstadosDeMenu\fP\fC [strong]\fP"
+
+.PP
+Enumeração que representa cada tela ou estado possível do sistema\&. 
+.PP
+\fBEnumerator\fP
+.in +1c
+.TP
+\fB\fIMenuInicial \fP\fP
+Tela inicial para visitantes (Login / Sair) 
+.TP
+\fB\fILogin \fP\fP
+Tela de inserção de credenciais\&. 
+.TP
+\fB\fIMenuPrincipal \fP\fP
+Estado intermediário que checa o nível de acesso e redireciona\&. 
+.TP
+\fB\fIMenuPrincipalCliente \fP\fP
+\fBMenu\fP principal com opções exclusivas do cliente\&. 
+.TP
+\fB\fIVerCatalogo \fP\fP
+Visualização e filtragem de produtos\&. 
+.TP
+\fB\fICarrinho \fP\fP
+Visualização e gerenciamento do carrinho de compras\&. 
+.TP
+\fB\fIMinhasCompras \fP\fP
+Histórico de compras do cliente\&. 
+.TP
+\fB\fIEditarMeusDados \fP\fP
+Tela para atualização cadastral do cliente\&. 
+.TP
+\fB\fIMenuPrincipalAdmin \fP\fP
+\fBMenu\fP principal com opções administrativas\&. 
+.TP
+\fB\fIGerenciarProduto \fP\fP
+CRUD e operações básicas de produtos\&. 
+.TP
+\fB\fIGerenciarCatalogo \fP\fP
+Controle de exibição do catálogo global\&. 
+.TP
+\fB\fIGerenciarEstoque \fP\fP
+Controle de entradas, saídas e alertas de estoque\&. 
+.TP
+\fB\fIVerEstoque \fP\fP
+Visualização da situação atual do estoque\&. 
+.TP
+\fB\fISair \fP\fP
+Encerramento do programa\&. 
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Loja de Jogos from the source code\&.

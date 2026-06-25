@@ -18,6 +18,12 @@
 class Catalogo
 {
 public:
+
+	/**
+	 * @brief Construtor padrão
+	 */
+	Catalogo() {}
+
 	/**
 	 * @brief Carrega o catálogo de jogos de jogos.txt
 	 *
@@ -35,10 +41,8 @@ public:
 
 private:
 	std::vector<Produto> jogos; ///< Lista de produtos
-	/**
-	 * @brief Construtor padrão
-	 */
-	Catalogo() {}
+	
+	
 
 	void exibirCabecalho() const;
 	void listarJogos(const std::vector<Produto> &listaDeJogos) const;

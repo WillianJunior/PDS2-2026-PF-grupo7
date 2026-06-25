@@ -1,29 +1,39 @@
 #include "doctest.h"
 #include "Catalogo.hpp"
 
-TEST_CASE("Teste de criação de Catalogo") {
-    Catalogo catalogo;
-    CHECK(catalogo.getProdutos().empty() == true); // Verifica se a lista de produtos está vazia
+TEST_SUITE("Catalogo") {
+ 
+    TEST_CASE("carregarCatalogo com arquivo inexistente não lança exceção") {
+        // Deve retornar um catálogo vazio ou tratado sem crash
+        Catalogo cat;
+        CHECK_NOTHROW(cat = Catalogo::carregarCatalogo("arquivo_inexistente.txt"));
+    }
+ 
+    TEST_CASE("exibirCatalogo não lança exceção em catálogo vazio") {
+        Catalogo cat = Catalogo::carregarCatalogo("jogos.txt");
+        CHECK_NOTHROW(cat.exibirCatalogo());
+    }
+ 
+    TEST_CASE("filtrarGenero não lança exceção") {
+        Catalogo cat = Catalogo::carregarCatalogo("jogos.txt");
+        CHECK_NOTHROW(cat.filtrarGenero("RPG"));
+    }
+ 
+    TEST_CASE("filtrarPlataforma não lança exceção") {
+        Catalogo cat = Catalogo::carregarCatalogo("jogos.txt");
+        CHECK_NOTHROW(cat.filtrarPlataforma("PC"));
+    }
+ 
+    TEST_CASE("ordenarPreco não lança exceção") {
+        Catalogo cat = Catalogo::carregarCatalogo("jogos.txt");
+        CHECK_NOTHROW(cat.ordenarPreco());
+    }
+ 
+    TEST_CASE("comprar recebe referência de Carrinho sem lançar exceção") {
+        Usuario u("Test", "t@t.com", "p", static_cast<int>(NivelDeAcesso::Cliente));
+        Carrinho carrinho(u);
+        Catalogo cat = Catalogo::carregarCatalogo("jogos.txt");
+        CHECK_NOTHROW(cat.comprar(carrinho));
+    }
 }
-
-TEST_CASE("Teste de adição e remoção de produtos") {
-    Catalogo catalogo;
-    Produto produto(1, "Produto A", "Categoria X", 10.0f, 100);
-    catalogo.adicionarProduto(produto); // Adiciona um produto ao catálogo
-    CHECK(catalogo.getProdutos().size() == 1); // Verifica se o produto foi adicionado
-
-    catalogo.removerProduto(1); // Remove o produto do catálogo
-    CHECK(catalogo.getProdutos().empty() == true); // Verifica se o produto foi removido
-}
-
-TEST_CASE("Teste de filtragem por categoria") {
-    Catalogo catalogo;
-    Produto produto1(1, "Produto A", "Categoria X", 10.0f, 100);
-    Produto produto2(2, "Produto B", "Categoria Y", 20.0f, 50);
-    catalogo.adicionarProduto(produto1);
-    catalogo.adicionarProduto(produto2);
-
-    auto produtosCategoriaX = catalogo.filtrarPorCategoria("Categoria X");
-    CHECK(produtosCategoriaX.size() == 1); // Verifica se apenas um produto foi filtrado
-    CHECK(produtosCategoriaX[0].getNome() == "Produto A"); // Verifica se o produto filtrado é o correto
-}
+ 

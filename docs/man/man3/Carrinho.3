@@ -1,0 +1,113 @@
+.TH "Carrinho" 3 "Loja de Jogos" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+Carrinho \- Classe que representa o carrinho de compras de um usuário\&.  
+
+.SH SYNOPSIS
+.br
+.PP
+.PP
+\fC#include <Carrinho\&.hpp>\fP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBCarrinho\fP (\fBUsuario\fP &usuario)"
+.br
+.RI "Construtor explícito do \fBCarrinho\fP\&. "
+.ti -1c
+.RI "void \fBadicionar\fP (const \fBProduto\fP &jogo)"
+.br
+.RI "Adiciona um produto ao carrinho\&. "
+.ti -1c
+.RI "void \fBremover\fP (int indice)"
+.br
+.RI "Remove um produto do carrinho com base no seu índice\&. "
+.ti -1c
+.RI "void \fBexibirCarrinho\fP () const"
+.br
+.RI "Exibe no console todos os produtos atualmente no carrinho\&. "
+.ti -1c
+.RI "double \fBtotal\fP () const"
+.br
+.RI "Calcula o valor total somando o preço de todos os itens\&. "
+.ti -1c
+.RI "bool \fBestaVazio\fP () const"
+.br
+.RI "Verifica se o carrinho está sem nenhum item\&. "
+.in -1c
+.SH "Detailed Description"
+.PP 
+Classe que representa o carrinho de compras de um usuário\&. 
+
+
+.IP "\(bu" 2
+Permite a adição, remoção e cálculo do valor total dos produtos selecionados\&. 
+.PP
+
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Carrinho::Carrinho (\fBUsuario\fP & usuario)\fC [explicit]\fP"
+
+.PP
+Construtor explícito do \fBCarrinho\fP\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIusuario\fP Referência ao Usuário que será dono deste carrinho\&. 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Carrinho::adicionar (const \fBProduto\fP & jogo)"
+
+.PP
+Adiciona um produto ao carrinho\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIjogo\fP O objeto \fBProduto\fP (jogo) a ser inserido\&. 
+.RE
+.PP
+
+.SS "bool Carrinho::estaVazio () const"
+
+.PP
+Verifica se o carrinho está sem nenhum item\&. 
+.PP
+\fBReturns\fP
+.RS 4
+true Se o carrinho estiver vazio\&. 
+.PP
+false Se houver pelo menos um item no carrinho\&. 
+.RE
+.PP
+
+.SS "void Carrinho::remover (int indice)"
+
+.PP
+Remove um produto do carrinho com base no seu índice\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fIindice\fP Posição do produto no vetor de itens\&. 
+.RE
+.PP
+
+.SS "double Carrinho::total () const"
+
+.PP
+Calcula o valor total somando o preço de todos os itens\&. 
+.PP
+\fBReturns\fP
+.RS 4
+double O valor total do carrinho\&. 
+.RE
+.PP
+
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Loja de Jogos from the source code\&.

@@ -21,8 +21,7 @@ int Menu::lerComando()
 
 void Menu::iniciar()
 {
-    animacao::load_ps();
-    animacao::abertura();
+
 
     EstadosDeMenu estado = EstadosDeMenu::MenuInicial;
     std::unique_ptr<Usuario> usuario;
@@ -64,7 +63,6 @@ void Menu::iniciar()
         }
     }
 
-    animacao::encerramento();
 }
 
 std::unique_ptr<Usuario> Menu::fazerLogin()

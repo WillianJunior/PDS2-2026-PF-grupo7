@@ -1,0 +1,39 @@
+.TH "animacao" 3 "Loja de Jogos" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+animacao
+.SH SYNOPSIS
+.br
+.PP
+.SS "Static Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "static void \fBload_ps\fP ()"
+.br
+.ti -1c
+.RI "static void \fBabertura\fP ()"
+.br
+.ti -1c
+.RI "static void \fBencerramento\fP ()"
+.br
+.in -1c
+.SH "Member Function Documentation"
+.PP 
+.SS "void animacao::abertura ()\fC [static]\fP"
+desenhos::controles(); // DESENHO 1 std::this_thread::sleep_for(std::chrono::seconds(1)); 
+.br
+ std::system('clear');
+.PP
+desenhos::controle_super_nintendo(); // DESENHO 2 std::this_thread::sleep_for(std::chrono::seconds(1)); 
+.br
+ std::system('clear');
+.PP
+desenhos::controle_arcade(); // DESENHO 3 std::this_thread::sleep_for(std::chrono::seconds(1)); 
+.br
+ std::system('clear');
+
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Loja de Jogos from the source code\&.
