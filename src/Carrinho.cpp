@@ -37,6 +37,11 @@ bool Carrinho::estaVazio() const
     return itens.empty();
 }
 
+const std::vector<Produto>& Carrinho::getItens() const
+{
+    return itens;
+}
+
 Compra Carrinho::finalizarCompra()
 {
     Compra compra(usuario.email, itens);
