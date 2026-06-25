@@ -27,6 +27,13 @@ public:
      * @brief Inicia o loop principal do sistema de menus.
      */
     static void iniciar();
+
+     /**
+     * @brief Lê a opção digitada pelo usuário no console com validação de entrada de dados.
+     * @return int O número correspondente à opção escolhida.
+     */
+    static int lerComando();
+
     
 private:
     /**
@@ -125,12 +132,7 @@ private:
      */
     static EstadosDeMenu menuGerenciarEstoque(const Usuario &usuario);
 
-    /**
-     * @brief Lê a opção digitada pelo usuário no console com validação de entrada de dados.
-     * @return int O número correspondente à opção escolhida.
-     */
-    static int lerComando();
-
+   
     /**
      * @brief Renderiza visualmente o layout do menu do Cliente.
      */

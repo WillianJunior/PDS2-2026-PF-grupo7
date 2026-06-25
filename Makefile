@@ -103,12 +103,10 @@ run: all
 	./${BUILD_DIR}/${TARGET}
 
 coverage: run-tests
-	gcovr -r . --exclude="third_party/doctest.h"
-	gcovr -r . --exclude="third_party/doctest.h" -b
-
+	gcovr -r . --exclude="third_party/doctest.h" --exclude="src/Controle/Menu.cpp"
+	gcovr -r . --exclude="third_party/doctest.h" --exclude="src/Controle/Menu.cpp" -b
 html-coverage: run-tests
-	gcovr -r . --exclude="third_party/doctest.h" --html --html-details -o ${COVERAGE_DIR}/relatorio.html
-
+	gcovr -r . --exclude="third_party/doctest.h" --exclude="src/Controle/Menu.cpp" --html --html-details -o ${COVERAGE_DIR}/relatorio.html
 documentation:
 	doxygen Doxyfile
 

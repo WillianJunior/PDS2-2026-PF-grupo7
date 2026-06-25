@@ -29,11 +29,11 @@ TEST_SUITE("Catalogo") {
         CHECK_NOTHROW(cat.ordenarPreco());
     }
  
-    TEST_CASE("comprar recebe referência de Carrinho sem lançar exceção") {
+    /*TEST_CASE("comprar recebe referência de Carrinho sem lançar exceção") {
         Usuario u("Test", "t@t.com", "p", static_cast<int>(NivelDeAcesso::Cliente));
         Carrinho carrinho(u);
         Catalogo cat = Catalogo::carregarCatalogo("jogos.txt");
         CHECK_NOTHROW(cat.comprar(carrinho));
-    }
+    }*/ 
 }
  

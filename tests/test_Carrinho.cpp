@@ -28,7 +28,7 @@ TEST_SUITE("Carrinho") {
         CHECK(c.total() == doctest::Approx(150.0));
     }
  
-    TEST_CASE("Remover item reduz total") {
+     TEST_CASE("Remover item reduz total") {
         Usuario u("Maria", "maria@email.com", "pass",
                   static_cast<int>(NivelDeAcesso::Cliente));
         Carrinho c(u);
