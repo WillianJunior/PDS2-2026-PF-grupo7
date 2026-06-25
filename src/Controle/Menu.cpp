@@ -1,6 +1,7 @@
 #include "Menu.hpp"
 #include "Catalogo.hpp"
 #include "NivelDeAcesso.hpp"
+#include "Estoque.hpp"
 #include "animacao.hpp"
 #include <iostream>
 #include <limits>
@@ -21,8 +22,6 @@ int Menu::lerComando()
 
 void Menu::iniciar()
 {
-
-
     EstadosDeMenu estado = EstadosDeMenu::MenuInicial;
     std::unique_ptr<Usuario> usuario;
     std::unique_ptr<Carrinho> carrinho;
@@ -57,12 +56,13 @@ void Menu::iniciar()
             break;
         case EstadosDeMenu::Carrinho:
             estado = verCarrinho(*carrinho);
-
+        case EstadosDeMenu::VerEstoque:
+            estado = verEstoque();
+            break;
         case EstadosDeMenu::Sair:
             break;
         }
     }
-
 }
 
 std::unique_ptr<Usuario> Menu::fazerLogin()
@@ -153,9 +153,8 @@ EstadosDeMenu Menu::menuPrincipalAdmin(const Usuario &usuario)
     std::cout << "3. Minhas Compras" << std::endl;
     std::cout << "4. Gerenciar Produto" << std::endl;  // cria, exclui, altera produtos.
     std::cout << "5. Gerenciar Catálogo" << std::endl; // adiciona, remove produtos do catálogo.
-    std::cout << "6. Gerenciar Estoque" << std::endl;  // adiona, remove, altera qtd de produtos do estoque
-    std::cout << "7. Ver Estoque" << std::endl;
-    std::cout << "8. Sair" << std::endl;
+    std::cout << "6. Ver Estoque" << std::endl;
+    std::cout << "7. Sair" << std::endl;
 
     switch (lerComando())
     {
@@ -171,16 +170,165 @@ EstadosDeMenu Menu::menuPrincipalAdmin(const Usuario &usuario)
     case 5:
         return EstadosDeMenu::GerenciarCatalogo;
     case 6:
-        return EstadosDeMenu::GerenciarEstoque;
-    case 7:
         return EstadosDeMenu::VerEstoque;
-    case 8:
+    case 7:
         return EstadosDeMenu::Sair;
     default:
         return EstadosDeMenu::MenuPrincipal; // fica no mesmo menu se input inválido.
     }
 }
 
+EstadosDeMenu Menu::verEstoque()
+{
+    Estoque estoque("estoque.txt");
+    int opcao;
+
+    do
+    {
+        // Carrega o arquivo a cada iteração para garantir sincronia
+        if (!estoque.carregarEstoque())
+        {
+            std::cout << "\n[Erro] Nao foi possivel carregar o arquivo de estoque.\n";
+            return EstadosDeMenu::MenuPrincipalAdmin;
+        }
+
+        // Exibe a tabela do estoque atual
+        estoque.exibirEstoque();
+
+        // Menu de opções
+        std::cout << "\n1. Adicionar / Incrementar Item\n";
+        std::cout << "2. Remover / Decrementar Item\n";
+        std::cout << "0. Voltar\n";
+
+        opcao = lerComando();
+
+        if (opcao == 1)
+        {
+            std::string nome;
+            int qtd;
+
+            std::cout << "Digite o nome do jogo: ";
+            std::getline(std::cin, nome);
+
+            if (estoque.jogoExiste(nome))
+            {
+                // Se já existe, só pede a quantidade para somar
+                std::cout << "Jogo encontrado! Digite a quantidade a adicionar: ";
+                std::cin >> qtd;
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                if (qtd > 0)
+                {
+                    // Puxamos um produto genérico aqui só pelo nome, pois o método de adicionar
+                    // do estoque só vai somar a quantidade se o nome já estiver lá.
+                    estoque.adicionarItem(Produto(nome, "", "", 0.0), qtd);
+                    std::cout << "\n[Sucesso] Quantidade atualizada!\n";
+                }
+            }
+            else
+            {
+                // Jogo novo: Pedimos todos os dados baseados na estrutura de inserção e extração de C++
+                std::string plataforma, genero;
+                double preco;
+
+                std::cout << "Plataforma: ";
+                std::getline(std::cin, plataforma);
+
+                std::cout << "Genero: ";
+                std::getline(std::cin, genero);
+
+                std::cout << "Preco: ";
+                std::cin >> preco;
+
+                std::cout << "Quantidade inicial: ";
+                std::cin >> qtd;
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                if (qtd > 0 && preco >= 0)
+                {
+                    Produto novoProduto(nome, plataforma, genero, preco);
+                    estoque.adicionarItem(novoProduto, qtd);
+                    std::cout << "\n[Sucesso] Novo jogo catalogado e adicionado ao estoque!\n";
+
+
+                    //adiciona ao catalogo
+                    Catalogo catalogo = Catalogo::carregarCatalogo("jogos.txt");
+                    catalogo.adicionarJogo(novoProduto);
+                    catalogo.salvarCatalogo("jogos.txt");
+                }
+                else
+                {
+                    std::cout << "\n[Erro] Valores invalidos.\n";
+                }
+            }
+            estoque.salvarEstoque();
+        }
+        else if (opcao == 2)
+        {
+            std::string nome;
+            int qtd;
+
+            std::cout << "Digite o nome do jogo a remover/reduzir: ";
+            std::getline(std::cin, nome);
+
+            // Verifica se o jogo existe antes de tentar remover
+            if (estoque.jogoExiste(nome))
+            {
+                std::cout << "Digite a quantidade a remover: ";
+                std::cin >> qtd;
+
+                // Limpa o buffer após ler o inteiro
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+                if (qtd > 0)
+                {
+                    // Tenta remover a quantidade especificada
+                    if (estoque.removerItem(nome, qtd))
+                    {
+                        estoque.salvarEstoque(); // Grava a alteração no ficheiro .txt
+                        std::cout << "\n[Sucesso] Estoque atualizado com sucesso!\n";
+
+                        if (!estoque.jogoExiste(nome))
+                        {
+                            // Carrega o catálogo atual do arquivo jogos.txt
+                            Catalogo catalogo = Catalogo::carregarCatalogo("jogos.txt");
+
+                            // Remove o jogo da memória e reescreve o arquivo
+                            catalogo.removerJogo(nome);
+                            catalogo.salvarCatalogo("jogos.txt");
+
+                        }
+                    }
+                    else
+                    {
+                        // Ocorre se tentar remover, por exemplo, 10 itens mas só existirem 5
+                        std::cout << "\n[Erro] Quantidade indisponivel. Nao pode remover mais do que o existente.\n";
+                    }
+                }
+                else
+                {
+                    std::cout << "\n[Erro] A quantidade tem de ser maior que zero.\n";
+                }
+            }
+            else
+            {
+                std::cout << "\n[Erro] Jogo nao encontrado no estoque.\n";
+            }
+        }
+        else if (opcao != 0)
+        {
+            std::cout << "Opcao invalida.\n";
+        }
+
+        if (opcao != 0)
+        {
+            std::cout << "\nPressione Enter para continuar...";
+            std::cin.get();
+        }
+    } while (opcao != 0);
+
+    return EstadosDeMenu::MenuPrincipal;
+}
 
 EstadosDeMenu Menu::verCatalogo(const Usuario &usuario, Carrinho &carrinho)
 {
@@ -227,8 +375,10 @@ EstadosDeMenu Menu::verCatalogo(const Usuario &usuario, Carrinho &carrinho)
         }
         else if (opcao == 5)
         {
-            catalogo.comprar(carrinho); //Adiciona jogo ao carrinho
-        }else if(opcao == 6){
+            catalogo.comprar(carrinho); // Adiciona jogo ao carrinho
+        }
+        else if (opcao == 6)
+        {
             carrinho.exibirCarrinho();
         }
 
@@ -296,19 +446,21 @@ EstadosDeMenu Menu::verCatalogo()
     return EstadosDeMenu::MenuInicial;
 }
 
-
-EstadosDeMenu Menu::verCarrinho(Carrinho& carrinho){
+EstadosDeMenu Menu::verCarrinho(Carrinho &carrinho)
+{
     int opcao;
 
-    do{
+    do
+    {
         carrinho.exibirCarrinho();
 
-        std::cout <<"\n1. Remover item" <<std::endl;
-        std::cout <<"0. Voltar" <<std::endl;
+        std::cout << "\n1. Remover item" << std::endl;
+        std::cout << "0. Voltar" << std::endl;
 
         opcao = lerComando();
 
-        if (opcao == 1) {
+        if (opcao == 1)
+        {
             std::cout << "Numero do item a remover: ";
             int indice;
             std::cin >> indice;
@@ -316,7 +468,8 @@ EstadosDeMenu Menu::verCarrinho(Carrinho& carrinho){
             carrinho.remover(indice - 1);
         }
 
-        if (opcao != 0) {
+        if (opcao != 0)
+        {
             std::cout << "\nPressione Enter para continuar...";
             std::cin.get();
         }

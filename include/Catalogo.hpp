@@ -4,6 +4,7 @@
 #include <vector>
 #include "Produto.hpp"
 #include "Carrinho.hpp"
+#include "Estoque.hpp"
 
 /**
  * @file Catalogo.hpp
@@ -18,7 +19,6 @@
 class Catalogo
 {
 public:
-
 	/**
 	 * @brief Construtor padrão
 	 */
@@ -39,14 +39,15 @@ public:
 
 	void comprar(Carrinho &carrinho) const;
 
+	void removerJogo(const std::string &nome);
+	void salvarCatalogo(const std::string &txtpath) const;
+
+	void adicionarJogo(const Produto &jogo);
+
 private:
 	std::vector<Produto> jogos; ///< Lista de produtos
-	
-	
 
 	void exibirCabecalho() const;
 	void listarJogos(const std::vector<Produto> &listaDeJogos) const;
 	void listarJogosNumerados(const std::vector<Produto> &listaDeJogos) const;
-
-	
 };
