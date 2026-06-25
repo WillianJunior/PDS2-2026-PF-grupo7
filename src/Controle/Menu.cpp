@@ -618,7 +618,10 @@ EstadosDeMenu Menu::gerenciarProduto()
     {
         std::cout << "\n[Erro] Preco invalido. Alteracoes descartadas.\n";
     }
+
+    return EstadosDeMenu::MenuPrincipal; // faltava o return aqui (funcao terminava sem retornar em alguns casos)
 }
+
 
 EstadosDeMenu Menu::verMinhasCompras(const Usuario &usuario)
 {
