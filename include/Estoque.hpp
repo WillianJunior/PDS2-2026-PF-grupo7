@@ -60,13 +60,47 @@ public:
      */
     void exibirEstoque() const;
 
+    /**
+     * @brief Adiciona um novo produto ao estoque ou incrementa a quantidade de um já existente.
+     * * Se o produto ainda não estiver cadastrado no estoque, ele será inserido juntamente 
+     * com a quantidade informada. Se já existir, a quantidade atual será somada à nova.
+     * * @param produto Objeto da classe Produto contendo os dados completos do jogo.
+     * @param quantidade A quantidade de unidades a serem adicionadas.
+     */
     void adicionarItem(const Produto& produto, int quantidade);
 
+    /**
+     * @brief Remove uma quantidade específica de um produto do estoque.
+     * * Reduz a quantidade disponível do item. Caso a quantidade do produto chegue a zero 
+     * após a remoção, ele é retirado completamente do registro do estoque.
+     * * @param nomeProduto O nome do produto que terá sua quantidade reduzida.
+     * @param quantidade A quantidade de unidades a serem subtraídas.
+     * @return true Se a operação foi bem-sucedida (produto encontrado e com quantidade suficiente).
+     * @return false Se o produto não for encontrado ou se a quantidade desejada for maior que a disponível em estoque.
+     */
     bool removerItem(const std::string &nomeProduto, int quantidade);
 
+    /**
+     * @brief Verifica se um determinado jogo está cadastrado no sistema de estoque.
+     * * @param nomeProduto O nome do jogo a ser pesquisado.
+     * @return true Se o jogo constar na lista do estoque.
+     * @return false Se o jogo não existir no estoque.
+     */
     bool jogoExiste(const std::string &nomeProduto) const;
 
+    /**
+     * @brief Atualiza os dados cadastrais de um produto já existente no estoque.
+     * * Permite modificar a plataforma, o gênero e o preço do jogo sem alterar
+     * a sua quantidade armazenada ou o seu nome (chave de busca).
+     * * @param nome O nome atual do produto que será editado.
+     * @param novaPlat A nova plataforma para a qual o jogo está disponível (ex: "PS5", "PC").
+     * @param novoGen O novo gênero do jogo (ex: "RPG", "Aventura").
+     * @param novoPreco O novo preço de venda do jogo.
+     * @return true Se o produto foi encontrado e atualizado com sucesso.
+     * @return false Se o produto especificado não foi encontrado no estoque.
+     */
     bool editarProduto(const std::string &nome, const std::string &novaPlat, const std::string &novoGen, double novoPreco);
+
 };
 
 #endif

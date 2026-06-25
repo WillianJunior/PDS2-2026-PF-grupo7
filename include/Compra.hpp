@@ -52,11 +52,36 @@ private:
     std::vector<Produto> itens;
     double total;
 
+    /**
+     * @brief Construtor da classe Compra.
+     * * @param emailCliente O email do utilizador que efetuou a compra.
+     * @param data A data e hora em que a compra foi efetuada.
+     * @param itens Lista (vector) de produtos adquiridos.
+     * @param total O valor total final da compra.
+     */
     Compra(const std::string &emailCliente, const std::string &data,
            const std::vector<Produto> &itens, double total);
 
+    /**
+     * @brief Gera a data e hora atuais do sistema.
+     * @return Uma string formatada com a data atual (ex: "DD/MM/AAAA HH:MM").
+     */
     static std::string gerarDataAtual();
+
+    /**
+     * @brief Converte a lista de produtos numa única string para ser guardada no txt.
+     * Utiliza vírgulas (,) para separar os atributos do produto e barras verticais (|) 
+     * para separar os diferentes produtos.
+     * * @param itens O vetor de produtos a serializar.
+     * @return std::string A string formatada contendo todos os itens.
+     */
     static std::string serializarItens(const std::vector<Produto> &itens);
+
+    /**
+     * @brief Lê uma string formatada e reconstrói a lista de objetos Produto.
+     * * @param itensStr A string gerada anteriormente pelo método serializarItens().
+     * @return std::vector<Produto> O vetor reconstruído com os produtos.
+     */
     static std::vector<Produto> desserializarItens(const std::string &itensStr);
 };
 

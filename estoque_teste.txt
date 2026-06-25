@@ -1,0 +1,1 @@
+nome;plataforma;genero;preco;quantidade
