@@ -6,6 +6,7 @@
 #include "animacao.hpp"
 #include <iostream>
 #include <limits>
+#include <map>
 
 int Menu::lerComando()
 {
@@ -523,35 +524,67 @@ EstadosDeMenu Menu::verCarrinho(Carrinho &carrinho)
             carrinho.remover(indice - 1);
         }
         else if (opcao == 2)
+        {
+            if (carrinho.estaVazio())
+            {
+                std::cout << "Carrinho vazio. Adicione itens antes de finalizar a compra." << std::endl;
+            }
+            else
+            {
+                Estoque estoque("estoque.txt");
+
+                if (!estoque.carregarEstoque())
                 {
-                    if (carrinho.estaVazio())
+                    std::cout << "\n[Erro] Nao foi possivel acessar o estoque para processar a compra.\n";
+                }
+                else
+                {
+                    // Conta quantas unidades de cada produto estao no carrinho
+                    // resolver o caso de um mesmo jogo ter sido adicionado mais de uma vez
+                    std::map<std::string, int> quantidadesNoCarrinho;
+                    for (const Produto &item : carrinho.getItens())
                     {
-                        std::cout << "Carrinho vazio. Adicione itens antes de finalizar a compra." << std::endl;
+                        quantidadesNoCarrinho[item.nome]++;
+                    }
+
+                    // Valida o estoque de s itens antes de finalizar  compra
+                    bool estoqueSuficiente = true;
+                    for (const auto &par : quantidadesNoCarrinho)
+                    {
+                        const std::string &nomeProduto = par.first;
+                        int quantidadeDesejada = par.second;
+                        int quantidadeDisponivel = estoque.obterQuantidade(nomeProduto);
+
+                        if (quantidadeDisponivel < quantidadeDesejada)
+                        {
+                            std::cout << "\n[Erro] Estoque insuficiente para \"" << nomeProduto
+                                      << "\" (disponivel: " << quantidadeDisponivel
+                                      << ", no carrinho: " << quantidadeDesejada << ").\n";
+                            estoqueSuficiente = false;
+                        }
+                    }
+
+                    if (!estoqueSuficiente)
+                    {
+                        std::cout << "Compra nao finalizada. Ajuste o carrinho e tente novamente.\n";
                     }
                     else
                     {
-                        Estoque estoque("estoque.txt");
-                        
-                        if (!estoque.carregarEstoque())
-                        {
-                            std::cout << "\n[Erro] Nao foi possivel acessar o estoque para processar a compra.\n";
-                        }
-                        else
-                        {
-                            Compra compra = carrinho.finalizarCompra();
+                        Compra compra = carrinho.finalizarCompra();
 
-                            for (const Produto &item : compra.getItens())
-                            {
-                                estoque.darBaixa(item.nome);
-                            }
-                            
-                            estoque.salvarEstoque();
-
-                            std::cout << "\nCompra finalizada com sucesso!" << std::endl;
-                            compra.exibirCompra();
+                        for (const Produto &item : compra.getItens())
+                        {
+                            estoque.darBaixa(item.nome);
                         }
+
+                        estoque.salvarEstoque();
+
+                        std::cout << "\nCompra finalizada com sucesso!" << std::endl;
+                        compra.exibirCompra();
                     }
                 }
+            }
+        }
 
         if (opcao != 0)
         {

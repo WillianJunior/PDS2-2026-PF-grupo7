@@ -58,6 +58,11 @@ public:
      * @return false Se houver pelo menos um item no carrinho.
      */
     bool estaVazio() const;
+    /**
+     * @brief Retorna os itens atualmente no carrinho (somente leitura).
+     * @return const std::vector<Produto>& Referência para os itens do carrinho.
+     */
+    const std::vector<Produto>& getItens() const;
 
     /**
      * @brief Finaliza a compra: registra os itens no histórico do cliente
