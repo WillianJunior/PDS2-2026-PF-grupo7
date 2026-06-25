@@ -2,9 +2,62 @@
 .ad l
 .nh
 .SH NAME
-md_README \- PDS2-2026-PF-grupo7 
+md_README \- 🎮 E-Commerce de Jogos de Videogame - GRUPO 07 
 .PP
- Compilação
+ Este projeto consiste em um sistema de e-commerce baseado em linha de comando (CLI) voltado para a venda, gerenciamento e controle de estoque de jogos de videogame\&. O software foi desenvolvido em C++ utilizando conceitos avançados de Programação Orientada a Objetos (POO)\&.
+.PP
+.PP
+.SH "👥 Integrantes do Grupo"
+.PP
+.IP "\(bu" 2
+\fBMurilo Barbosa\fP
+.IP "\(bu" 2
+\fBAndré Damaceno\fP
+.IP "\(bu" 2
+\fBReinaldo Andrade\fP
+.IP "\(bu" 2
+\fBDaniel Shuvarz\fP
+.IP "\(bu" 2
+\fBJenniffer Soares\fP
+.PP
+.PP
+.PP
+.SH "📝 Descrição do Problema, Objetivos e Motivação"
+.PP
+O mercado de jogos digitais e físicos expandiu de forma astronômica nos últimos anos, demandando sistemas robustos para o processamento de catálogos volumosos, controle preciso de unidades físicas e atendimento personalizado para diferentes perfis de usuários\&.
+.PP
+O objetivo principal deste sistema é fornecer uma plataforma integrada onde \fBClientes\fP possam navegar por jogos filtrados por gênero ou plataforma, organizar itens em um carrinho virtual e simular compras com segurança, enquanto \fBAdministradores\fP possuem controle total sobre o ciclo de vida dos produtos, manipulação de estoque e relatórios de vendas\&. A motivação para a escolha deste tema reside na oportunidade de aplicar os conhecimetos adquirios durante o curso em um cenário comercial, simulando as regras de negócio de lojas da indústria de jogos\&.
+.PP
+.PP
+.SH "🏗️ Arquitetura e Estrutura do Projeto"
+.PP
+O sistema foi arquitetado com base no desacoplamento de responsabilidades e na forte tipagem do C++\&. Abaixo estão os principais componentes estruturais mapeados através dos arquivos \fC\&.hpp\fP:
+.PP
+.IP "\(bu" 2
+**\fC\fBUsuario\fP\fP / \fC\fBCliente\fP\fP / \fC\fBAdministrador\fP\fP**: Separação de privilégios através de composição\&. O \fC\fBCliente\fP\fP possui um \fC\fBCarrinho\fP\fP de compras dinâmico, enquanto o \fC\fBAdministrador\fP\fP possui permissões exclusivas para invocar comportamentos de gerência\&.
+.IP "\(bu" 2
+**\fC\fBCatalogo\fP\fP / \fC\fBEstoque\fP\fP / \fC\fBProduto\fP\fP**: Módulos dedicados à manipulação dos dados dos jogos\&. O catálogo lê dados a partir de persistência em arquivos planos (\fCjogos\&.txt\fP) e oferece suporte a operações de busca, ordenação por preço e filtragem avançada\&.
+.IP "\(bu" 2
+**\fC\fBMenu\fP\fP / \fCEstadosDeMenu\fP**: O fluxo de navegação do sistema é controlado por uma Máquina de Estados Finita encapsulada através de um \fCenum class\fP\&. Isso garante uma navegação robusta e à prova de falhas, impedindo que visitantes sem autenticação acessem menus administrativos\&.
+.PP
+.SS "Fluxo de Estados do Menu"
+.PP
+.nf
+[ Menu Inicial ] ──( Visitante )──> Ver Catálogo (Apenas leitura)
+       │
+   ( Login )
+       │
+       ▼
+[ Menu Principal ]
+       │
+       ├─> ( Nível 1: Cliente ) ──> Carrinho, Ver Catálogo, Histórico de Compras
+       │
+       └─> ( Nível 2: Admin )   ──> Gerenciar Estoque, Modificar Catálogo
+.fi
+.PP
+.SH "Instruções de Uso"
+.PP
+Compilação
 .PP
 $ make
 .PP
@@ -18,7 +71,7 @@ $ make tests
 .PP
 Execução Testes
 .PP
-$ make run_tests
+$ make run-tests
 .PP
 Relatório de Cobertura
 .PP
@@ -28,4 +81,4 @@ $ make coverage
 .PP
 Para gerar o relatório em HTML, utilizar:
 .PP
-$ make html_coverage 
+$ make html-coverage 

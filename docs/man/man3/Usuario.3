@@ -25,6 +25,15 @@ Usuario
 .RI "static std::unique_ptr< \fBUsuario\fP > \fBlogin\fP (const std::string &\fBemail\fP, const std::string &\fBsenha\fP, const std::string &txtpath='usuarios\&.txt')"
 .br
 .RI "Método para realizar o login do usuário buscando os dados em um arquivo txt\&. "
+.ti -1c
+.RI "static bool \fBemailJaCadastrado\fP (const std::string &\fBemail\fP, const std::string &txtpath='usuarios\&.txt')"
+.br
+.ti -1c
+.RI "static std::unique_ptr< \fBUsuario\fP > \fBcadastrar\fP (const std::string &\fBnome\fP, const std::string &\fBemail\fP, const std::string &\fBsenha\fP, const std::string &txtpath='usuarios\&.txt')"
+.br
+.ti -1c
+.RI "static bool \fBatualizarUsuarioNoArquivo\fP (const std::string &emailAntigo, const \fBUsuario\fP &usuarioAtualizado, const std::string &txtpath)"
+.br
 .in -1c
 .SS "Public Attributes"
 

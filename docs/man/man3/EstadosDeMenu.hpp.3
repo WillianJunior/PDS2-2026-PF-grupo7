@@ -11,7 +11,7 @@ include/EstadosDeMenu.hpp \- Define a máquina de estados para a navegação dos
 
 .in +1c
 .ti -1c
-.RI "enum class \fBEstadosDeMenu\fP { \fBMenuInicial\fP, \fBLogin\fP, \fBMenuPrincipal\fP, \fBMenuPrincipalCliente\fP, \fBVerCatalogo\fP, \fBCarrinho\fP, \fBMinhasCompras\fP, \fBEditarMeusDados\fP, \fBMenuPrincipalAdmin\fP, \fBGerenciarProduto\fP, \fBGerenciarCatalogo\fP, \fBGerenciarEstoque\fP, \fBVerEstoque\fP, \fBSair\fP }"
+.RI "enum class \fBEstadosDeMenu\fP { \fBMenuInicial\fP, \fBLogin\fP, \fBCadastro\fP, \fBMenuPrincipal\fP, \fBMenuPrincipalCliente\fP, \fBVerCatalogo\fP, \fBCarrinho\fP, \fBMinhasCompras\fP, \fBEditarMeusDados\fP, \fBMenuPrincipalAdmin\fP, \fBGerenciarProduto\fP, \fBGerenciarCatalogo\fP, \fBGerenciarEstoque\fP, \fBVerEstoque\fP, \fBSair\fP }"
 .br
 .RI "Enumeração que representa cada tela ou estado possível do sistema\&. "
 .in -1c
@@ -35,6 +35,9 @@ Tela inicial para visitantes (Login / Sair)
 .TP
 \fB\fILogin \fP\fP
 Tela de inserção de credenciais\&. 
+.TP
+\fB\fICadastro \fP\fP
+Tela de cadastro de novo usuário (\fBCliente\fP) 
 .TP
 \fB\fIMenuPrincipal \fP\fP
 Estado intermediário que checa o nível de acesso e redireciona\&. 

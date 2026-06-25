@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['usuario_0',['Usuario',['../d1/d07/classUsuario.html#a8ddb23a7290f411402298c8b8dc0e8fa',1,'Usuario']]]
+  ['obterquantidade_0',['obterQuantidade',['../db/dff/classEstoque.html#a8db7e177989658527b5867bb0ed8ffd6',1,'Estoque']]],
+  ['ordenarpreco_1',['ordenarPreco',['../da/d70/classCatalogo.html#a5c8485667bbfa894063b4a0de4235fc4',1,'Catalogo']]]
 ];

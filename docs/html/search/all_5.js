@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['gerenciarcatalogo_0',['gerenciarcatalogo',['../d8/d09/classAdministrador.html#aae06b7b51dd06a37d182000502f8895f',1,'Administrador::gerenciarCatalogo()'],['../da/d94/EstadosDeMenu_8hpp.html#ac17175cd0f773348f006f945b83e7f28a93cf1a71179097596700eb5733e89b37',1,'GerenciarCatalogo:&#160;EstadosDeMenu.hpp']]],
-  ['gerenciarestoque_1',['gerenciarestoque',['../d8/d09/classAdministrador.html#a232c3557d587897ddb1ed8942668c9e0',1,'Administrador::gerenciarEstoque()'],['../da/d94/EstadosDeMenu_8hpp.html#ac17175cd0f773348f006f945b83e7f28ab7db475ee5c069429ea815e5dffb6ea9',1,'GerenciarEstoque:&#160;EstadosDeMenu.hpp']]],
-  ['gerenciarproduto_2',['GerenciarProduto',['../da/d94/EstadosDeMenu_8hpp.html#ac17175cd0f773348f006f945b83e7f28a02d9db63ba1911403bae3c5522e692c3',1,'EstadosDeMenu.hpp']]],
-  ['grupo7_3',['PDS2-2026-PF-grupo7',['../d0/d30/md_README.html',1,'']]]
+  ['filtrargenero_0',['filtrarGenero',['../da/d70/classCatalogo.html#a2e0c7d9bd0a105397474bd688d40a197',1,'Catalogo']]],
+  ['filtrarplataforma_1',['filtrarPlataforma',['../da/d70/classCatalogo.html#aa8f4c7bd0951421867427cac8ed025dc',1,'Catalogo']]],
+  ['finalizarcompra_2',['finalizarCompra',['../d4/df1/classCarrinho.html#a98e9edf71287ef5b4cfe70e2a67c369a',1,'Carrinho']]],
+  ['fluxo_20de_20estados_20do_20menu_3',['Fluxo de Estados do Menu',['../d0/d30/md_README.html#autotoc_md7',1,'']]]
 ];

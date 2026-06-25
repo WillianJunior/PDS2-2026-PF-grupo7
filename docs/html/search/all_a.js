@@ -1,8 +1,11 @@
 var searchData=
 [
-  ['pds2_202026_20pf_20grupo7_0',['PDS2-2026-PF-grupo7',['../d0/d30/md_README.html',1,'']]],
-  ['pf_20grupo7_1',['PDS2-2026-PF-grupo7',['../d0/d30/md_README.html',1,'']]],
-  ['possuiacesso_2',['possuiAcesso',['../d1/d07/classUsuario.html#a9389d85d8d9b784653a10a49485e8549',1,'Usuario']]],
-  ['produto_3',['Produto',['../d8/d30/classProduto.html',1,'']]],
-  ['produto_2ehpp_4',['Produto.hpp',['../dc/de4/Produto_8hpp.html',1,'']]]
+  ['menu_0',['menu',['../d0/d30/md_README.html#autotoc_md7',1,'Fluxo de Estados do Menu'],['../d8/ddb/classMenu.html',1,'Menu']]],
+  ['menu_2ehpp_1',['Menu.hpp',['../dd/df6/Menu_8hpp.html',1,'']]],
+  ['menuinicial_2',['menuinicial',['../d8/ddb/classMenu.html#a527cf0e3df1ea5d44cd8c85392ecb22d',1,'Menu::menuInicial()'],['../da/d94/EstadosDeMenu_8hpp.html#ac17175cd0f773348f006f945b83e7f28a8808a71372f79f1b60b50c1aaa060ac8',1,'MenuInicial:&#160;EstadosDeMenu.hpp']]],
+  ['menuprincipal_3',['MenuPrincipal',['../da/d94/EstadosDeMenu_8hpp.html#ac17175cd0f773348f006f945b83e7f28a3df5b0f605a1e6d70f58d49c52033f2d',1,'EstadosDeMenu.hpp']]],
+  ['menuprincipaladmin_4',['MenuPrincipalAdmin',['../da/d94/EstadosDeMenu_8hpp.html#ac17175cd0f773348f006f945b83e7f28a7322404ae96c115a26044ffa4350666d',1,'EstadosDeMenu.hpp']]],
+  ['menuprincipalcliente_5',['MenuPrincipalCliente',['../da/d94/EstadosDeMenu_8hpp.html#ac17175cd0f773348f006f945b83e7f28a360d09965878c5228fe2dc199e280744',1,'EstadosDeMenu.hpp']]],
+  ['minhascompras_6',['MinhasCompras',['../da/d94/EstadosDeMenu_8hpp.html#ac17175cd0f773348f006f945b83e7f28a39bfaf9607716d0e51048916433cc2ab',1,'EstadosDeMenu.hpp']]],
+  ['motivação_7',['📝 Descrição do Problema, Objetivos e Motivação',['../d0/d30/md_README.html#autotoc_md4',1,'']]]
 ];

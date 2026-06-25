@@ -23,4 +23,9 @@ digraph "include/Controle/Menu.hpp"
   Node9 [id="Node000009",label="Produto.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dc/de4/Produto_8hpp.html",tooltip="Representa um jogo disponível no sistema de e-commerce."];
   Node9 -> Node3 [id="edge9_Node000009_Node000003",color="steelblue1",style="solid",tooltip=" "];
   Node7 -> Node2 [id="edge10_Node000007_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node7 -> Node10 [id="edge11_Node000007_Node000010",color="steelblue1",style="solid",tooltip=" "];
+  Node10 [id="Node000010",label="Compra.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d0/dd6/Compra_8hpp.html",tooltip="Representa o registro de uma compra finalizada por um cliente."];
+  Node10 -> Node3 [id="edge12_Node000010_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node10 -> Node8 [id="edge13_Node000010_Node000008",color="steelblue1",style="solid",tooltip=" "];
+  Node10 -> Node9 [id="edge14_Node000010_Node000009",color="steelblue1",style="solid",tooltip=" "];
 }

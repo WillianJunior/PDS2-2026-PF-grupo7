@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['remover_0',['remover',['../d4/df1/classCarrinho.html#a3e7550359f5b2bfaaadc669561bf21d5',1,'Carrinho']]]
+  ['login_0',['login',['../d1/d07/classUsuario.html#a5def9dab803405cd0785ba34f15a01b6',1,'Usuario']]]
 ];

@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['iniciar_0',['iniciar',['../d8/ddb/classMenu.html#a317366db74fda5d1257e2c6bb0dea9b8',1,'Menu']]]
+  ['filtrargenero_0',['filtrarGenero',['../da/d70/classCatalogo.html#a2e0c7d9bd0a105397474bd688d40a197',1,'Catalogo']]],
+  ['filtrarplataforma_1',['filtrarPlataforma',['../da/d70/classCatalogo.html#aa8f4c7bd0951421867427cac8ed025dc',1,'Catalogo']]],
+  ['finalizarcompra_2',['finalizarCompra',['../d4/df1/classCarrinho.html#a98e9edf71287ef5b4cfe70e2a67c369a',1,'Carrinho']]]
 ];

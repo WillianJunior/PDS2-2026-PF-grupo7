@@ -14,4 +14,10 @@ digraph "include/Produto.hpp"
   Node2 -> Node5 [id="edge4_Node000002_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
   Node5 [id="Node000005",label="include/Controle/Menu.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/df6/Menu_8hpp.html",tooltip="Controla as interfaces de menus e fluxos de navegação do sistema."];
   Node1 -> Node3 [id="edge5_Node000001_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node1 -> Node6 [id="edge6_Node000001_Node000006",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node6 [id="Node000006",label="include/Compra.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d0/dd6/Compra_8hpp.html",tooltip="Representa o registro de uma compra finalizada por um cliente."];
+  Node6 -> Node2 [id="edge7_Node000006_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node1 -> Node7 [id="edge8_Node000001_Node000007",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node7 [id="Node000007",label="include/Estoque.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$da/d46/Estoque_8hpp.html",tooltip="Gerencia a disponibilidade física e quantidades dos produtos em um arquivo .txt."];
+  Node7 -> Node3 [id="edge9_Node000007_Node000003",dir="back",color="steelblue1",style="solid",tooltip=" "];
 }

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['possuiacesso_0',['possuiAcesso',['../d1/d07/classUsuario.html#a9389d85d8d9b784653a10a49485e8549',1,'Usuario']]]
+  ['jogoexiste_0',['jogoExiste',['../db/dff/classEstoque.html#a5334d52c88cb3a4f372f39876ea7a87e',1,'Estoque']]]
 ];

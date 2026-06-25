@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['login_0',['login',['../d1/d07/classUsuario.html#a5def9dab803405cd0785ba34f15a01b6',1,'Usuario::login()'],['../da/d94/EstadosDeMenu_8hpp.html#ac17175cd0f773348f006f945b83e7f28a99dea78007133396a7b8ed70578ac6ae',1,'Login:&#160;EstadosDeMenu.hpp']]]
+  ['iniciar_0',['iniciar',['../d8/ddb/classMenu.html#a317366db74fda5d1257e2c6bb0dea9b8',1,'Menu']]],
+  ['instruções_20de_20uso_1',['Instruções de Uso',['../d0/d30/md_README.html#autotoc_md8',1,'']]],
+  ['integrantes_20do_20grupo_2',['👥 Integrantes do Grupo',['../d0/d30/md_README.html#autotoc_md2',1,'']]]
 ];

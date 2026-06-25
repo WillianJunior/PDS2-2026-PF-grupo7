@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['sair_0',['Sair',['../da/d94/EstadosDeMenu_8hpp.html#ac17175cd0f773348f006f945b83e7f28a790ed91ff5545849d3b4cb2e88c750e4',1,'EstadosDeMenu.hpp']]],
-  ['senha_1',['senha',['../d1/d07/classUsuario.html#a5f324af32e988e55160d5f3651b5d2b1',1,'Usuario']]]
+  ['objetivos_20e_20motivação_0',['📝 Descrição do Problema, Objetivos e Motivação',['../d0/d30/md_README.html#autotoc_md4',1,'']]],
+  ['obterquantidade_1',['obterQuantidade',['../db/dff/classEstoque.html#a8db7e177989658527b5867bb0ed8ffd6',1,'Estoque']]],
+  ['ordenarpreco_2',['ordenarPreco',['../da/d70/classCatalogo.html#a5c8485667bbfa894063b4a0de4235fc4',1,'Catalogo']]]
 ];

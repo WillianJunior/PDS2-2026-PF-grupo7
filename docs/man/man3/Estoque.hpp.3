@@ -2,12 +2,16 @@
 .ad l
 .nh
 .SH NAME
-include/Estoque.hpp \- Gerencia a disponibilidade física dos produtos\&.  
+include/Estoque.hpp \- Gerencia a disponibilidade física e quantidades dos produtos em um arquivo \&.txt\&.  
 
 .SH SYNOPSIS
 .br
 .PP
 \fC#include <string>\fP
+.br
+\fC#include <map>\fP
+.br
+\fC#include 'Produto\&.hpp'\fP
 .br
 
 .SS "Classes"
@@ -19,17 +23,8 @@ include/Estoque.hpp \- Gerencia a disponibilidade física dos produtos\&.
 .in -1c
 .SH "Detailed Description"
 .PP 
-Gerencia a disponibilidade física dos produtos\&. 
+Gerencia a disponibilidade física e quantidades dos produtos em um arquivo \&.txt\&. 
 
-Controla quantidades em estoque, gerencia alertas de itens e realiza reservas durante o processo de compra\&.
-.PP
-\fBSee also\fP
-.RS 4
-\fBProduto\fP 
-.PP
-\fBAdministrador\fP 
-.RE
-.PP
 
 .SH "Author"
 .PP 

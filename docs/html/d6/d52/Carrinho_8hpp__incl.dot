@@ -18,4 +18,9 @@ digraph "include/Carrinho.hpp"
   Node6 [id="Node000006",label="memory",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node5 -> Node7 [id="edge7_Node000005_Node000007",color="steelblue1",style="solid",tooltip=" "];
   Node7 [id="Node000007",label="NivelDeAcesso.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/d32/NivelDeAcesso_8hpp.html",tooltip="Define as permissões de acesso dos usuários no sistema."];
+  Node1 -> Node8 [id="edge8_Node000001_Node000008",color="steelblue1",style="solid",tooltip=" "];
+  Node8 [id="Node000008",label="Compra.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d0/dd6/Compra_8hpp.html",tooltip="Representa o registro de uma compra finalizada por um cliente."];
+  Node8 -> Node4 [id="edge9_Node000008_Node000004",color="steelblue1",style="solid",tooltip=" "];
+  Node8 -> Node2 [id="edge10_Node000008_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node8 -> Node3 [id="edge11_Node000008_Node000003",color="steelblue1",style="solid",tooltip=" "];
 }

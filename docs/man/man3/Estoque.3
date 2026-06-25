@@ -6,6 +6,216 @@ Estoque
 .SH SYNOPSIS
 .br
 .PP
+.SS "Public Member Functions"
+
+.in +1c
+.ti -1c
+.RI "\fBEstoque\fP (const std::string &txtPath='estoque\&.txt')"
+.br
+.RI "Construtor que define o caminho do arquivo de estoque\&. "
+.ti -1c
+.RI "bool \fBcarregarEstoque\fP ()"
+.br
+.RI "Carrega os dados do estoque a partir do arquivo configurado\&. "
+.ti -1c
+.RI "void \fBsalvarEstoque\fP () const"
+.br
+.RI "Salva o estado atual do estoque de volta no arquivo txt\&. "
+.ti -1c
+.RI "bool \fBpossuiEstoque\fP (const std::string &nomeProduto) const"
+.br
+.RI "Verifica se um produto específico possui unidades disponíveis (> 0)\&. "
+.ti -1c
+.RI "bool \fBdarBaixa\fP (const std::string &nomeProduto)"
+.br
+.RI "Reduz em 1 a quantidade de um produto no estoque (ao adicionar ao carrinho/comprar)\&. "
+.ti -1c
+.RI "int \fBobterQuantidade\fP (const std::string &nomeProduto) const"
+.br
+.RI "Retorna a quantidade atual de um produto\&. "
+.ti -1c
+.RI "void \fBexibirEstoque\fP () const"
+.br
+.RI "Exibe na tela todo o estoque atualizado (opção do \fBMenu\fP do Admin)\&. "
+.ti -1c
+.RI "void \fBadicionarItem\fP (const \fBProduto\fP &produto, int quantidade)"
+.br
+.RI "Adiciona um novo produto ao estoque ou incrementa a quantidade de um já existente\&. "
+.ti -1c
+.RI "bool \fBremoverItem\fP (const std::string &nomeProduto, int quantidade)"
+.br
+.RI "Remove uma quantidade específica de um produto do estoque\&. "
+.ti -1c
+.RI "bool \fBjogoExiste\fP (const std::string &nomeProduto) const"
+.br
+.RI "Verifica se um determinado jogo está cadastrado no sistema de estoque\&. "
+.ti -1c
+.RI "bool \fBeditarProduto\fP (const std::string &nome, const std::string &novaPlat, const std::string &novoGen, double novoPreco)"
+.br
+.RI "Atualiza os dados cadastrais de um produto já existente no estoque\&. "
+.in -1c
+.SH "Constructor & Destructor Documentation"
+.PP 
+.SS "Estoque::Estoque (const std::string & txtPath = \fC'estoque\&.txt'\fP)\fC [explicit]\fP"
+
+.PP
+Construtor que define o caminho do arquivo de estoque\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fItxtPath\fP Caminho para o arquivo txt do estoque (padrão: 'estoque\&.txt')\&. 
+.RE
+.PP
+
+.SH "Member Function Documentation"
+.PP 
+.SS "void Estoque::adicionarItem (const \fBProduto\fP & produto, int quantidade)"
+
+.PP
+Adiciona um novo produto ao estoque ou incrementa a quantidade de um já existente\&. 
+.IP "\(bu" 2
+Se o produto ainda não estiver cadastrado no estoque, ele será inserido juntamente com a quantidade informada\&. Se já existir, a quantidade atual será somada à nova\&.
+.IP "\(bu" 2
+\fBParameters\fP
+.RS 4
+\fIproduto\fP Objeto da classe \fBProduto\fP contendo os dados completos do jogo\&. 
+.br
+\fIquantidade\fP A quantidade de unidades a serem adicionadas\&. 
+.RE
+.PP
+
+.PP
+
+.SS "bool Estoque::carregarEstoque ()"
+
+.PP
+Carrega os dados do estoque a partir do arquivo configurado\&. 
+.PP
+\fBReturns\fP
+.RS 4
+true se o arquivo foi aberto com sucesso, false caso contrário\&. 
+.RE
+.PP
+
+.SS "bool Estoque::darBaixa (const std::string & nomeProduto)"
+
+.PP
+Reduz em 1 a quantidade de um produto no estoque (ao adicionar ao carrinho/comprar)\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fInomeProduto\fP O nome do produto\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true se a baixa foi realizada com sucesso, false se não havia estoque\&. 
+.RE
+.PP
+
+.SS "bool Estoque::editarProduto (const std::string & nome, const std::string & novaPlat, const std::string & novoGen, double novoPreco)"
+
+.PP
+Atualiza os dados cadastrais de um produto já existente no estoque\&. 
+.IP "\(bu" 2
+Permite modificar a plataforma, o gênero e o preço do jogo sem alterar a sua quantidade armazenada ou o seu nome (chave de busca)\&.
+.IP "\(bu" 2
+\fBParameters\fP
+.RS 4
+\fInome\fP O nome atual do produto que será editado\&. 
+.br
+\fInovaPlat\fP A nova plataforma para a qual o jogo está disponível (ex: 'PS5', 'PC')\&. 
+.br
+\fInovoGen\fP O novo gênero do jogo (ex: 'RPG', 'Aventura')\&. 
+.br
+\fInovoPreco\fP O novo preço de venda do jogo\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true Se o produto foi encontrado e atualizado com sucesso\&. 
+.PP
+false Se o produto especificado não foi encontrado no estoque\&. 
+.RE
+.PP
+
+.PP
+
+.SS "bool Estoque::jogoExiste (const std::string & nomeProduto) const"
+
+.PP
+Verifica se um determinado jogo está cadastrado no sistema de estoque\&. 
+.IP "\(bu" 2
+\fBParameters\fP
+.RS 4
+\fInomeProduto\fP O nome do jogo a ser pesquisado\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true Se o jogo constar na lista do estoque\&. 
+.PP
+false Se o jogo não existir no estoque\&. 
+.RE
+.PP
+
+.PP
+
+.SS "int Estoque::obterQuantidade (const std::string & nomeProduto) const"
+
+.PP
+Retorna a quantidade atual de um produto\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fInomeProduto\fP O nome do produto\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+int Quantidade em estoque (retorna 0 se o produto não existir)\&. 
+.RE
+.PP
+
+.SS "bool Estoque::possuiEstoque (const std::string & nomeProduto) const"
+
+.PP
+Verifica se um produto específico possui unidades disponíveis (> 0)\&. 
+.PP
+\fBParameters\fP
+.RS 4
+\fInomeProduto\fP O nome do produto a ser verificado\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true se houver estoque disponível, false caso contrário\&. 
+.RE
+.PP
+
+.SS "bool Estoque::removerItem (const std::string & nomeProduto, int quantidade)"
+
+.PP
+Remove uma quantidade específica de um produto do estoque\&. 
+.IP "\(bu" 2
+Reduz a quantidade disponível do item\&. Caso a quantidade do produto chegue a zero após a remoção, ele é retirado completamente do registro do estoque\&.
+.IP "\(bu" 2
+\fBParameters\fP
+.RS 4
+\fInomeProduto\fP O nome do produto que terá sua quantidade reduzida\&. 
+.br
+\fIquantidade\fP A quantidade de unidades a serem subtraídas\&. 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+true Se a operação foi bem-sucedida (produto encontrado e com quantidade suficiente)\&. 
+.PP
+false Se o produto não for encontrado ou se a quantidade desejada for maior que a disponível em estoque\&. 
+.RE
+.PP
+
+.PP
 
 
 .SH "Author"
