@@ -1,5 +1,6 @@
 #include "Menu.hpp"
 #include "Catalogo.hpp"
+#include "Compra.hpp"
 #include "NivelDeAcesso.hpp"
 #include "Estoque.hpp"
 #include "animacao.hpp"
@@ -50,14 +51,17 @@ void Menu::iniciar()
         case EstadosDeMenu::Cadastro:
             usuario = fazerCadastro();
 
-            if (usuario) {
+            if (usuario)
+            {
                 carrinho = std::unique_ptr<Carrinho>(new Carrinho(*usuario));
                 estado = EstadosDeMenu::MenuPrincipal;
-            } else {
+            }
+            else
+            {
                 estado = EstadosDeMenu::MenuInicial;
             }
             break;
-        
+
         case EstadosDeMenu::MenuPrincipal:
             estado = menuPrincipal(*usuario);
             break;
@@ -67,11 +71,20 @@ void Menu::iniciar()
             break;
         case EstadosDeMenu::Carrinho:
             estado = verCarrinho(*carrinho);
+            break;
+
+        case EstadosDeMenu::MinhasCompras:
+            estado = verMinhasCompras(*usuario);
+            break;
+
         case EstadosDeMenu::VerEstoque:
             estado = verEstoque();
             break;
+
         case EstadosDeMenu::GerenciarProduto:
             estado = gerenciarProduto();
+
+
         case EstadosDeMenu::Sair:
             break;
         }
@@ -102,16 +115,22 @@ std::unique_ptr<Usuario> Menu::fazerCadastro()
     std::string nome, email, senha;
 
     std::cout << "=== Cadastro de novo usuario ===" << std::endl;
-    std::cout << "Nome completo: "; std::getline(std::cin, nome);
-    std::cout << "Email: ";         std::getline(std::cin, email);
-    std::cout << "Senha: ";         std::getline(std::cin, senha);
+    std::cout << "Nome completo: ";
+    std::getline(std::cin, nome);
+    std::cout << "Email: ";
+    std::getline(std::cin, email);
+    std::cout << "Senha: ";
+    std::getline(std::cin, senha);
 
     auto usuario = Usuario::cadastrar(nome, email, senha);
 
-    if (!usuario) {
+    if (!usuario)
+    {
         std::cout << "Nao foi possivel concluir o cadastro." << std::endl;
         std::cin.get();
-    } else {
+    }
+    else
+    {
         std::cout << "Cadastro realizado com sucesso! Bem-vindo, " << usuario->nome << "." << std::endl;
     }
     return usuario;
@@ -124,12 +143,18 @@ EstadosDeMenu Menu::menuInicial()
     std::cout << "3. Cadastrar" << std::endl;
     std::cout << "4. Sair" << std::endl;
 
-    switch (lerComando()) {
-    case 1: return EstadosDeMenu::Login;
-    case 2: return EstadosDeMenu::VerCatalogo;
-    case 3: return EstadosDeMenu::Cadastro;
-    case 4: return EstadosDeMenu::Sair;
-    default: return EstadosDeMenu::MenuInicial;
+    switch (lerComando())
+    {
+    case 1:
+        return EstadosDeMenu::Login;
+    case 2:
+        return EstadosDeMenu::VerCatalogo;
+    case 3:
+        return EstadosDeMenu::Cadastro;
+    case 4:
+        return EstadosDeMenu::Sair;
+    default:
+        return EstadosDeMenu::MenuInicial;
     }
 }
 
@@ -181,7 +206,7 @@ EstadosDeMenu Menu::menuPrincipalAdmin(const Usuario &usuario)
     std::cout << "1. Ver Catálogo" << std::endl;
     std::cout << "2. Carrinho" << std::endl;
     std::cout << "3. Minhas Compras" << std::endl;
-    std::cout << "4. Gerenciar Produto" << std::endl;  // cria, exclui, altera produtos.
+    std::cout << "4. Gerenciar Produto" << std::endl; // cria, exclui, altera produtos.
     std::cout << "5. Ver Estoque" << std::endl;
     std::cout << "6. Sair" << std::endl;
 
@@ -277,8 +302,7 @@ EstadosDeMenu Menu::verEstoque()
                     estoque.adicionarItem(novoProduto, qtd);
                     std::cout << "\n[Sucesso] Novo jogo catalogado e adicionado ao estoque!\n";
 
-
-                    //adiciona ao catalogo
+                    // adiciona ao catalogo
                     Catalogo catalogo = Catalogo::carregarCatalogo("jogos.txt");
                     catalogo.adicionarJogo(novoProduto);
                     catalogo.salvarCatalogo("jogos.txt");
@@ -323,7 +347,6 @@ EstadosDeMenu Menu::verEstoque()
                             // Remove o jogo da memória e reescreve o arquivo
                             catalogo.removerJogo(nome);
                             catalogo.salvarCatalogo("jogos.txt");
-
                         }
                     }
                     else
@@ -482,6 +505,7 @@ EstadosDeMenu Menu::verCarrinho(Carrinho &carrinho)
         carrinho.exibirCarrinho();
 
         std::cout << "\n1. Remover item" << std::endl;
+        std::cout << "2. Finalizar Compra" << std::endl;
         std::cout << "0. Voltar" << std::endl;
 
         opcao = lerComando();
@@ -493,6 +517,19 @@ EstadosDeMenu Menu::verCarrinho(Carrinho &carrinho)
             std::cin >> indice;
             std::cin.ignore();
             carrinho.remover(indice - 1);
+        }
+        else if (opcao == 2)
+        {
+            if (carrinho.estaVazio())
+            {
+                std::cout << "Carrinho vazio. Adicione itens antes de finalizar a compra." << std::endl;
+            }
+            else
+            {
+                Compra compra = carrinho.finalizarCompra();
+                std::cout << "\nCompra finalizada com sucesso!" << std::endl;
+                compra.exibirCompra();
+            }
         }
 
         if (opcao != 0)
@@ -506,9 +543,11 @@ EstadosDeMenu Menu::verCarrinho(Carrinho &carrinho)
     return EstadosDeMenu::MenuPrincipal;
 }
 
-EstadosDeMenu Menu::gerenciarProduto() {
+EstadosDeMenu Menu::gerenciarProduto()
+{
     Estoque estoque("estoque.txt");
-    if (!estoque.carregarEstoque()) {
+    if (!estoque.carregarEstoque())
+    {
         std::cout << "\n[Erro] Nao foi possivel carregar o arquivo de estoque.\n";
         return EstadosDeMenu::MenuPrincipal;
     }
@@ -519,7 +558,8 @@ EstadosDeMenu Menu::gerenciarProduto() {
     std::getline(std::cin, nome);
 
     // Verifica se o produto realmente existe para ser editado
-    if (!estoque.jogoExiste(nome)) {
+    if (!estoque.jogoExiste(nome))
+    {
         std::cout << "\n[Erro] Jogo nao encontrado no sistema.\n";
         std::cout << "Pressione Enter para voltar...";
         std::cin.get();
@@ -532,15 +572,16 @@ EstadosDeMenu Menu::gerenciarProduto() {
     std::cout << "\n--- Digite os novos dados para o jogo \"" << nome << "\" ---\n";
     std::cout << "Nova Plataforma: ";
     std::getline(std::cin, novaPlataforma);
-    
+
     std::cout << "Novo Genero: ";
     std::getline(std::cin, novoGenero);
-    
+
     std::cout << "Novo Preco: ";
     std::cin >> novoPreco;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Limpa o buffer
 
-    if (novoPreco >= 0) {
+    if (novoPreco >= 0)
+    {
         // 1. Modifica e salva no estoque.txt (preservando a quantidade)
         estoque.editarProduto(nome, novaPlataforma, novoGenero, novoPreco);
         estoque.salvarEstoque();
@@ -551,8 +592,29 @@ EstadosDeMenu Menu::gerenciarProduto() {
         catalogo.salvarCatalogo("jogos.txt");
 
         std::cout << "\n[Sucesso] Dados do produto atualizados!\n";
-    } else {
+    }
+    else
+    {
         std::cout << "\n[Erro] Preco invalido. Alteracoes descartadas.\n";
+    }
+}
+
+EstadosDeMenu Menu::verMinhasCompras(const Usuario &usuario)
+{
+    std::vector<Compra> historico = Compra::carregarHistorico(usuario.email);
+
+    std::cout << "\n=== Minhas Compras ===" << std::endl;
+
+    if (historico.empty())
+    {
+        std::cout << "Você ainda não realizou nenhuma compra." << std::endl;
+    }
+    else
+    {
+        for (const Compra &compra : historico)
+        {
+            compra.exibirCompra();
+        }
     }
 
     std::cout << "\nPressione Enter para continuar...";
