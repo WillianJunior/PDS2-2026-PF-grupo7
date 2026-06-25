@@ -12,7 +12,7 @@ THIRD_DIR = ./third_party
 
 all: ${BUILD_DIR}/${TARGET}
 
-${BUILD_DIR}/${TARGET}: ${BUILD_DIR}/Menu.o ${BUILD_DIR}/Administrador.o ${BUILD_DIR}/Carrinho.o ${BUILD_DIR}/Catalogo.o ${BUILD_DIR}/Cliente.o ${BUILD_DIR}/Estoque.o ${BUILD_DIR}/Produto.o ${BUILD_DIR}/Usuario.o ${BUILD_DIR}/animacao.o ${BUILD_DIR}/desenhos.o ${BUILD_DIR}/main.o
+${BUILD_DIR}/${TARGET}: ${BUILD_DIR}/Menu.o ${BUILD_DIR}/Administrador.o ${BUILD_DIR}/Carrinho.o ${BUILD_DIR}/Catalogo.o ${BUILD_DIR}/Cliente.o ${BUILD_DIR}/Estoque.o ${BUILD_DIR}/Produto.o ${BUILD_DIR}/Usuario.o ${BUILD_DIR}/animacao.o ${BUILD_DIR}/desenhos.o ${BUILD_DIR}/Compra.o ${BUILD_DIR}/main.o 
 	${CC} ${CFLAGS} -o ${BUILD_DIR}/${TARGET} ${BUILD_DIR}/*.o
 
 ${BUILD_DIR}/Menu.o: ${INCLUDE_DIR}/Animacao/animacao.hpp ${INCLUDE_DIR}/*.hpp ${INCLUDE_DIR}/Usuario.hpp ${INCLUDE_DIR}/Controle/Menu.hpp ${SRC_DIR}/Controle/Menu.cpp
@@ -38,6 +38,9 @@ ${BUILD_DIR}/Cliente.o: ${INCLUDE_DIR}/Carrinho.hpp ${INCLUDE_DIR}/Usuario.hpp $
 
 ${BUILD_DIR}/Estoque.o: ${INCLUDE_DIR}/Estoque.hpp ${SRC_DIR}/Estoque.cpp
 	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Estoque.cpp -o ${BUILD_DIR}/Estoque.o
+
+${BUILD_DIR}/Compra.o: ${INCLUDE_DIR}/Compra.hpp ${INCLUDE_DIR}/Produto.hpp ${SRC_DIR}/Compra.cpp
+	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/ -c ${SRC_DIR}/Compra.cpp -o ${BUILD_DIR}/Compra.o
 
 ${BUILD_DIR}/main.o: ${INCLUDE_DIR}/Controle/Menu.hpp ${INCLUDE_DIR}/Animacao/animacao.hpp ${INCLUDE_DIR}/*.hpp ${SRC_DIR}/main.cpp
 	${CC} ${CFLAGS} -I ${INCLUDE_DIR}/Animacao/ -I ${INCLUDE_DIR}/Controle/ -I ${INCLUDE_DIR} -c ${SRC_DIR}/main.cpp -o ${BUILD_DIR}/main.o
@@ -87,7 +90,7 @@ ${BUILD_DIR}/desenhos.o: ${INCLUDE_DIR}/Animacao/desenhos.hpp ${SRC_DIR}/Animaca
 
 ##################################################################################################
 tests: all ${TEST_DIR}/test_Menu.o ${TEST_DIR}/test_Administrador.o ${TEST_DIR}/test_Carrinho.o ${TEST_DIR}/test_Catalogo.o ${TEST_DIR}/test_Cliente.o ${TEST_DIR}/test_NivelDeAcesso.o ${TEST_DIR}/test_EstadosDeMenu.o  ${TEST_DIR}/test_Estoque.o ${TEST_DIR}/test_Produto.o ${TEST_DIR}/test_Usuario.o ${TEST_DIR}/main_tests.o
-	${CC} ${CFLAGS} -o ${TEST_DIR}/${TARGET_TESTS} ${BUILD_DIR}/Menu.o ${BUILD_DIR}/Administrador.o ${BUILD_DIR}/Carrinho.o ${BUILD_DIR}/Catalogo.o ${BUILD_DIR}/Cliente.o ${BUILD_DIR}/Estoque.o ${BUILD_DIR}/Produto.o ${BUILD_DIR}/Usuario.o  ${TEST_DIR}/*.o
+	${CC} ${CFLAGS} -o ${TEST_DIR}/${TARGET_TESTS} ${BUILD_DIR}/Menu.o ${BUILD_DIR}/Administrador.o ${BUILD_DIR}/Carrinho.o ${BUILD_DIR}/Catalogo.o ${BUILD_DIR}/Cliente.o ${BUILD_DIR}/Estoque.o ${BUILD_DIR}/Produto.o ${BUILD_DIR}/Usuario.o ${BUILD_DIR}/Compra.o ${TEST_DIR}/*.o
 
 run-tests: tests
 	-./${TEST_DIR}/${TARGET_TESTS}
