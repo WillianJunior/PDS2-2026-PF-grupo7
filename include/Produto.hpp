@@ -20,6 +20,8 @@ public:
     std::string genero;
     double preco;
 
+    Produto();
+
     Produto(const std::string &nome, const std::string &plataforma, const std::string &genero, double preco);
 
     /**

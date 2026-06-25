@@ -89,7 +89,7 @@ ${BUILD_DIR}/desenhos.o: ${INCLUDE_DIR}/Animacao/desenhos.hpp ${SRC_DIR}/Animaca
 tests: all ${TEST_DIR}/test_Menu.o ${TEST_DIR}/test_Administrador.o ${TEST_DIR}/test_Carrinho.o ${TEST_DIR}/test_Catalogo.o ${TEST_DIR}/test_Cliente.o ${TEST_DIR}/test_NivelDeAcesso.o ${TEST_DIR}/test_EstadosDeMenu.o  ${TEST_DIR}/test_Estoque.o ${TEST_DIR}/test_Produto.o ${TEST_DIR}/test_Usuario.o ${TEST_DIR}/main_tests.o
 	${CC} ${CFLAGS} -o ${TEST_DIR}/${TARGET_TESTS} ${BUILD_DIR}/Menu.o ${BUILD_DIR}/Administrador.o ${BUILD_DIR}/Carrinho.o ${BUILD_DIR}/Catalogo.o ${BUILD_DIR}/Cliente.o ${BUILD_DIR}/Estoque.o ${BUILD_DIR}/Produto.o ${BUILD_DIR}/Usuario.o  ${TEST_DIR}/*.o
 
-run_tests: tests
+run-tests: tests
 	-./${TEST_DIR}/${TARGET_TESTS}
 
 run: all

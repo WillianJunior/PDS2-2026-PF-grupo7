@@ -156,3 +156,32 @@ void Catalogo::ordenarPreco() const{
     exibirCabecalho();
     listarJogos(ordenado);
 }
+
+void Catalogo::removerJogo(const std::string &nome) {
+    // Remove todos os jogos com o nome especificado do vector interno
+    jogos.erase(std::remove_if(jogos.begin(), jogos.end(),
+        [&nome](const Produto &p) { return p.nome == nome; }),
+        jogos.end());
+}
+
+void Catalogo::salvarCatalogo(const std::string &txtpath) const {
+    std::ofstream file(txtpath);
+    if (!file.is_open()) {
+        std::cerr << "Erro: nao foi possivel salvar o catalogo em " << txtpath << std::endl;
+        return;
+    }
+
+    // Reescreve o cabeçalho padrão do seu projeto
+    file << "nome;plataforma;genero;preco\n";
+    
+    // Salva os jogos restantes
+    for (const auto &jogo : jogos) {
+        file << jogo.nome << ";" << jogo.plataforma << ";" << jogo.genero << ";" << jogo.preco << "\n";
+    }
+    
+    file.close();
+}
+
+void Catalogo::adicionarJogo(const Produto &jogo) {
+    jogos.push_back(jogo);
+}

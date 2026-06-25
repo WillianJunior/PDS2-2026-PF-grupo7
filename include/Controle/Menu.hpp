@@ -102,7 +102,7 @@ private:
      * @param usuario O administrador logado.
      * @return EstadosDeMenu O próximo estado do menu.
      */
-    static EstadosDeMenu verEstoque(const Usuario &usuario);
+    static EstadosDeMenu verEstoque();
 
     /**
      * @brief Submenu administrativo para gerenciar criação ou remoção de produtos.

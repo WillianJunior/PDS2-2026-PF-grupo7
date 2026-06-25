@@ -1,0 +1,6 @@
+nome;plataforma;genero;preco;quantidade
+Elden Ring;PS5;RPG;249.9;15
+God of War;PS5;Acao;199.9;8
+Halo Infinite;Xbox;FPS;149.9;20
+Hollow Knight;PC;Acao;20;2
+Stardew Valley;PC;Simulacao;37.9;50

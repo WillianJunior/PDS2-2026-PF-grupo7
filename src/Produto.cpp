@@ -3,6 +3,8 @@
 #include <iostream>
 #include <iomanip>
 
+Produto::Produto() : nome(""), plataforma(""), genero(""), preco(0.0) {}
+
 Produto::Produto(const std::string &nome, const std::string &plataforma,
                  const std::string &genero, double preco)
     : nome(nome), plataforma(plataforma), genero(genero), preco(preco) {}
