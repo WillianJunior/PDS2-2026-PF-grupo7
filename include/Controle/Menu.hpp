@@ -36,6 +36,12 @@ private:
     static std::unique_ptr<Usuario> fazerLogin();
 
     /**
+     * @brief Exibe o formulário de cadastro e cria um novo usuário (Cliente).
+     * @return std::unique_ptr<Usuario> Ponteiro para o usuário recém-cadastrado, ou nullptr se falhar.
+     */
+    static std::unique_ptr<Usuario> fazerCadastro();
+
+    /**
      * @brief Direciona o usuário para o menu correto com base em seu nível de acesso.
      * @param usuario O usuário autenticado.
      * @return EstadosDeMenu Próximo estado da aplicação.

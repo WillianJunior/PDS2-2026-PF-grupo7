@@ -47,6 +47,17 @@ void Menu::iniciar()
                 estado = EstadosDeMenu::MenuInicial;
             }
             break;
+        case EstadosDeMenu::Cadastro:
+            usuario = fazerCadastro();
+
+            if (usuario) {
+                carrinho = std::unique_ptr<Carrinho>(new Carrinho(*usuario));
+                estado = EstadosDeMenu::MenuPrincipal;
+            } else {
+                estado = EstadosDeMenu::MenuInicial;
+            }
+            break;
+        
         case EstadosDeMenu::MenuPrincipal:
             estado = menuPrincipal(*usuario);
             break;
@@ -84,22 +95,39 @@ std::unique_ptr<Usuario> Menu::fazerLogin()
     return usuario;
 }
 
+std::unique_ptr<Usuario> Menu::fazerCadastro()
+{
+    std::string nome, email, senha;
+
+    std::cout << "=== Cadastro de novo usuario ===" << std::endl;
+    std::cout << "Nome completo: "; std::getline(std::cin, nome);
+    std::cout << "Email: ";         std::getline(std::cin, email);
+    std::cout << "Senha: ";         std::getline(std::cin, senha);
+
+    auto usuario = Usuario::cadastrar(nome, email, senha);
+
+    if (!usuario) {
+        std::cout << "Nao foi possivel concluir o cadastro." << std::endl;
+        std::cin.get();
+    } else {
+        std::cout << "Cadastro realizado com sucesso! Bem-vindo, " << usuario->nome << "." << std::endl;
+    }
+    return usuario;
+}
+
 EstadosDeMenu Menu::menuInicial()
 {
     std::cout << "1. Login" << std::endl;
     std::cout << "2. Ver Catálogo" << std::endl;
-    std::cout << "3. Sair" << std::endl;
+    std::cout << "3. Cadastrar" << std::endl;
+    std::cout << "4. Sair" << std::endl;
 
-    switch (lerComando())
-    {
-    case 1:
-        return EstadosDeMenu::Login;
-    case 2:
-        return EstadosDeMenu::VerCatalogo;
-    case 3:
-        return EstadosDeMenu::Sair;
-    default:
-        return EstadosDeMenu::MenuInicial;
+    switch (lerComando()) {
+    case 1: return EstadosDeMenu::Login;
+    case 2: return EstadosDeMenu::VerCatalogo;
+    case 3: return EstadosDeMenu::Cadastro;
+    case 4: return EstadosDeMenu::Sair;
+    default: return EstadosDeMenu::MenuInicial;
     }
 }
 

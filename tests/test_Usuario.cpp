@@ -1,3 +1,6 @@
+#include <cstdio>
+#include <fstream>
+
 #include "doctest.h"
 #include "Usuario.hpp"
 
@@ -36,5 +39,50 @@ TEST_SUITE("Usuario") {
         CHECK_NOTHROW(resultado = Usuario::login("naoexiste@x.com", "errado",
                                                   "usuarios.txt"));
         CHECK(resultado == nullptr);
+    }
+    TEST_CASE("cadastrar cria um novo usuario Cliente e persiste no arquivo") {
+        const std::string arquivoTeste = "tmp_usuarios_teste.txt";
+        std::remove(arquivoTeste.c_str());
+
+        auto usuario = Usuario::cadastrar("Fernanda Lima", "fernanda@teste.com", "senha123", arquivoTeste);
+
+        REQUIRE(usuario != nullptr);
+        CHECK(usuario->nome  == "Fernanda Lima");
+        CHECK(usuario->nivelDeAcesso == static_cast<int>(NivelDeAcesso::Cliente));
+        CHECK(Usuario::login("fernanda@teste.com", "senha123", arquivoTeste) != nullptr);
+
+        std::remove(arquivoTeste.c_str());
+    }
+
+    TEST_CASE("cadastrar rejeita email ja existente") {
+        const std::string arquivoTeste = "tmp_usuarios_teste2.txt";
+        std::remove(arquivoTeste.c_str());
+        Usuario::cadastrar("Primeiro", "duplicado@teste.com", "senha1", arquivoTeste);
+        CHECK(Usuario::cadastrar("Segundo", "duplicado@teste.com", "senha2", arquivoTeste) == nullptr);
+        std::remove(arquivoTeste.c_str());
+    }
+
+    TEST_CASE("cadastrar rejeita campos vazios") {
+        const std::string arquivoTeste = "tmp_usuarios_teste3.txt";
+        std::remove(arquivoTeste.c_str());
+        CHECK(Usuario::cadastrar("", "valido@teste.com", "senha123", arquivoTeste) == nullptr);
+        CHECK(Usuario::cadastrar("Nome", "", "senha123", arquivoTeste) == nullptr);
+        CHECK(Usuario::cadastrar("Nome", "valido@teste.com", "", arquivoTeste) == nullptr);
+        std::remove(arquivoTeste.c_str());
+    }
+
+    TEST_CASE("cadastrar nao corrompe registro existente sem quebra de linha final") {
+        const std::string arquivoTeste = "tmp_usuarios_teste4.txt";
+        std::remove(arquivoTeste.c_str());
+        std::ofstream arquivo(arquivoTeste);
+        arquivo << "email;senha;nome;nivelDeAcesso\n";
+        arquivo << "antigo@teste.com;123;Usuario Antigo;1"; // sem '\n' final, simulando o usuarios.txt real
+        arquivo.close();
+
+        Usuario::cadastrar("Novo", "novo@teste.com", "456", arquivoTeste);
+
+        CHECK(Usuario::login("antigo@teste.com", "123", arquivoTeste) != nullptr);
+        CHECK(Usuario::login("novo@teste.com", "456", arquivoTeste) != nullptr);
+        std::remove(arquivoTeste.c_str());
     }
 }
