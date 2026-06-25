@@ -102,11 +102,11 @@ run: all
 	find ./build -name "*.gcda" -delete #Apaga os arquivos *.gcda da última build para não gerar inconsistências
 	./${BUILD_DIR}/${TARGET}
 
-coverage: run_tests
+coverage: run-tests
 	gcovr -r . --exclude="third_party/doctest.h"
 	gcovr -r . --exclude="third_party/doctest.h" -b
 
-html-coverage: run_tests
+html-coverage: run-tests
 	gcovr -r . --exclude="third_party/doctest.h" --html --html-details -o ${COVERAGE_DIR}/relatorio.html
 
 documentation:
