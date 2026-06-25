@@ -6,9 +6,10 @@ Este projeto consiste em um sistema de e-commerce baseado em linha de comando (C
 
 ## 👥 Integrantes do Grupo
 * **Murilo Barbosa**
-* **Nome do Integrante 2**
-* **Nome do Integrante 3**
-* **Nome do Integrante 4**
+* **André Damaceno**
+* **Reinaldo Andrade**
+* **Daniel Shuvarz**
+* **Jenniffer Soares**
 
 ---
 
