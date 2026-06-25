@@ -83,10 +83,11 @@ void Menu::iniciar()
 
         case EstadosDeMenu::GerenciarProduto:
             estado = gerenciarProduto();
+            break; //faltava um break aqui
+
         case EstadosDeMenu::EditarMeusDados:
-
             estado = editarMeusDados(*usuario);
-
+            break;
 
         case EstadosDeMenu::Sair:
             break;

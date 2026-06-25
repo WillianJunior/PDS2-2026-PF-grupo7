@@ -1,4 +1,5 @@
 email;senha;nome;nivelDeAcesso
 admin@ufmg.br;admin123;Admin de Teste;3
 user@ufmg.br;user123;User test;1
+troca@ufmg.br;user123;Usuario de Teste;1
 murilo@ufmg.br;murilo123;Murilo de Araujo Barbosa;1
