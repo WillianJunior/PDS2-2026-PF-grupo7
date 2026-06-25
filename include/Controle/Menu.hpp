@@ -109,7 +109,7 @@ private:
      * @param usuario O administrador logado.
      * @return EstadosDeMenu O próximo estado do menu.
      */
-    static EstadosDeMenu menuGerenciarProduto(const Usuario &usuario);
+    static EstadosDeMenu gerenciarProduto();
 
     /**
      * @brief Submenu administrativo para gerenciar o catálogo global.

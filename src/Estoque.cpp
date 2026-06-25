@@ -129,3 +129,14 @@ void Estoque::exibirEstoque() const {
     }
     std::cout << std::string(80, '-') << std::endl;
 }
+
+bool Estoque::editarProduto(const std::string &nome, const std::string &novaPlat, const std::string &novoGen, double novoPreco) {
+    auto it = m_itens.find(nome);
+    if (it != m_itens.end()) {
+        it->second.first.plataforma = novaPlat;
+        it->second.first.genero = novoGen;
+        it->second.first.preco = novoPreco;
+        return true;
+    }
+    return false;
+}

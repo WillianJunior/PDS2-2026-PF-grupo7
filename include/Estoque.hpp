@@ -65,6 +65,8 @@ public:
     bool removerItem(const std::string &nomeProduto, int quantidade);
 
     bool jogoExiste(const std::string &nomeProduto) const;
+
+    bool editarProduto(const std::string &nome, const std::string &novaPlat, const std::string &novoGen, double novoPreco);
 };
 
 #endif

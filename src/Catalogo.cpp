@@ -185,3 +185,15 @@ void Catalogo::salvarCatalogo(const std::string &txtpath) const {
 void Catalogo::adicionarJogo(const Produto &jogo) {
     jogos.push_back(jogo);
 }
+
+bool Catalogo::editarJogo(const std::string &nome, const std::string &novaPlat, const std::string &novoGen, double novoPreco) {
+    for (auto &jogo : jogos) {
+        if (jogo.nome == nome) {
+            jogo.plataforma = novaPlat;
+            jogo.genero = novoGen;
+            jogo.preco = novoPreco;
+            return true;
+        }
+    }
+    return false;
+}

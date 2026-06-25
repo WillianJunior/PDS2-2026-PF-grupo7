@@ -70,6 +70,8 @@ void Menu::iniciar()
         case EstadosDeMenu::VerEstoque:
             estado = verEstoque();
             break;
+        case EstadosDeMenu::GerenciarProduto:
+            estado = gerenciarProduto();
         case EstadosDeMenu::Sair:
             break;
         }
@@ -180,9 +182,8 @@ EstadosDeMenu Menu::menuPrincipalAdmin(const Usuario &usuario)
     std::cout << "2. Carrinho" << std::endl;
     std::cout << "3. Minhas Compras" << std::endl;
     std::cout << "4. Gerenciar Produto" << std::endl;  // cria, exclui, altera produtos.
-    std::cout << "5. Gerenciar Catálogo" << std::endl; // adiciona, remove produtos do catálogo.
-    std::cout << "6. Ver Estoque" << std::endl;
-    std::cout << "7. Sair" << std::endl;
+    std::cout << "5. Ver Estoque" << std::endl;
+    std::cout << "6. Sair" << std::endl;
 
     switch (lerComando())
     {
@@ -196,10 +197,8 @@ EstadosDeMenu Menu::menuPrincipalAdmin(const Usuario &usuario)
     case 4:
         return EstadosDeMenu::GerenciarProduto;
     case 5:
-        return EstadosDeMenu::GerenciarCatalogo;
-    case 6:
         return EstadosDeMenu::VerEstoque;
-    case 7:
+    case 6:
         return EstadosDeMenu::Sair;
     default:
         return EstadosDeMenu::MenuPrincipal; // fica no mesmo menu se input inválido.
@@ -503,6 +502,61 @@ EstadosDeMenu Menu::verCarrinho(Carrinho &carrinho)
         }
 
     } while (opcao != 0);
+
+    return EstadosDeMenu::MenuPrincipal;
+}
+
+EstadosDeMenu Menu::gerenciarProduto() {
+    Estoque estoque("estoque.txt");
+    if (!estoque.carregarEstoque()) {
+        std::cout << "\n[Erro] Nao foi possivel carregar o arquivo de estoque.\n";
+        return EstadosDeMenu::MenuPrincipal;
+    }
+
+    std::cout << "\n================ GERENCIAR PRODUTO ================\n";
+    std::string nome;
+    std::cout << "Digite o nome do jogo que deseja editar: ";
+    std::getline(std::cin, nome);
+
+    // Verifica se o produto realmente existe para ser editado
+    if (!estoque.jogoExiste(nome)) {
+        std::cout << "\n[Erro] Jogo nao encontrado no sistema.\n";
+        std::cout << "Pressione Enter para voltar...";
+        std::cin.get();
+        return EstadosDeMenu::MenuPrincipal;
+    }
+
+    std::string novaPlataforma, novoGenero;
+    double novoPreco;
+
+    std::cout << "\n--- Digite os novos dados para o jogo \"" << nome << "\" ---\n";
+    std::cout << "Nova Plataforma: ";
+    std::getline(std::cin, novaPlataforma);
+    
+    std::cout << "Novo Genero: ";
+    std::getline(std::cin, novoGenero);
+    
+    std::cout << "Novo Preco: ";
+    std::cin >> novoPreco;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Limpa o buffer
+
+    if (novoPreco >= 0) {
+        // 1. Modifica e salva no estoque.txt (preservando a quantidade)
+        estoque.editarProduto(nome, novaPlataforma, novoGenero, novoPreco);
+        estoque.salvarEstoque();
+
+        // 2. Modifica e salva no jogos.txt
+        Catalogo catalogo = Catalogo::carregarCatalogo("jogos.txt");
+        catalogo.editarJogo(nome, novaPlataforma, novoGenero, novoPreco);
+        catalogo.salvarCatalogo("jogos.txt");
+
+        std::cout << "\n[Sucesso] Dados do produto atualizados!\n";
+    } else {
+        std::cout << "\n[Erro] Preco invalido. Alteracoes descartadas.\n";
+    }
+
+    std::cout << "\nPressione Enter para continuar...";
+    std::cin.get();
 
     return EstadosDeMenu::MenuPrincipal;
 }

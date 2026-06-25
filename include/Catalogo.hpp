@@ -44,6 +44,8 @@ public:
 
 	void adicionarJogo(const Produto &jogo);
 
+	bool editarJogo(const std::string &nome, const std::string &novaPlat, const std::string &novoGen, double novoPreco);
+
 private:
 	std::vector<Produto> jogos; ///< Lista de produtos
 
