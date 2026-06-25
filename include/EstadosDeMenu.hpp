@@ -14,6 +14,7 @@ enum class EstadosDeMenu {
     // Não autenticado
     MenuInicial,          ///< Tela inicial para visitantes (Login / Sair)
     Login,                ///< Tela de inserção de credenciais
+    Cadastro,              ///< Tela de cadastro de novo usuário (Cliente)
     MenuPrincipal,        ///< Estado intermediário que checa o nível de acesso e redireciona
 
     // Autenticado (Cliente)

@@ -54,6 +54,14 @@ public:
 	static std::unique_ptr<Usuario> login(const std::string &email,
 									const std::string &senha,
 									const std::string &txtpath = "usuarios.txt");
+
+	static bool emailJaCadastrado(const std::string &email,
+                                const std::string &txtpath = "usuarios.txt");
+
+	static std::unique_ptr<Usuario> cadastrar(const std::string &nome,
+                                const std::string &email,
+                                const std::string &senha,
+                                const std::string &txtpath = "usuarios.txt");
 	
 	
 };
